@@ -1,9 +1,10 @@
+import Header from "@/components/modules/index/Header";
 import { Metadata } from "next";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-4xl text-main">hello world</h1>
+    <div className="flex items-center justify-center">
+      <Header />
     </div>
   );
 }
