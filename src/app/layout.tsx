@@ -1,4 +1,4 @@
-import Header from "@/components/modules/Header/Header";
+import Header from "@/components/layouts/Header/Header";
 import "./globals.css";
 import { Vazirmatn } from "next/font/google"
 
