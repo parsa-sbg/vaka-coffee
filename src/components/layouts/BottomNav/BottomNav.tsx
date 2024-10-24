@@ -3,7 +3,7 @@ import React from 'react'
 
 function BottomNav() {
     return (
-        <div className='lg:hidden fixed bottom-0 right-0 left-0 grid grid-cols-6 py-3 border gap-1 border-[#333]'>
+        <div className='lg:hidden fixed bottom-0 right-0 left-0 grid grid-cols-6 py-3 border gap-1 border-[#333] bg-bgColer'>
 
 
             <div className='cursor-pointer col-span-2 flex justify-center items-start group border-l'>

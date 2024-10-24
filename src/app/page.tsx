@@ -1,10 +1,12 @@
+import AllCategories from "@/components/modules/index/AllCategories";
 import Header from "@/components/modules/index/Header";
 import { Metadata } from "next";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center">
+    <div className="">
       <Header />
+      <AllCategories />
     </div>
   );
 }
