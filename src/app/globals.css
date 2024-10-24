@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        @apply !w-1
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        width: 10px 
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply dark:!bg-gray-500 !bg-gray-300 !rounded-lg
+    }      
+}
