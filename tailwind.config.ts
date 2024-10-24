@@ -8,9 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        vazir: ['var(--font-vazir)']
+      },
+      container: {
+        center: true,
+        padding: '5px'
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        main: "#D19960",
+        maindarkk: "#A2461F",
+        bgColer: "#1b1b1b"
       },
     },
   },
