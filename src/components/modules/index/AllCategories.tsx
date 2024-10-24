@@ -3,7 +3,7 @@ import React from 'react'
 
 function AllCategories() {
     return (
-        <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 lg:max-w-[1000px] lg:mx-auto gap-5 mt-10 justify-items-center place-items-center'>
+        <section className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 lg:max-w-[1000px] lg:mx-auto gap-5 mt-10 justify-items-center place-items-center'>
 
             <Link href='#' className='h-full flex flex-col col-span-1 w-full gap-5 items-center justify-center hover:scale-105 transition-all duration-200 hover:border-main rounded-md shadow-xl shadow-black border p-5'>
                 <img className='max-w-12 md:max-w-16' src='https://vakacoffee.com/wp-content/uploads/2023/09/blendedicon.png' alt='category icon' width={200} height={200} ></img>
@@ -56,7 +56,7 @@ function AllCategories() {
             </Link>
 
             
-        </div>
+        </section>
     )
 }
 
