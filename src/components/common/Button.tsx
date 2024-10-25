@@ -15,9 +15,6 @@ type normalButton = {
 
 function Button(props: normalButton | buttonLink) {
 
-    console.log(props);
-
-
     return (
         <div>
 
