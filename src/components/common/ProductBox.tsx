@@ -5,9 +5,12 @@ import React from 'react'
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 
+type productBoxProps = {
+    priceGoldColor?: boolean
+}
 
 
-function ProductBox() {
+function ProductBox({ priceGoldColor }: productBoxProps) {
 
     return (
         <Link href=' ' className='w-full flex flex-col items-center'>
@@ -25,8 +28,8 @@ function ProductBox() {
             </div>
 
             <div className='flex items-center justify-cneter flex-wrap gap-2 mt-2'>
-                <span className='line-through text-nowrap text-sm text-secondary'>{toPersionNumber('565,750')}</span>
-                <span className='text-main text-nowrap font-semibold'>{toPersionNumber('365,750 تومان')}</span>
+                <span className='line-through text-nowrap text-sm text-neutral-400'>{toPersionNumber('565,750')}</span>
+                <span className={`${priceGoldColor ? 'text-[#eabe12]' : 'text-main'}  text-nowrap font-semibold`}>{toPersionNumber('365,750 تومان')}</span>
             </div>
 
         </Link>

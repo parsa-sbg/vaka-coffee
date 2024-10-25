@@ -1,4 +1,5 @@
 import AllCategories from "@/components/modules/index/AllCategories";
+import CategorySection from "@/components/modules/index/CategorySection";
 import Header from "@/components/modules/index/Header";
 import SeasionSection from "@/components/modules/index/SeasionSection";
 import { Metadata } from "next";
@@ -9,6 +10,9 @@ export default function Home() {
       <Header />
       <AllCategories />
       <SeasionSection />
+      <CategorySection buttonText="همه قهوه ترک‌ها" title="قهوه ترک" />
+      <CategorySection buttonText="همه قهوه فوری‌ها" title="خرید قهوه فوری" />
+      <CategorySection buttonText="همه تجهیزات قهوه" title="تجهیزات قهوه" />
     </div>
   );
 }

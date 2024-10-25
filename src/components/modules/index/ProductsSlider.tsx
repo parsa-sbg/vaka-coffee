@@ -9,74 +9,100 @@ import { EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
 import ProductBox from '@/components/common/ProductBox';
 
-function ProductsSlider() {
+
+type productsSliderProps = {
+    priceGoldColor?: boolean
+}
+
+function ProductsSlider({ priceGoldColor }: productsSliderProps) {
     return (
-        <Swiper
-            modules={[Autoplay, EffectCoverflow]}
-            spaceBetween={0}
-            slidesPerView={1}
-            effect='coverflow'
-            coverflowEffect={{
-                depth:500,
-                rotate:0,
-                // scale:1,
-                slideShadows: false,
-                // stretch: 2
-            }}
-            loop
-            autoplay={{
-                delay:1500,
-                pauseOnMouseEnter: true
-            }}
-            breakpoints={{
-                550:{
-                    slidesPerView: 3,
-                    coverflowEffect:{
-                        depth:0
+        <div className='px-5 md:px-0'>
+            <Swiper
+                modules={[Autoplay, EffectCoverflow]}
+                spaceBetween={0}
+                slidesPerView={1.5}
+                centeredSlides
+                slidesPerGroupAuto
+                loop
+                autoplay={{
+                    delay: 1500,
+                    pauseOnMouseEnter: true
+                }}
+                breakpoints={{
+                    550: {
+                        slidesPerView: 3.5,
+                        coverflowEffect: {
+                            depth: 0
+                        }
+                    },
+                    1024: {
+                        slidesPerView: 5.5,
+                        coverflowEffect: {
+                            depth: 0
+                        }
                     }
-                },
-                1024: {
-                    slidesPerView: 5,
-                    coverflowEffect:{
-                        depth:0
-                    }
-                }
-            }}
-        >
+                }}
+            >
 
-            <SwiperSlide className='!flex !justify-center !px-1.5'>
-                <div className='max-w-60'><ProductBox /></div>
-            </SwiperSlide>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
 
-            <SwiperSlide className='!flex !justify-center !px-1.5'>
-                <div className='max-w-60'><ProductBox /></div>
-            </SwiperSlide>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
 
-            <SwiperSlide className='!flex !justify-center !px-1.5'>
-                <div className='max-w-60'><ProductBox /></div>
-            </SwiperSlide>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
 
-            <SwiperSlide className='!flex !justify-center !px-1.5'>
-                <div className='max-w-60'><ProductBox /></div>
-            </SwiperSlide>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
 
-            <SwiperSlide className='!flex !justify-center !px-1.5'>
-                <div className='max-w-60'><ProductBox /></div>
-            </SwiperSlide>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
 
-            <SwiperSlide className='!flex !justify-center !px-1.5'>
-                <div className='max-w-60'><ProductBox /></div>
-            </SwiperSlide>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
 
-            <SwiperSlide className='!flex !justify-center !px-1.5'>
-                <div className='max-w-60'><ProductBox /></div>
-            </SwiperSlide>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
 
-            <SwiperSlide className='!flex !justify-center !px-1.5'>
-                <div className='max-w-60'><ProductBox /></div>
-            </SwiperSlide>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
 
-        </Swiper>
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
+
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
+
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
+
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
+
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
+
+                <SwiperSlide className='!flex !justify-center !px-2'>
+                    <div className='max-w-60'><ProductBox priceGoldColor={priceGoldColor} /></div>
+                </SwiperSlide>
+
+            </Swiper>
+        </div>
+
     )
 }
 
