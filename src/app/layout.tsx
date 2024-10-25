@@ -13,11 +13,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   return (
     <html className="bg-bgColer" lang="fa" dir="rtl">
-      <body className={`${vazirFont.variable} font-vazir text-white pb-[64px] lg:pb-0 pt-[75.52px] custom-scrollbar antialiased container`}>
-        <Header />
+      
+      <body className={`${vazirFont.variable} font-vazir text-white pb-[64px] lg:pb-0 pt-[75.52px] custom-scrollbar antialiased`}>
+
+        <div className="container"><Header /></div>
+
         {children}
-        <BottomNav />
+
+        <div className="container"><BottomNav /></div>
+
       </body>
+
     </html>
   );
 
