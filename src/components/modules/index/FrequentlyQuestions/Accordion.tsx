@@ -9,7 +9,7 @@ type AccordionProps = {
 
 function Accordion({ content, question }: AccordionProps) {
 
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className={`border-b border-secondary transition-all duration-500 ${isOpen && 'pb-6'}`}>
