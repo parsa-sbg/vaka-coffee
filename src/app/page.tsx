@@ -1,5 +1,6 @@
 import AllCategories from "@/components/modules/index/AllCategories";
 import Header from "@/components/modules/index/Header";
+import SeasionSection from "@/components/modules/index/SeasionSection";
 import { Metadata } from "next";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <div className="">
       <Header />
       <AllCategories />
+      <SeasionSection />
     </div>
   );
 }

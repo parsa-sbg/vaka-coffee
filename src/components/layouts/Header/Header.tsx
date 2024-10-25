@@ -10,7 +10,7 @@ function Header() {
 
     // const [test] = useState()
     return (
-        <header className=' fixed top-0 left-0 right-0 border-b-main border-b bg-bgColer'>
+        <header className='z-40 fixed top-0 left-0 right-0 border-b-main border-b bg-bgColer'>
 
             <div className='container flex items-center justify-between py-4 gap-2 lg:gap-5'>
 

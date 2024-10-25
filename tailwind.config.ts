@@ -17,8 +17,9 @@ const config: Config = {
       },
       colors: {
         main: "#D19960",
-        maindarkk: "#A2461F",
-        bgColer: "#1b1b1b"
+        maindark: "#A2461F",
+        bgColer: "#1b1b1b",
+        secondary: "#333"
       },
     },
   },

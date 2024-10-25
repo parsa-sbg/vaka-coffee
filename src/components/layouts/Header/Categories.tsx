@@ -12,7 +12,7 @@ function Categories() {
                 <IoIosArrowDown />
             </div>
 
-            <div className='absolute transition-all duration-200 opacity-0 invisible group-hover:visible group-hover:opacity-100 top-[110%] rounded-md shadow-md border border-[#333] shadow-black p-5 bg-bgColer'>
+            <div className='absolute transition-all duration-200 opacity-0 invisible group-hover:visible group-hover:opacity-100 top-[110%] rounded-md shadow-md border border-secondary shadow-black p-5 bg-bgColer'>
                 <ul className='flex flex-col gap-3'>
 
                     <li className='text-nowrap hover:text-main transition-colors duration-200 ml-5'>
