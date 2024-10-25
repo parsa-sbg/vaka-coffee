@@ -1,13 +1,14 @@
 import AllCategories from "@/components/modules/index/AllCategories";
 import Baner from "@/components/modules/index/Baner";
 import CategorySection from "@/components/modules/index/CategorySection";
+import FrequentlyQuestions from "@/components/modules/index/FrequentlyQuestions/FrequentlyQuestions";
 import Header from "@/components/modules/index/Header";
 import SeasionSection from "@/components/modules/index/SeasionSection";
 import { Metadata } from "next";
 
 export default function Home() {
   return (
-    <div className="pb-96">
+    <div className="">
       <div className="container">
         <Header />
         <AllCategories />
@@ -18,6 +19,11 @@ export default function Home() {
       </div>
 
       <Baner />
+
+      <div className="container">
+        <FrequentlyQuestions />
+      </div>
+
     </div>
   );
 }
