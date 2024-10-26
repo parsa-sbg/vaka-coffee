@@ -1,4 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa";
+
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -13,6 +16,10 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                     <Image className="w-full h-full object-cover" src='/loginimage.jpg' width={500} height={1000} alt="coffee image"></Image>
                 </div>
             </div>
+            <Link href='/' replace className="flex items-center gap-2 z-30 text-nowrap fixed top-5 left-5">
+                صفحه اصلی
+                <FaArrowLeft />
+            </Link>
         </div>
     );
 }
