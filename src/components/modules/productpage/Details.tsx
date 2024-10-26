@@ -35,7 +35,7 @@ function Details({ title, commentsCount, dynamicFields }: detailsPros) {
 
             <div className='mt-8'>
                 {dynamicFields.map(field => (
-                    <div key={Math.random()} className='flex items-center text-sm gap-5 pb-2 mb-2 border-b border-dashed border-secondary w-fit'>
+                    <div key={Math.random()} className='flex items-center text-sm gap-5 pb-2 mb-2 border-b border-dashed border-secondary '>
                         <span className='text-main'>{field.key}</span>
                         <span className='opacity-80'>{toPersionNumber(field.value)}</span>
                     </div>
