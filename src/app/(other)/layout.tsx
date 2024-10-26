@@ -7,7 +7,7 @@ import FooterBottom from "@/components/layouts/Footer/FooterBottom";
 
 export default function OtherLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div>
+        <div className="pb-[64px] lg:pb-0 pt-[75.52px]">
             <div className="container"><Header /></div>
 
             {children}

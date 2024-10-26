@@ -11,7 +11,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html className="bg-bgColer" lang="fa" dir="rtl">
 
-      <body className={`${vazirFont.variable} font-vazir text-white pb-[64px] lg:pb-0 pt-[75.52px] custom-scrollbar antialiased`}>
+      <body className={`${vazirFont.variable} font-vazir text-white custom-scrollbar antialiased`}>
 
         {children}
 
