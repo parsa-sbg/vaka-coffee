@@ -1,8 +1,12 @@
+import ProductsHeader from '@/components/common/ProductsListHeader'
 import React from 'react'
 
 function page() {
   return (
-    <div className='h-60 flex items-center justify-center font-semibold text-8xl container'>all products</div>
+    <div className='mt-16'>
+      <ProductsHeader title='همه محصولات' />
+      
+    </div>
   )
 }
 
