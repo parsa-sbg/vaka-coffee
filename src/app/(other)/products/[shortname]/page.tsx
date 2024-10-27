@@ -9,9 +9,9 @@ import React from 'react'
 
 function Product() {
     return (
-        <div className='container mt-16 '>
+        <div className=' mt-16 '>
 
-            <div className='grid grid-cols-1 sm:grid-cols-7 gap-7 sm:gap-3 md:gap-7'>
+            <div className='container grid grid-cols-1 sm:grid-cols-7 gap-7 sm:gap-3 md:gap-7'>
                 <div className='h-full min-h-56 sm:col-span-2 md:col-span-2'>
                     <ImagesSlider />
                 </div>
