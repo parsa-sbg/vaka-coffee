@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import ProductsSlider from './ProductsSlider'
+import ProductsSlider from '../../common/ProductsSlider'
 import Button from '@/components/common/Button'
 
 function SeasionSection() {

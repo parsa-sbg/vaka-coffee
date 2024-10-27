@@ -5,6 +5,8 @@ import Breadcrumb from '@/components/modules/productpage/Breadcrumb'
 import Content from '@/components/modules/productpage/Content'
 import Details from '@/components/modules/productpage/Details'
 import ImagesSlider from '@/components/modules/productpage/ImagesSlider'
+import MoreProducts from '@/components/modules/productpage/MoreProducts'
+import RelatedProducts from '@/components/modules/productpage/RelatedProducts'
 import React from 'react'
 
 function Product() {
@@ -25,6 +27,11 @@ function Product() {
 
             <div className='mt-16'>
                 <Content />
+            </div>
+
+            <div className='container'>
+                <MoreProducts />
+                <RelatedProducts />
             </div>
 
         </div>
