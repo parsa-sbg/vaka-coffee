@@ -18,7 +18,7 @@ function Products() {
             </div>
 
             <div className='col-span-9 sm:col-span-6 md:col-span-9'>
-                <ProductsList />
+                <ProductsList setIsMenuOpen={setIsMenuOpen} />
             </div>
 
         </div>
