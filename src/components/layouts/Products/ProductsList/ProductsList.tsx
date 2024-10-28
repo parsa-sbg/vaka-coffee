@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from './Header/Header'
 
 function ProductsList() {
   return (
-    <div className='h-[1000px] bg-green-800'>ProductsList</div>
+    <div className='h-[1000px]'>
+      <Header />
+    </div>
   )
 }
 
