@@ -15,6 +15,9 @@ const config: Config = {
         center: true,
         padding: '5px'
       },
+      screens: {
+        xs: '380px'
+      },
       colors: {
         main: "#D19960",
         maindark: "#A2461F",

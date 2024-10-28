@@ -26,7 +26,7 @@ function Sort() {
 
     const btnClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation()
-        setIsOpen(true)
+        setIsOpen(prev => !prev)
     }
 
     const OptionClickHandler = (selectedSort: selectedSortType, title: buttonTextType) => {
@@ -36,7 +36,7 @@ function Sort() {
     }
 
     return (
-        <div onClick={e => { e.stopPropagation() }} className='relative text-sm'>
+        <div onClick={e => { e.stopPropagation() }} className='relative text-sm '>
 
             <button
                 onClick={btnClickHandler}
@@ -45,7 +45,7 @@ function Sort() {
                 <MdKeyboardArrowLeft className={`transition-all duration-300 ${isOpen && '-rotate-90'}`} size={25} />
             </button>
 
-            <div className={`${isOpen && '!max-h-52 border'} w-fit absolute right-0 transition-all rounded-b-md duration-200 top-full border-secondary left-0 max-h-0 overflow-hidden`}>
+            <div className={`${isOpen && '!max-h-52 border'} w-fit absolute right-0 transition-all rounded-b-md duration-200 top-full bg-bgColer border-secondary left-0 max-h-0 overflow-hidden`}>
 
                 <button onClick={e => { OptionClickHandler('latest', 'مرتب سازی بر اساس آخرین') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
                     مرتب سازی بر اساس آخرین
