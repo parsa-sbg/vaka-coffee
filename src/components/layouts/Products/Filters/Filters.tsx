@@ -1,8 +1,11 @@
 import React from 'react'
+import Price from './Price'
 
 function Filters() {
   return (
-    <div className='bg-red-800 h-96'>Filters</div>
+    <div className=' h-96'>
+      <Price />
+    </div>
   )
 }
 
