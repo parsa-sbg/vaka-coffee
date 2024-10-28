@@ -16,12 +16,15 @@ function Products() {
 
             <div className={`${isMenuOpen && '!right-0'} overflow-y-scroll no-scrollbar transition-all duration-300 fixed z-50 sm:z-10 w-full max-w-52 sm:max-w-full bg-bgColer sm:static md:col-span-3 top-0 bottom-0 -right-52 col-span-3 flex flex-col gap-5`}>
 
-                <div className=' py-2 pr-2 sm:hidden flex items-center justify-between bg-green-400'>
-                    <span>فیلتر ها</span>
-                    <IoClose onClick={() => { setIsMenuOpen(false) }} className='cursor-pointer' size={25} />
+
+                <div>
+                    <div className='p-4 border-b border-secondary sm:hidden flex items-center justify-between'>
+                        <span>فیلتر ها</span>
+                        <IoClose onClick={() => { setIsMenuOpen(false) }} className='cursor-pointer' size={25} />
+                    </div>
+                    <Categories />
                 </div>
 
-                <Categories />
                 <Filters />
             </div>
 
