@@ -12,7 +12,7 @@ function DashboardMenu() {
 
         <DashboardMenuItem text='پیشخوان' href='/dashboard' />
         <DashboardMenuItem text='سفارش‌ ها' href='/dashboard/orders' />
-        <DashboardMenuItem text='آدرس ها' href='/dashboard/addresses' />
+        <DashboardMenuItem text='آدرس' href='/dashboard/address' />
         <DashboardMenuItem text='جزئیات حساب' href='/dashboard/account' />
 
         <li>

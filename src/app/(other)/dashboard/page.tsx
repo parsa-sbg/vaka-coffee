@@ -12,7 +12,7 @@ function page() {
 
       <div className='mt-7 grid xs:grid-cols-2 lg:grid-cols-3 gap-3'>
         <Box href='/dashboard/orders' title='سفارش‌ ها' Icon={RiListCheck3} />
-        <Box href='/dashboard/addresses' title='آدرس ها' Icon={RiListCheck3} />
+        <Box href='/dashboard/address' title='آدرس' Icon={RiListCheck3} />
         <Box href='/dashboard/account' title='جزئیات حساب' Icon={RiListCheck3} />
 
       </div>
