@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 import DashboardMenuItem from './DashboardMenuItem'
 
@@ -6,7 +5,7 @@ function DashboardMenu() {
 
 
   return (
-    <div className=''>
+    <div className='border-b sm:border-none sm:pb-0 pb-2 border-secondary'>
       <h3 className='font-semibold text-lg bg-secondary py-2 px-4 mb-2 rounded-md border-b border-b-secondary'>حساب کاربری من</h3>
 
       <ul className='flex flex-col gap-2'>
