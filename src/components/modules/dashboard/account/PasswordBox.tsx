@@ -25,7 +25,7 @@ function PasswordBox() {
     <div className='h-full flex justify-center flex-col'>
       <h3 className='pr-3 relative before:absolute before:w-2 before:h-2 before:rounded-full before:right-0 before:top-0 before:bottom-0 before:my-auto before:bg-main'>تغییر رمز عبور</h3>
 
-      <div className='mt-5 h-full flex justify-between md:flex-wrap lg:flex-nowrap items-center gap-4'>
+      <div className='mt-5 h-full flex justify-between md:flex-wrap lg:flex-nowrap items-center gap-4 lg:gap-3.5 xl:gap-4'>
         <input
           placeholder={step == 1 ? 'رمز عبور فعلی' : step == 2 ? 'رمز عبور جدید' : 'تکرار رمز عبور جدید'}
           value={oldPassword}
