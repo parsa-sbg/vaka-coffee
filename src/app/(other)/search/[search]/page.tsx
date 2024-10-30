@@ -7,15 +7,14 @@ type Props = {
     searchParams: { [key: string]: string };
 };
 
-const page = async ({ params: asyncParams, searchParams: asyncSearchParams }: Props) => {
+const page = async ({ params }: { params: Promise<{ search: string }> }) => {
 
-    const params = await asyncParams
-
+    const { search } = await params
 
 
     return (
         <div className='mt-16'>
-            <ProductsHeader title={`نتیجه جستجوی : ${params.search}`} />
+            <ProductsHeader title={`نتیجه جستجوی : ${search}`} />
 
             <div className='container mt-8'>
                 <Products />
