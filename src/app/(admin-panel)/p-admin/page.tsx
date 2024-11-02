@@ -5,7 +5,7 @@ import { LiaCommentsSolid } from "react-icons/lia";
 import { PiUsersThreeLight } from "react-icons/pi";
 import { MdManageAccounts } from "react-icons/md";
 import { TfiPackage } from "react-icons/tfi";
-import { LuShapes } from "react-icons/lu";
+import { PiShapesThin } from "react-icons/pi";
 
 
 
@@ -18,7 +18,7 @@ function AdminPanel() {
 
             <div className='mt-7 grid xs:grid-cols-2 lg:grid-cols-3 gap-3'>
                 <Box href='/p-admin/products' title='محصولات' Icon={TfiPackage} />
-                <Box href='/p-admin/categories' title='دسته بندی ها' Icon={LuShapes} />
+                <Box href='/p-admin/categories' title='دسته بندی ها' Icon={PiShapesThin} />
                 <Box href='/p-admin/orders' title='سفارش ها' Icon={RiListCheck3} />
                 <Box href='/p-admin/comments' title='کامنت ها' Icon={LiaCommentsSolid} />
                 <Box href='/p-admin/users' title='کاربران' Icon={PiUsersThreeLight} />
