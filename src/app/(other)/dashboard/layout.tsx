@@ -1,5 +1,5 @@
 import DashboardHeader from "@/components/modules/dashboard/Header";
-import DashboardMenu from "../../../components/modules/dashboard/index/DashboardMenu";
+import DashboardMenu from "../../../components/modules/dashboard/DashboardMenu";
 
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
