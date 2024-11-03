@@ -1,8 +1,11 @@
+import UsersTable from '@/components/modules/admin/users/UsersTable'
 import React from 'react'
 
 function Users() {
   return (
-    <div>Users</div>
+    <div className='custom-scrollbar overflow-auto overflow-x-scroll pb-2'>
+      <UsersTable />
+    </div>
   )
 }
 
