@@ -22,7 +22,6 @@ function AdminPanel() {
                 <Box href='/p-admin/orders' title='سفارش ها' Icon={RiListCheck3} />
                 <Box href='/p-admin/comments' title='کامنت ها' Icon={LiaCommentsSolid} />
                 <Box href='/p-admin/users' title='کاربران' Icon={PiUsersThreeLight} />
-                <Box href='/p-admin/account' title='جزییات حساب' Icon={MdManageAccounts} />
 
             </div>
 

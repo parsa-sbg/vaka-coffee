@@ -16,7 +16,6 @@ function AdminMenu() {
                 <AdminMenuItem text='سفارش‌ ها' href='/p-admin/orders' />
                 <AdminMenuItem text='کامنت ها' href='/p-admin/comments' />
                 <AdminMenuItem text='کاربران' href='/p-admin/users' />
-                <AdminMenuItem text='جزئیات حساب' href='/p-admin/account' />
 
                 <li>
                     <button className='text-right py-2 px-4 rounded-md transition-all duration-200 hover:bg-[#0f0f0f] hover:text-main w-full'>خروج</button>
