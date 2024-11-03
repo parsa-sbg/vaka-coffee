@@ -1,8 +1,11 @@
+import CommetnsTable from '@/components/modules/admin/comments/CommetnsTable'
 import React from 'react'
 
 function Commetns() {
   return (
-    <div>Commetns</div>
+    <div className='custom-scrollbar overflow-auto overflow-x-scroll pb-2'>
+      <CommetnsTable />
+    </div>
   )
 }
 
