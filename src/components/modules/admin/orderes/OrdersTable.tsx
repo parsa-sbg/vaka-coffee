@@ -2,7 +2,7 @@ import toPersionNumber from '@/utils/toPersianNubmer'
 import Image from 'next/image'
 import React from 'react'
 
-function CategoriesTable() {
+function OrdersTable() {
     return (
         <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
 
@@ -11,15 +11,17 @@ function CategoriesTable() {
                     <th scope="col" className="px-1 py-3">
                         <span>شماره</span>
                     </th>
-
                     <th scope="col" className="px-3 lg:px-6 py-3">
-                        نام
+                        کد
                     </th>
                     <th scope="col" className="px-3 lg:px-6 py-3">
-                        نام کوتاه
+                        تاریخ
                     </th>
                     <th scope="col" className="px-3 lg:px-6 py-3">
-                        تعداد محصول
+                        قیمت کل
+                    </th>
+                    <th scope="col" className="px-3 lg:px-6 py-3">
+                        وضعیت
                     </th>
                     <th scope="col" className="px-3 lg:px-6 py-3">
                         عملیات
@@ -30,29 +32,31 @@ function CategoriesTable() {
             <tbody>
 
 
-
                 <tr className="bg-[#0f0f0f]">
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
                         <span className='w-full flex justify-center items-center'>{toPersionNumber('1')}</span>
                     </th>
+                    <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
+                        <span>#65823</span>
+                    </th>
                     <td className="px-3 lg:px-6 py-4">
-                        قهوه ترک
+                        {toPersionNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        tork-coffee
+                        {toPersionNumber('۷۶۵,۰۰۰ تومان')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('5 محصول')}
+                        در انتظار پرداخت
                     </td>
                     <td className="px-3 lg:px-6 py-4">
                         <div className='flex gap-2 text-xs'>
 
                             <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                ویرایش
+                                مشاهده
                             </button>
 
                             <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                حذف
+                                تغییر وضعیت
                             </button>
 
                         </div>
@@ -63,24 +67,27 @@ function CategoriesTable() {
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
                         <span className='w-full flex justify-center items-center'>{toPersionNumber('2')}</span>
                     </th>
+                    <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
+                        <span>#58923</span>
+                    </th>
                     <td className="px-3 lg:px-6 py-4">
-                        قهوه روبوستا
+                        {toPersionNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        roboosta-coffee
+                        {toPersionNumber('600,000 تومان')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('12 محصول')}
+                        در حال بررسی
                     </td>
                     <td className="px-3 lg:px-6 py-4">
                         <div className='flex gap-2 text-xs'>
 
                             <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                ویرایش
+                                مشاهده
                             </button>
 
                             <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                حذف
+                                تغییر وضعیت
                             </button>
 
                         </div>
@@ -91,52 +98,27 @@ function CategoriesTable() {
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
                         <span className='w-full flex justify-center items-center'>{toPersionNumber('3')}</span>
                     </th>
-                    <td className="px-3 lg:px-6 py-4">
-                        قهوه عربیکا
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        araboka-coffee
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('2 محصول')}
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        <div className='flex gap-2 text-xs'>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                ویرایش
-                            </button>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                حذف
-                            </button>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr className="bg-secondary">
-                    <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersionNumber('4')}</span>
+                    <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
+                        <span>#85863</span>
                     </th>
                     <td className="px-3 lg:px-6 py-4">
-                        قهوه سبک زندگی
+                        {toPersionNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        life-coffee
+                        {toPersionNumber('120,000 تومان')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('30 محصول')}
+                        تحویل داده شده
                     </td>
                     <td className="px-3 lg:px-6 py-4">
                         <div className='flex gap-2 text-xs'>
 
                             <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                ویرایش
+                                مشاهده
                             </button>
 
                             <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                حذف
+                                تغییر وضعیت
                             </button>
 
                         </div>
@@ -149,4 +131,4 @@ function CategoriesTable() {
     )
 }
 
-export default CategoriesTable
+export default OrdersTable
