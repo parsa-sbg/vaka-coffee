@@ -41,7 +41,7 @@ function Categories() {
 
             <button
                 onClick={btnClickHandler}
-                className={`z-50 py-2 px-1 pl-0 text-nowrap border-b min-w-52 flex items-center justify-between transition-all duration-300 ${isOpen && 'border-b-main'}`}>
+                className={`z-50 py-2 px-1 pl-0 text-nowrap border-b min-w-40 flex items-center justify-between transition-all duration-300 ${isOpen && 'border-b-main'}`}>
                 {buttonText}
                 <MdKeyboardArrowLeft className={`transition-all duration-300 ${isOpen && '-rotate-90'}`} size={25} />
             </button>

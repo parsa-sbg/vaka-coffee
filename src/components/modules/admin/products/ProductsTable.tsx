@@ -279,7 +279,8 @@ function ProductsTable() {
                 </tr>
 
             </tbody>
-        </table>)
+        </table>
+    )
 }
 
 export default ProductsTable
