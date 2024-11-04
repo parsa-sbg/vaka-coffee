@@ -20,4 +20,4 @@ export interface User {
 export interface UserDocument extends Document, User { }
 
 
-export interface UserModel extends Model<UserDocument> {}
+export interface UserModelInterface extends Model<UserDocument> {}

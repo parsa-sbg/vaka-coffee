@@ -1,4 +1,4 @@
-import { UserDocument, UserModel } from "@/types/user";
+import { UserDocument, UserModelInterface } from "@/types/user";
 import mongoose from "mongoose";
 
 
@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema<UserDocument>({
 
 
 
-const UserModel: UserModel = mongoose.models.User || mongoose.model<UserDocument>('User', userSchema)
+const UserModel: UserModelInterface = mongoose.models.User || mongoose.model<UserDocument>('User', userSchema)
 
 
 export default UserModel
