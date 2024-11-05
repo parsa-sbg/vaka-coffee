@@ -1,8 +1,34 @@
-import { UserDocument, UserModelInterface } from "@/types/user";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 
-const addressSchema = new mongoose.Schema({
+// types and interfaces
+
+export interface Address {
+    name: string;
+    family: string;
+    state: string;
+    city: string;
+    address: string;
+    houseNumber: string;
+}
+
+export interface UserInterface {
+    name: string
+    username: string
+    phone: string
+    password: string
+    address?: Address
+}
+
+export interface UserDocument extends Document, UserInterface { }
+
+
+export interface UserModelInterface extends Model<UserDocument> {}
+
+
+// schemas
+
+const address = new mongoose.Schema({
     name: { type: String, required: true },
     family: { type: String, required: true },
     state: { type: String, required: true },
@@ -11,7 +37,7 @@ const addressSchema = new mongoose.Schema({
     houseNumber: { type: String, required: true },
 });
 
-const userSchema = new mongoose.Schema<UserDocument>({
+const user = new mongoose.Schema<UserDocument>({
     name: {
         required: true,
         type: String,
@@ -33,14 +59,15 @@ const userSchema = new mongoose.Schema<UserDocument>({
         minlength: 8
     },
     address: {
-        type: addressSchema,
+        type: address,
         required: false
     }
 })
 
 
+// the model
 
-const UserModel: UserModelInterface = mongoose.models.User || mongoose.model<UserDocument>('User', userSchema)
+const UserModel: UserModelInterface = mongoose.models.User || mongoose.model<UserDocument>('User', user)
 
 
 export default UserModel

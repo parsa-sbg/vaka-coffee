@@ -13,7 +13,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 </div>
 
                 <div className="min-w-96 hidden h-full z-10 sm:flex justify-center">
-                    <Image className="w-full h-full object-cover" src='/loginimage.jpg' width={500} height={1000} alt="coffee image"></Image>
+                    <Image priority className="w-full h-full object-cover" src='/loginimage.jpg' width={500} height={900} alt="coffee image"></Image>
                 </div>
             </div>
             <Link href='/' replace className="flex items-center gap-2 z-30 text-nowrap fixed top-5 left-5">

@@ -1,9 +1,10 @@
 import "./globals.css";
 import { Vazirmatn } from "next/font/google"
+import { Toaster } from "react-hot-toast";
 
 const vazirFont = Vazirmatn({
   variable: '--font-vazir',
-  subsets: ["arabic",  "latin"]
+  subsets: ["arabic", "latin"]
 });
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
@@ -16,8 +17,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
         {children}
 
+        <Toaster />
       </body>
-
     </html>
   );
 
