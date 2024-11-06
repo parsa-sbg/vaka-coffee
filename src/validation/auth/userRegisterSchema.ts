@@ -2,15 +2,6 @@ import toPersionNumber from "@/utils/toPersianNubmer";
 import { z } from "zod";
 
 
-const addressSchema = z.object({
-    name: z.string(),
-    family: z.string(),
-    state: z.string(),
-    city: z.string(),
-    address: z.string(),
-    houseNumber: z.string()
-})
-
 export const userRegisterSchema = z.object({
     name: z.string()
         .min(3, 'نام بسیار کوتاه است !')
@@ -31,7 +22,6 @@ export const userRegisterSchema = z.object({
         .regex(/^\S*$/, "فرمت پسورد صحیح نیست .")
         .min(8, toPersionNumber('رمز عبور باید حداقل 8 کاراکتر باشد.')),
     repeatPassword: z.string(),
-    address: z.optional(addressSchema)
 }).refine((data) => data.password === data.repeatPassword, {
     path: ['repeatPassword'],
     message: 'تکرار رمز عبور صحیح نیست !'

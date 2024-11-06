@@ -1,10 +1,32 @@
 "use client"
 
 import ErrorAlert from '@/components/common/alerts/ErrorAlert';
+import SuccessAlert from '@/components/common/alerts/SuccessAlert';
 import { userRegisterSchema } from '@/validation/auth/userRegisterSchema'
+import { redirect } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { SafeParseReturnType } from 'zod';
 
+
+type serverResStatus400 = SafeParseReturnType<{
+    name: string;
+    username: string;
+    phone: string;
+    password: string;
+    repeatPassword: string;
+}, {
+    name: string;
+    username: string;
+    phone: string;
+    password: string;
+    repeatPassword: string;
+}>
+
+type serverResStatus409 = {
+    message: string
+    target: string
+}
 
 function Register() {
 
@@ -40,12 +62,59 @@ function Register() {
             method: "POST",
             body: JSON.stringify(formDatas)
         })
-        const data = await res.json()
+        const data: serverResStatus400 & serverResStatus409 = await res.json()
+        console.log(data);
 
+
+        if (res.status == 400 && !data.success) {
+            data.error.issues.map(error => {
+                setErrors(prev => ({ ...prev, [error.path[0]]: true }))
+                toast.custom((t) => (
+                    <ErrorAlert title={error.message} t={t} />
+                ), {
+                    position: 'top-left',
+                    duration: 3000
+                })
+            })
+        }
+
+        if (res.status == 409) {
+            setErrors(prev => ({ ...prev, [data.target]: true }))
+            toast.custom((t) => (
+                <ErrorAlert t={t} title={data.message} />
+            ), {
+                position: 'top-left'
+            })
+        }
+
+        if (res.status == 500) {
+            toast.custom((t) => (
+                <ErrorAlert t={t} title='خطای ناشناخته !' />
+            ), {
+                position: 'top-left'
+            })
+        }
+
+        if (res.status == 201) {
+            const timeOut = setTimeout(() => {
+                redirect('/dashboard')
+            }, 2000);
+            toast.custom((t) => (
+                <div className='flex flex-col'>
+                    <SuccessAlert callBack={() => {
+                        clearTimeout(timeOut)
+                        redirect('/dashboard')
+                    }} t={t} title='ثبت نام با موفقیت انجام شد.' />
+                </div>
+            ), {
+                position: 'top-left',
+                duration: 2000
+            })
+
+        }
 
         setIsPending(false)
 
-        // set server errors or show register result
     }
 
     return (
@@ -90,6 +159,7 @@ function Register() {
                         setErrors(prev => ({ ...prev, phone: false }))
 
                     }}
+                    maxLength={11}
                     autoComplete='phone'
                     placeholder='شماره موبایل'
                     name='phone'
