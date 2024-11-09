@@ -1,7 +1,7 @@
 import UserModel from "@/models/User"
 import { connectToDataBase } from "@/utils/dataBase"
 import { generateToken } from "@/utils/token"
-import { userRegisterSchema } from "@/validation/auth/userRegisterSchema"
+import { userRegisterSchema } from "@/validation/auth"
 import { cookies } from "next/headers"
 import { NextRequest } from "next/server"
 import bcrypt from 'bcryptjs'
@@ -27,22 +27,22 @@ export const POST = async (req: NextRequest) => {
     connectToDataBase()
 
     // check username duplicated
-    const isUserNameDuplicated = await UserModel.exists({ username: reqBody.username })
+    const isUserNameDuplicated = await UserModel.exists({ username: parsedData.data.username })
     if (isUserNameDuplicated) return Response.json({ message: 'این نام کاربری قبلا انتخاب شده است.', target: 'username' }, { status: 409 })
 
     // check username duplicated
-    const isPhoneDuplicated = await UserModel.exists({ phone: reqBody.phone })
+    const isPhoneDuplicated = await UserModel.exists({ phone: parsedData.data.phone })
     if (isPhoneDuplicated) return Response.json({ message: 'این شماره تماس قبلا استفاده شده است.', target: 'phone' }, { status: 409 })
 
 
     try {
-        const hashedPassword = await bcrypt.hash(reqBody.password, 10)
+        const hashedPassword = await bcrypt.hash(parsedData.data.password, 10)
 
         const newUser = await UserModel.create({
-            name: reqBody.name,
-            username: reqBody.username,
+            name: parsedData.data.name,
+            username: parsedData.data.username,
             password: hashedPassword,
-            phone: reqBody.phone
+            phone: parsedData.data.phone
         })
 
         if (newUser) {

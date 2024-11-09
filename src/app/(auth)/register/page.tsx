@@ -2,8 +2,8 @@
 
 import ErrorAlert from '@/components/common/alerts/ErrorAlert';
 import SuccessAlert from '@/components/common/alerts/SuccessAlert';
-import { userRegisterSchema } from '@/validation/auth/userRegisterSchema'
-import { redirect } from 'next/navigation';
+import { userRegisterSchema } from '@/validation/auth';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { SafeParseReturnType } from 'zod';
@@ -33,6 +33,8 @@ function Register() {
     const [formDatas, setFormDatas] = useState({ name: '', username: '', phone: '', password: '', repeatPassword: '' })
     const [isPending, setIsPending] = useState(false)
     const [errors, setErrors] = useState({ name: false, username: false, phone: false, password: false, repeatPassword: false })
+    const route = useRouter()
+
 
 
     const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,7 +57,7 @@ function Register() {
             return false
         }
 
-
+        // register
 
         setIsPending(true)
         const res = await fetch('/api/auth/register', {
@@ -97,18 +99,18 @@ function Register() {
 
         if (res.status == 201) {
             const timeOut = setTimeout(() => {
-                redirect('/dashboard')
+                route.replace('/dashboard')
             }, 2000);
             toast.custom((t) => (
                 <div className='flex flex-col'>
                     <SuccessAlert callBack={() => {
                         clearTimeout(timeOut)
-                        redirect('/dashboard')
+                        route.replace('/dashboard')
                     }} t={t} title='ثبت نام با موفقیت انجام شد.' />
                 </div>
             ), {
                 position: 'top-left',
-                duration: 2000
+                duration: 1500
             })
 
         }
