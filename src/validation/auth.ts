@@ -21,6 +21,8 @@ export const phoneSchema = z.string()
     .regex(/^\d*$/, "شماره تماس صحیح نیست.")
     .length(11, 'شماره تماس باید شامل 11 عدد باشد.')
 
+export const otpSchema = z.string()
+    .length(5, 'کد یکبار مصرف باید 5 رقم داشته باشد.')
 
 export const userRegisterSchema = z.object({
     name: z.string()
@@ -30,6 +32,7 @@ export const userRegisterSchema = z.object({
         .trim(),
     username: usernameSchema,
     phone: phoneSchema,
+    otp: otpSchema,
     password: passwordSchema,
     repeatPassword: z.string(),
 }).refine((data) => data.password === data.repeatPassword, {

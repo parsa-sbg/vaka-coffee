@@ -1,7 +1,9 @@
 "use server"
 
+import { OtpModel } from "@/models/Otp"
 import UserModel from "@/models/User"
 import { connectToDataBase } from "@/utils/dataBase"
+import { phoneSchema } from "@/validation/auth"
 
 export const checkIsUserNameExist = async (username: string) => {
     connectToDataBase()
@@ -19,4 +21,44 @@ export const checkIsPhoneExist = async (phone: string) => {
         return true
     }
     return false
+}
+
+export const sentOtpAction = async (phone: string) => {
+    connectToDataBase()
+
+    const parsedData = phoneSchema.safeParse(phone)
+
+    if (!parsedData.success) {
+        return { success: false, message: 'شماره وارد شده صحیح نیست !' }
+    }
+
+    // check is phone registered bedore
+    const isPhoneAlleadyexist = await UserModel.exists({ phone })
+    if (isPhoneAlleadyexist) return { success: false, message: 'این شماره قبلا استفاده شده است !' }
+
+    // delete duplicated codes
+    await OtpModel.findOneAndDelete({ phone })
+
+    try {
+
+        // create otp code in data base
+        OtpModel.findOneAndDelete({ phone })
+        const otp = Math.floor(Math.random() * 10 ** 5)
+
+        OtpModel.create({
+            phone,
+            otpCode: otp,
+            expiresAt: Date.now() + 5 * 60 * 1000
+        })
+
+        // send otp using sms service
+        // 
+        // 
+
+        return { success: true, message: 'کد یکبار مصرف با موفقیت ارسال شد.' }
+
+    } catch (err) {
+        console.log('sent otp error => ', err);
+        return { success: false, message: 'خطای ناشناخته !' }
+    }
 }

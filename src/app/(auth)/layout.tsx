@@ -5,10 +5,10 @@ import { FaArrowLeft } from "react-icons/fa";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex items-center sm:py-20 sm:px-5 md:px-20 lg:px-32 bg-secondary xl:px-72 justify-center h-screen ">
+        <div className="flex items-center justify-center sm:py-20 sm:px-5 md:px-20 lg:px-32 bg-secondary xl:px-72  h-screen ">
             <div className="w-full h-full sm:rounded-3xl overflow-hidden flex justify-between">
 
-                <div className="!w-full min-w-80 z-20 sm:w-auto bg-bgColer p-10 sm:p-7">
+                <div className="!w-full sm:min-w-[350px] z-20 p-3 lg:w-auto bg-bgColer lg:p-5">
                     {children}
                 </div>
 

@@ -5,6 +5,7 @@ import { userRegisterSchema } from "@/validation/auth"
 import { cookies } from "next/headers"
 import { NextRequest } from "next/server"
 import bcrypt from 'bcryptjs'
+import { OtpModel } from "@/models/Otp"
 
 export const POST = async (req: NextRequest) => {
 
@@ -14,6 +15,7 @@ export const POST = async (req: NextRequest) => {
         phone: string;
         password: string;
         repeatPassword: string;
+        otp: string
     } = await req.json()
 
     const parsedData = userRegisterSchema.safeParse(reqBody)
@@ -25,6 +27,14 @@ export const POST = async (req: NextRequest) => {
     }
 
     connectToDataBase()
+
+    // // check otp code
+    const checkOtpResult = await OtpModel.findOne({ phone: parsedData.data.phone, otpCode: parsedData.data.otp })
+    if (!checkOtpResult) {
+        return Response.json({message: 'کد یکبار مصرف صحیح نیست !'}, {status: 401})
+    }
+    // check otp for expiration
+    if (checkOtpResult.expiresAt.getTime() < Date.now()) return Response.json({message: 'کد یکبار مصرف منقضی شده است !'}, {status: 401})
 
     // check username duplicated
     const isUserNameDuplicated = await UserModel.exists({ username: parsedData.data.username })

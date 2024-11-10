@@ -2,6 +2,7 @@
 
 import ErrorAlert from '@/components/common/alerts/ErrorAlert';
 import SuccessAlert from '@/components/common/alerts/SuccessAlert';
+import PhoneInputs from '@/components/modules/register/PhoneInputs';
 import { userRegisterSchema } from '@/validation/auth';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
@@ -22,7 +23,6 @@ type serverResStatus400 = SafeParseReturnType<{
     password: string;
     repeatPassword: string;
 }>
-
 type serverResStatus409 = {
     message: string
     target: string
@@ -30,11 +30,10 @@ type serverResStatus409 = {
 
 function Register() {
 
-    const [formDatas, setFormDatas] = useState({ name: '', username: '', phone: '', password: '', repeatPassword: '' })
+    const [formDatas, setFormDatas] = useState({ name: '', username: '', phone: '', password: '', repeatPassword: '', otp: '' })
     const [isPending, setIsPending] = useState(false)
-    const [errors, setErrors] = useState({ name: false, username: false, phone: false, password: false, repeatPassword: false })
+    const [errors, setErrors] = useState({ name: false, username: false, phone: false, password: false, repeatPassword: false, otp: false })
     const route = useRouter()
-
 
 
     const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,8 +64,16 @@ function Register() {
             body: JSON.stringify(formDatas)
         })
         const data: serverResStatus400 & serverResStatus409 = await res.json()
-        console.log(data);
 
+        if (res.status == 401) {
+            setErrors(prev => ({ ...prev, otp: true }))
+            toast.custom((t) => (
+                <ErrorAlert title={data.message} t={t} />
+            ), {
+                position: 'top-left',
+                duration: 3000
+            })
+        }
 
         if (res.status == 400 && !data.success) {
             data.error.issues.map(error => {
@@ -78,6 +85,7 @@ function Register() {
                     duration: 3000
                 })
             })
+            return
         }
 
         if (res.status == 409) {
@@ -87,6 +95,7 @@ function Register() {
             ), {
                 position: 'top-left'
             })
+            return
         }
 
         if (res.status == 500) {
@@ -95,6 +104,7 @@ function Register() {
             ), {
                 position: 'top-left'
             })
+            return
         }
 
         if (res.status == 201) {
@@ -112,12 +122,13 @@ function Register() {
                 position: 'top-left',
                 duration: 1500
             })
-
+            return
         }
 
         setIsPending(false)
 
     }
+
 
     return (
         <div className='h-full flex flex-col justify-center'>
@@ -127,7 +138,7 @@ function Register() {
             </div>
 
 
-            <form onSubmit={e => { onSubmitHandler(e) }}>
+            <form className='text-white text-opacity-80' onSubmit={e => { onSubmitHandler(e) }}>
                 <input
                     value={formDatas.name}
                     onChange={e => {
@@ -154,19 +165,7 @@ function Register() {
                     className={`${errors.username && '!border-red-500'} w-full mt-4 rounded-md bg-secondary outline-none border border-transparent py-2 px-4 transition-all duration-300 focus:border-main`}
                     type="text" />
 
-                <input
-                    value={formDatas.phone}
-                    onChange={e => {
-                        setFormDatas(prev => ({ ...prev, phone: e.target.value }))
-                        setErrors(prev => ({ ...prev, phone: false }))
-
-                    }}
-                    maxLength={11}
-                    autoComplete='phone'
-                    placeholder='شماره موبایل'
-                    name='phone'
-                    className={`${errors.phone && '!border-red-500'} w-full mt-4 rounded-md bg-secondary outline-none border border-transparent py-2 px-4 transition-all duration-300 focus:border-main`}
-                    type="text" />
+                <PhoneInputs errors={errors} formDatas={formDatas} setErrors={setErrors} setFormDatas={setFormDatas} />
 
                 <input
                     value={formDatas.password}

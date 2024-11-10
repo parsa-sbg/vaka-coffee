@@ -184,7 +184,7 @@ function Login() {
     <div className='h-full flex flex-col justify-center'>
 
       <div>
-        <h1 className={`${step == 2 && '!hidden'} text-center text-main font-bold text-2xl`}>ورود / ثبت نام</h1>
+        <h1 className={`${step == 2 && '!hidden'} text-center text-main font-bold text-2xl`}>ورود</h1>
         <div className={`${step == 1 && '!hidden'} flex items-center gap-3 text-center justify-center`}>
           <h1 className={` text-main font-bold text-2xl`}>{loginMethod == 'phone' ? 'ورود با شماره تماس' : 'ورود با نام کاربری'}</h1>
           <button onClick={() => { setStep(1) }} className='text-nowrap bg-main text-bgColer text-sm py-1 px-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main'>بازگشت</button>
