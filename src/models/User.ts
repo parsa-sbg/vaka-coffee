@@ -18,7 +18,7 @@ export interface UserInterface {
     phone: string
     password: string
     address?: Address
-    role: 'ADMIN' | 'USER'
+    role: 'ADMIN' | 'USER' | 'OWNER'
 }
 
 export interface UserDocument extends Document, UserInterface { }
@@ -64,7 +64,7 @@ const user = new mongoose.Schema<UserDocument>({
         required: false
     },
     role: {
-        type: String, enum: ['USER', 'ADMIN'],
+        type: String, enum: ['USER', 'ADMIN', 'OWNER'],
         default: 'USER'
     }
 })

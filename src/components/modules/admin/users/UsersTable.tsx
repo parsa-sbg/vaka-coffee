@@ -1,17 +1,19 @@
-import UserModel from '@/models/User'
-import { connectToDataBase } from '@/utils/server/dataBase'
-import toPersionNumber from '@/utils/toPersianNubmer'
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import UserItem from './UserItem'
+import { UserInterface } from '@/models/User'
 
-async function UsersTable() {
+type props = {
+    intialUsers: UserInterface[]
+}
 
+function UsersTable({ intialUsers }: props) {
 
-    connectToDataBase()
+    const [users, setUsers] = useState(intialUsers)
 
-    const users = await UserModel.find()
-    console.log('users => ', users);
-
+    const updateUsers = async () => {
+        
+    }
 
     return (
         <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
@@ -39,7 +41,7 @@ async function UsersTable() {
             <tbody>
 
                 {users.map((user, index) => (
-                    <UserItem user={user} number={index + 1} isOdd={index / 2 !== 0} />
+                    <UserItem key={user.username} user={user} number={index + 1} isOdd={index / 2 !== 0} />
                 ))}
 
             </tbody>

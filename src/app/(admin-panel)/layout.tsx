@@ -16,7 +16,7 @@ export default async function AdminPanelLayout({ children }: { children: React.R
     if (!payload) redirect('/dashboard', RedirectType.replace)
     const user = await authUser(payload._id)
     if (!user) redirect('/dashboard', RedirectType.replace)
-    if (user.role !== 'ADMIN') redirect('/dashboard', RedirectType.replace)
+    if (user.role !== 'OWNER' && user.role !== 'ADMIN') redirect('/dashboard', RedirectType.replace)
 
 
 

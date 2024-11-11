@@ -28,7 +28,6 @@ export const userRegisterSchema = z.object({
     name: z.string()
         .min(3, 'نام بسیار کوتاه است !')
         .max(20, toPersionNumber('نام نمیتواند از 20 کاراکتر بیشتر باشد !'))
-        .regex(/^\S*$/, "فرمت نام صحیح نیست !")
         .trim(),
     username: usernameSchema,
     phone: phoneSchema,
