@@ -18,12 +18,13 @@ export interface UserInterface {
     phone: string
     password: string
     address?: Address
+    role: 'ADMIN' | 'USER'
 }
 
 export interface UserDocument extends Document, UserInterface { }
 
 
-export interface UserModelInterface extends Model<UserDocument> {}
+export interface UserModelInterface extends Model<UserDocument> { }
 
 
 // schemas
@@ -61,6 +62,10 @@ const user = new mongoose.Schema<UserDocument>({
     address: {
         type: address,
         required: false
+    },
+    role: {
+        type: String, enum: ['USER', 'ADMIN'],
+        default: 'USER'
     }
 })
 
