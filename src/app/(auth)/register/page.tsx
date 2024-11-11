@@ -63,6 +63,7 @@ function Register() {
             method: "POST",
             body: JSON.stringify(formDatas)
         })
+        setIsPending(false)
         const data: serverResStatus400 & serverResStatus409 = await res.json()
 
         if (res.status == 401) {
@@ -124,9 +125,6 @@ function Register() {
             })
             return
         }
-
-        setIsPending(false)
-
     }
 
 
