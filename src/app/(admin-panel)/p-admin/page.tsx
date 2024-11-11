@@ -21,7 +21,7 @@ async function AdminPanel(req: NextRequest) {
     return (
         <div className=''>
 
-            <Title name={user?.name} />
+            <Title role={user.role} name={user?.name} />
 
             <div className='mt-7 grid xs:grid-cols-2 lg:grid-cols-3 gap-3'>
                 <Box href='/p-admin/products' title='محصولات' Icon={TfiPackage} />
