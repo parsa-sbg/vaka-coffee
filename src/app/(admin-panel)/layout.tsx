@@ -6,7 +6,7 @@ import { verifyToken } from "@/utils/server/token";
 import { authUser } from "@/utils/server/auth";
 
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminPanelLayout({ children }: { children: React.ReactNode }) {
 
 
     // route protection
