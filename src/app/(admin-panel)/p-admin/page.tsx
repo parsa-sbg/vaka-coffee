@@ -6,15 +6,22 @@ import { PiUsersThreeLight } from "react-icons/pi";
 import { RiAdminLine } from "react-icons/ri";
 import { TfiPackage } from "react-icons/tfi";
 import { PiShapesThin } from "react-icons/pi";
+import Title from '@/components/modules/admin/index/Title';
+import { authUserWithToken } from '@/utils/server/auth';
+import { NextRequest } from 'next/server';
+import { cookies } from 'next/headers';
 
 
+async function AdminPanel(req: NextRequest) {
+    const token = (await cookies()).get('token')?.value
+    const user = await authUserWithToken(token)
+    if (!user) return
 
-function AdminPanel() {
+
     return (
         <div className=''>
 
-            <p>سلام <span className='font-semibold'>ثنا</span></p>
-            <p className='mt-3'>از طریق پیشخوان پنل مدیریت، می‌توانید تمام سفارش‌ ها را مشاهده، و کاربران و محصولات را مدیریت کنید.</p>
+            <Title name={user?.name} />
 
             <div className='mt-7 grid xs:grid-cols-2 lg:grid-cols-3 gap-3'>
                 <Box href='/p-admin/products' title='محصولات' Icon={TfiPackage} />
