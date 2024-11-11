@@ -1,4 +1,4 @@
-import { sentOtpAction } from '@/actions/authActions';
+import { checkIsPhoneExist, sentOtpAction } from '@/actions/authActions';
 import ErrorAlert from '@/components/common/alerts/ErrorAlert';
 import { phoneSchema } from '@/validation/auth';
 import React, { useEffect, useRef, useState } from 'react'
@@ -74,6 +74,18 @@ function PhoneInputs({ setErrors, errors, formDatas, setFormDatas }: Props) {
                 })
             })
             setErrors(prev => ({ ...prev, phone: true }))
+            return
+        }
+
+        // check is phone registered bedore
+        const isPhoneAlleadyexist = await checkIsPhoneExist(formDatas.phone)
+        if (isPhoneAlleadyexist) {
+            toast.custom((t) => (
+                <ErrorAlert title='این شماره قبلا استفاده شده است !' t={t} />
+            ), {
+                position: 'top-left',
+                duration: 3000
+            })
             return
         }
 

@@ -1,8 +1,8 @@
 "use client"
-import { checkIsPhoneExist, checkIsUserNameExist } from '@/actions/authActions'
+import { checkIsPhoneExist, checkIsUserNameExist, sentOtpAction } from '@/actions/authActions'
 import ErrorAlert from '@/components/common/alerts/ErrorAlert'
 import SuccessAlert from '@/components/common/alerts/SuccessAlert'
-import { passwordSchema, phoneSchema, usernameSchema } from '@/validation/auth'
+import { otpSchema, passwordSchema, phoneSchema, usernameSchema } from '@/validation/auth'
 import { redirect, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -23,6 +23,10 @@ function Login() {
 
   const [errors, setErrors] = useState({ phone: false, username: false, otpCode: false, password: false })
   const route = useRouter()
+  const [counter, setCounter] = useState(0)
+
+  const [isSendOtpPending, setIsSendOtpPending] = useState(false)
+
 
   const checkUsername = async () => {
     // frontend validation
@@ -90,6 +94,7 @@ function Login() {
     setisLoading(false)
 
     if (isExist) {
+      sendOtp()
       setStep(2)
     } else {
       toast.custom((t) => (
@@ -176,9 +181,104 @@ function Login() {
 
   }
 
-  const loginWithPhone = () => {
-    console.log('loginWithPhone');
+  const sendOtp = async () => {
+    // set timer
+    setCounter(60)
+    const interval = setInterval(() => {
+      setCounter(prev => {
+        if (prev == 0) {
+          clearInterval(interval)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000);
+
+    // send the code
+    setIsSendOtpPending(true)
+    const result = await sentOtpAction(phone)
+
+    if (!result.success) {
+      toast.custom((t) => (
+        <ErrorAlert title={result.message} t={t} />
+      ), {
+        position: 'top-left',
+        duration: 3000
+      })
+      setIsSendOtpPending(false)
+    } else {
+      setIsSendOtpPending(false)
+    }
   }
+
+
+  const loginWithPhone = async () => {
+    // basic validation for otp code
+    const parsedData = otpSchema.safeParse(otpCode)
+    if (!parsedData.success) {
+      setErrors(prev => ({ ...prev, otpCode: true }))
+      parsedData.error.issues.map(issue => {
+        setErrors(prev => ({ ...prev, password: true }))
+        toast.custom((t) => (
+          <ErrorAlert title={issue.message} t={t} />
+        ), {
+          position: 'top-left',
+          duration: 3000
+        })
+      })
+      return
+    }
+
+    // login
+    setisLoading(true)
+    const res = await fetch('/api/auth/login/otp', {
+      method: "POST",
+      headers: {
+        "Content-Type": "applicaion/json"
+      },
+      body: JSON.stringify({
+        phone,
+        otpCode
+      })
+    })
+    setisLoading(false)
+    const data = await res.json()
+
+
+
+    if (res.status == 200) {
+      const timeOut = setTimeout(() => {
+        route.replace('/dashboard')
+      }, 2000);
+      toast.custom((t) => (
+        <div className='flex flex-col'>
+          <SuccessAlert callBack={() => {
+            clearTimeout(timeOut)
+            route.replace('/dashboard')
+          }} t={t} title='ورود با موفقیت انجام شد.' />
+        </div>
+      ), {
+        position: 'top-left',
+        duration: 1500
+      })
+    } else if (res.status == 401) {
+      setErrors(prev => ({ ...prev, password: true }))
+      toast.custom((t) => (
+        <ErrorAlert t={t} title={data.message} />
+      ), {
+        position: 'top-left'
+      })
+    } else {
+      toast.custom((t) => (
+        <ErrorAlert t={t} title='خطای ناشناخته !' />
+      ), {
+        position: 'top-left'
+      })
+    }
+
+  }
+
+
 
   return (
     <div className='h-full flex flex-col justify-center'>
@@ -187,7 +287,10 @@ function Login() {
         <h1 className={`${step == 2 && '!hidden'} text-center text-main font-bold text-2xl`}>ورود</h1>
         <div className={`${step == 1 && '!hidden'} flex items-center gap-3 text-center justify-center`}>
           <h1 className={` text-main font-bold text-2xl`}>{loginMethod == 'phone' ? 'ورود با شماره تماس' : 'ورود با نام کاربری'}</h1>
-          <button onClick={() => { setStep(1) }} className='text-nowrap bg-main text-bgColer text-sm py-1 px-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main'>بازگشت</button>
+          <button onClick={() => {
+            setStep(1)
+            setCounter(0)
+          }} className='text-nowrap bg-main text-bgColer text-sm py-1 px-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main'>بازگشت</button>
         </div>
 
         <div className='grid grid-cols-2 mt-6'>
@@ -230,22 +333,30 @@ function Login() {
           className={`${step == 2 && '!hidden'} ${loginMethod == 'username' ? errors.username && '!border-red-600' : errors.phone && '!border-red-600'} w-full mt-10 rounded-md bg-secondary outline-none border border-transparent py-2 px-4 transition-all duration-300 focus:border-main`}
           type="text" />
 
-        <input
-          name='identifier'
-          value={loginMethod == 'username' ? password : otpCode}
-          maxLength={loginMethod == 'username' ? 2000 : 5}
+        <div className={`${step == 1 && '!hidden'} ${loginMethod == 'username' ? errors.password && '!border-red-600' : errors.otpCode && '!border-red-600'} relative has-[:focus]:!border-main mt-10 rounded-md bg-secondary border border-transparent transition-all duration-300`}>
+          <input
+            name='identifier'
+            value={loginMethod == 'username' ? password : otpCode}
+            maxLength={loginMethod == 'username' ? 2000 : 5}
 
-          onChange={loginMethod == 'username' ? e => {
-            setPassword(e.target.value)
-            setErrors(prev => ({ ...prev, password: false }))
-          } : e => {
-            setOtpCode(e.target.value)
-            setErrors(prev => ({ ...prev, otpCode: false }))
-          }}
+            onChange={loginMethod == 'username' ? e => {
+              setPassword(e.target.value)
+              setErrors(prev => ({ ...prev, password: false }))
+            } : e => {
+              setOtpCode(e.target.value)
+              setErrors(prev => ({ ...prev, otpCode: false }))
+            }}
 
-          placeholder={loginMethod == 'username' ? 'رمز عبور' : 'کد پیامک شده'}
-          className={`${step == 1 && '!hidden'} ${loginMethod == 'username' ? errors.password && '!border-red-600' : errors.otpCode && '!border-red-600'} w-full mt-10 rounded-md bg-secondary outline-none border border-transparent py-2 px-4 transition-all duration-300 focus:border-main`}
-          type="text" />
+            placeholder={loginMethod == 'username' ? 'رمز عبور' : 'کد پیامک شده'}
+            className={` w-full outline-none rounded-md bg-transparent py-2 px-4 `}
+            type="text" />
+
+          <button disabled={counter > 0} onClick={sendOtp} type='button' className='absolute top-0 bottom-0 h-8 my-auto left-1 w-26 text-sm sm:text-base text-nowrap bg-bgColer text-main py-1 px-3 rounded-md transition-all duration-300'>
+            {isSendOtpPending ? <div className='w-3 h-3 border-x-2 border-main rounded-full animate-spin mx-auto' /> : counter > 0 ? counter : 'ارسال مجدد'}
+          </button>
+
+        </div>
+
 
         <p className={`${step == 1 && '!hidden'} mt-2 opacity-80 text-xs sm:text-sm`}>{loginMethod == 'username' ? `رمز عبور ${username} را وارد کنید.` : `کد پیامک شده به شماره ${phone} را وارد کنید.`}</p>
 

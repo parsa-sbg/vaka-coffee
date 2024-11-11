@@ -32,9 +32,7 @@ export const sentOtpAction = async (phone: string) => {
         return { success: false, message: 'شماره وارد شده صحیح نیست !' }
     }
 
-    // check is phone registered bedore
-    const isPhoneAlleadyexist = await UserModel.exists({ phone })
-    if (isPhoneAlleadyexist) return { success: false, message: 'این شماره قبلا استفاده شده است !' }
+
 
     // delete duplicated codes
     await OtpModel.findOneAndDelete({ phone })

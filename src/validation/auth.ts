@@ -39,3 +39,8 @@ export const userRegisterSchema = z.object({
     path: ['repeatPassword'],
     message: 'تکرار رمز عبور صحیح نیست !'
 })
+
+export const userLoginWithOtpSchema = z.object({
+    phone: phoneSchema,
+    otp: otpSchema,
+})

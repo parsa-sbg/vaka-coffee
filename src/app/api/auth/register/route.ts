@@ -31,10 +31,10 @@ export const POST = async (req: NextRequest) => {
     // // check otp code
     const checkOtpResult = await OtpModel.findOne({ phone: parsedData.data.phone, otpCode: parsedData.data.otp })
     if (!checkOtpResult) {
-        return Response.json({message: 'کد یکبار مصرف صحیح نیست !'}, {status: 401})
+        return Response.json({ message: 'کد یکبار مصرف صحیح نیست !' }, { status: 401 })
     }
     // check otp for expiration
-    if (checkOtpResult.expiresAt.getTime() < Date.now()) return Response.json({message: 'کد یکبار مصرف منقضی شده است !'}, {status: 401})
+    if (checkOtpResult.expiresAt.getTime() < Date.now()) return Response.json({ message: 'کد یکبار مصرف منقضی شده است !' }, { status: 401 })
 
     // check username duplicated
     const isUserNameDuplicated = await UserModel.exists({ username: parsedData.data.username })
@@ -65,6 +65,9 @@ export const POST = async (req: NextRequest) => {
                 maxAge: 60 * 60 * 24 * 7,
                 path: '/',
             })
+
+            await OtpModel.findOneAndDelete({ phone: parsedData.data.phone, otpCode: parsedData.data.otp })
+
 
             return Response.json({ message: 'با موفقیت ثبت نام شدید.' }, { status: 201 })
         } else {
