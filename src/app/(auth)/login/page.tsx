@@ -351,7 +351,7 @@ function Login() {
             className={` w-full outline-none rounded-md bg-transparent py-2 px-4 `}
             type="text" />
 
-          <button disabled={counter > 0} onClick={sendOtp} type='button' className='absolute top-0 bottom-0 h-8 my-auto left-1 w-26 text-sm sm:text-base text-nowrap bg-bgColer text-main py-1 px-3 rounded-md transition-all duration-300'>
+          <button disabled={counter > 0} onClick={sendOtp} type='button' className={`${loginMethod == 'username' && '!hidden'} absolute top-0 bottom-0 h-8 my-auto left-1 w-26 text-sm sm:text-base text-nowrap bg-bgColer text-main py-1 px-3 rounded-md transition-all duration-300`}>
             {isSendOtpPending ? <div className='w-3 h-3 border-x-2 border-main rounded-full animate-spin mx-auto' /> : counter > 0 ? counter : 'ارسال مجدد'}
           </button>
 

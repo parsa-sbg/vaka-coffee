@@ -2,7 +2,7 @@ import UserModel from "@/models/User";
 import { passwordSchema, usernameSchema } from "@/validation/auth";
 import { NextRequest } from "next/server";
 import bcrypt from 'bcryptjs'
-import { generateToken } from "@/utils/token";
+import { generateToken } from "@/utils/server/token";
 import { cookies } from "next/headers";
 
 

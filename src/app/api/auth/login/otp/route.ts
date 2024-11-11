@@ -1,7 +1,7 @@
 import { OtpModel } from "@/models/Otp";
 import UserModel from "@/models/User";
-import { connectToDataBase } from "@/utils/dataBase";
-import { generateToken } from "@/utils/token";
+import { connectToDataBase } from "@/utils/server/dataBase";
+import { generateToken } from "@/utils/server/token";
 import { userLoginWithOtpSchema } from "@/validation/auth";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";

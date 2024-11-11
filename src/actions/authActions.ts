@@ -2,7 +2,7 @@
 
 import { OtpModel } from "@/models/Otp"
 import UserModel from "@/models/User"
-import { connectToDataBase } from "@/utils/dataBase"
+import { connectToDataBase } from "@/utils/server/dataBase"
 import { phoneSchema } from "@/validation/auth"
 
 export const checkIsUserNameExist = async (username: string) => {
