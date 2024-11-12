@@ -2,6 +2,7 @@ import { UserInterface } from '@/models/User'
 import toPersionNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import PromoteBtn from './PeomoteBtn'
+import DeleteBtn from './DeleteBtn'
 
 type props = {
     isOdd: boolean
@@ -37,9 +38,7 @@ function UserItem({ isOdd, user, number, setUsers }: props) {
 
                     <PromoteBtn setUsers={setUsers} isOdd={isOdd} phone={user.phone} id={user._id} />
 
-                    <button className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
-                        حذف
-                    </button>
+                    <DeleteBtn id={user._id} isOdd={isOdd} phone={user.phone} setUsers={setUsers} />
 
                 </div>
             </td>
