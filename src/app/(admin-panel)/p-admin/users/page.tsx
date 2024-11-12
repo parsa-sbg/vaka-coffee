@@ -11,7 +11,7 @@ async function Users() {
 
 
   return (
-    <div className='custom-scrollbar overflow-auto overflow-x-scroll pb-2'>
+    <div className='custom-scrollbar overflow-x-scroll pb-2'>
       <UsersTable intialUsers={JSON.parse(JSON.stringify(users))} />
     </div>
   )

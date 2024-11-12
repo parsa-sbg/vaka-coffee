@@ -41,7 +41,7 @@ export const sentOtpAction = async (phone: string) => {
 
         // create otp code in data base
         OtpModel.findOneAndDelete({ phone })
-        const otp = Math.floor(Math.random() * 10 ** 5)
+        const otp = Math.floor(Math.random() * (10 ** 5))
 
         OtpModel.create({
             phone,

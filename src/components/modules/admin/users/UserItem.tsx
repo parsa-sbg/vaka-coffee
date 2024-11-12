@@ -1,14 +1,18 @@
 import { UserInterface } from '@/models/User'
 import toPersionNumber from '@/utils/toPersianNubmer'
 import React from 'react'
+import PromoteBtn from './PeomoteBtn'
 
 type props = {
     isOdd: boolean
     user: UserInterface
     number: number
+    setUsers: React.Dispatch<React.SetStateAction<UserInterface[]>>
 }
 
-function UserItem({ isOdd, user, number }: props) {
+function UserItem({ isOdd, user, number, setUsers }: props) {
+
+
     return (
         <tr className={`${isOdd ? 'bg-secondary' : 'bg-[#0f0f0f]'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
@@ -31,9 +35,7 @@ function UserItem({ isOdd, user, number }: props) {
                         مشاهده
                     </button>
 
-                    <button className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
-                        ارتقا به ادمین
-                    </button>
+                    <PromoteBtn setUsers={setUsers} isOdd={isOdd} phone={user.phone} id={user._id} />
 
                     <button className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
                         حذف

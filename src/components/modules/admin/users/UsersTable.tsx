@@ -11,10 +11,6 @@ function UsersTable({ intialUsers }: props) {
 
     const [users, setUsers] = useState(intialUsers)
 
-    const updateUsers = async () => {
-        
-    }
-
     return (
         <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
 
@@ -41,7 +37,7 @@ function UsersTable({ intialUsers }: props) {
             <tbody>
 
                 {users.map((user, index) => (
-                    <UserItem key={user.username} user={user} number={index + 1} isOdd={index / 2 !== 0} />
+                    <UserItem setUsers={setUsers} key={user.username} user={user} number={index + 1} isOdd={index % 2 !== 0} />
                 ))}
 
             </tbody>

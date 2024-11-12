@@ -13,6 +13,7 @@ export interface Address {
 }
 
 export interface UserInterface {
+    _id: mongoose.Types.ObjectId
     name: string
     username: string
     phone: string
