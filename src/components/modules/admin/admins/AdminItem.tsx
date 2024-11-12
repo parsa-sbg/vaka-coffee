@@ -1,14 +1,16 @@
 import { UserInterface } from '@/models/User'
 import toPersionNumber from '@/utils/toPersianNubmer'
 import React from 'react'
+import DemoteBtn from './DemoteBtn'
 
 type props = {
     isOdd: boolean
     admin: UserInterface
     number: number
+    setAdmins: React.Dispatch<React.SetStateAction<UserInterface[]>>
 }
 
-function AdminItem({ isOdd, number, admin }: props) {
+function AdminItem({ isOdd, number, admin, setAdmins }: props) {
     return (
         <tr className={`${isOdd ? 'bg-secondary' : 'bg-[#0f0f0f]'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
@@ -31,9 +33,7 @@ function AdminItem({ isOdd, number, admin }: props) {
                         مشاهده
                     </button>
 
-                    <button className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
-                        حذف ادمین
-                    </button>
+                    <DemoteBtn id={admin._id} phone={admin.phone} isOdd={isOdd} setAdmins={setAdmins} />
 
                     <button className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
                         حذف

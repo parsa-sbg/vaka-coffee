@@ -1,5 +1,6 @@
+"use client"
 import { UserInterface } from '@/models/User'
-import React from 'react'
+import React, { useState } from 'react'
 import AdminItem from './AdminItem'
 
 type props = {
@@ -7,6 +8,9 @@ type props = {
 }
 
 function AdminsTable({ intialAdmins }: props) {
+
+    const [admins, setAdmins] = useState(intialAdmins)
+
     return (
         <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
 
@@ -32,12 +36,13 @@ function AdminsTable({ intialAdmins }: props) {
 
             <tbody>
 
-                {intialAdmins.map((admin, index) => (
-                    <AdminItem key={admin.username} admin={admin} number={index + 1} isOdd={index / 2 !== 0} />
+                {admins.map((admin, index) => (
+                    <AdminItem setAdmins={setAdmins} key={admin.username} admin={admin} number={index + 1} isOdd={index % 2 !== 0} />
                 ))}
 
             </tbody>
-        </table>)
+        </table>
+    )
 }
 
 export default AdminsTable

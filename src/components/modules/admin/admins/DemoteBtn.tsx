@@ -9,15 +9,15 @@ type props = {
     phone: string
     id: mongoose.Types.ObjectId
     isOdd: boolean
-    setUsers: React.Dispatch<React.SetStateAction<UserInterface[]>>
+    setAdmins: React.Dispatch<React.SetStateAction<UserInterface[]>>
 }
 
-function PromoteBtn({ id, phone, isOdd, setUsers }: props) {
+function DemoteBtn({ isOdd, id, phone, setAdmins }: props) {
 
     const [isLoading, setIsLoading] = useState(false)
 
 
-    const promoteToAdmin = async (t: Toast) => {
+    const demoteAdmin = async (t: Toast) => {
 
         // update toast with loading
         toast.custom((t) => (
@@ -36,14 +36,14 @@ function PromoteBtn({ id, phone, isOdd, setUsers }: props) {
         })
 
         setIsLoading(true)
-        const res = await fetch('/api/admins', {
+        const res = await fetch(`/api/admins`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 _id: id,
-                role: 'ADMIN'
+                role: "USER"
             })
         })
         toast.dismiss(t.id)
@@ -51,9 +51,9 @@ function PromoteBtn({ id, phone, isOdd, setUsers }: props) {
         const data = await res.json()
 
         if (res.status == 200) {
-            setUsers(data.updatedDatas)
+            setAdmins(data.updatedDatas)
             toast.custom((t) => (
-                <SuccessAlert t={t} title='کاربر مورد نظر با موفقیت به ادمین ارتقا یافت .' />
+                <SuccessAlert t={t} title='ادمین مورد نظر با موفقیت تنزل یافت .' />
             ), {
                 position: 'top-left'
             })
@@ -68,14 +68,14 @@ function PromoteBtn({ id, phone, isOdd, setUsers }: props) {
     }
 
 
-    const promoteClickHandler = () => {
+    const demoteClickHandler = () => {
         toast.custom((t) => (
             <div className={`${t.visible ? '!opacity-100 !scale-100' : '!opacity-0 !scale-50'} opacity-0 scale-50 transition-all duration-500 bg-secondary p-3 rounded-md max-w-72 text-sm border border-main border-opacity-50`}>
-                <p>آیا از ارتقای این کاربر با شماره تماس {phone} به ادمین مطمئن هستید ؟</p>
+                <p>آیا از تنزل این ادمین با شماره تماس {phone} به ادمین مطمئن هستید ؟</p>
                 <div className='flex justify-end gap-3 mt-3'>
                     <button onClick={() => { toast.dismiss(t.id) }} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-8 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>لغو</button>
-                    <button onClick={() => { promoteToAdmin(t) }} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-8 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>
-                        ارتقا
+                    <button onClick={() => { demoteAdmin(t) }} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-8 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>
+                        تنزل
                     </button>
                 </div>
             </div>
@@ -85,11 +85,12 @@ function PromoteBtn({ id, phone, isOdd, setUsers }: props) {
         })
     }
 
+
     return (
-        <button onClick={!isLoading ? promoteClickHandler : () => { }} className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
-            {isLoading ? <div className='w-3 h-3 border-x-2 border-secondary rounded-full animate-spin mx-auto' /> : 'ارتقا به ادمین'}
+        <button onClick={!isLoading ? demoteClickHandler : () => { }} className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
+            {isLoading ? <div className='w-3 h-3 border-x-2 border-secondary rounded-full animate-spin mx-auto' /> : 'حذف ادمین'}
         </button>
     )
 }
 
-export default PromoteBtn
+export default DemoteBtn
