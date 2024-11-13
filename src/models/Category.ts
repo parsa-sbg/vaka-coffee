@@ -12,7 +12,7 @@ export interface CategoryInterface {
 export interface categoryDocument extends Document, CategoryInterface { }
 
 
-export interface UserModelInterface extends Model<categoryDocument> { }
+export interface CategoryModelInterface extends Model<categoryDocument> { }
 
 
 // the schema
@@ -30,6 +30,6 @@ const schema = new mongoose.Schema({
 
 // the model
 
-const categoryModel: UserModelInterface = mongoose.models.Category || mongoose.model('category', schema)
+const categoryModel: CategoryModelInterface = mongoose.models.category || mongoose.model('category', schema)
 
 export default categoryModel

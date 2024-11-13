@@ -15,7 +15,7 @@ export const PUT = async (req: NextRequest) => {
     try {
         connectToDataBase()
         const result = await UserModel.findByIdAndUpdate(reqBody._id, { role: reqBody.role })
-        const updatedDatas = await UserModel.find({ role: reqBody.role == 'USER' ? 'ADMIN' : 'USER' })
+        const updatedDatas = await UserModel.find({ role: reqBody.role == 'USER' ? 'ADMIN' : 'USER' }).sort({ _id: -1 })
         if (result) {
             return Response.json({ message: 'user role cahnged successfully', updatedDatas }, { status: 200 })
         } else {

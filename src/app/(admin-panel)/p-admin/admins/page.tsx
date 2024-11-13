@@ -6,13 +6,14 @@ import { cookies } from 'next/headers'
 import React from 'react'
 
 async function page() {
-    connectToDataBase()
-    const admins = await UserModel.find({ role: 'ADMIN' })
-
+    
     const token = (await cookies()).get('token')?.value
     const manager = await authUserWithToken(token)
     if (!manager) return
-
+    
+    connectToDataBase()
+    const admins = await UserModel.find({ role: 'ADMIN' }).sort({ _id: -1 })
+    
     return (
 
         <div className='custom-scrollbar overflow-auto overflow-x-scroll pb-2' >

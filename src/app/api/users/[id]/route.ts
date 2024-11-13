@@ -17,7 +17,7 @@ export const DELETE = async (
     try {
         connectToDataBase()
         const result = await UserModel.findByIdAndDelete((await params).id)
-        const allNewUsers = await UserModel.find({ role: "USER" })
+        const allNewUsers = await UserModel.find({ role: "USER" }).sort({ _id: -1 })
         if (result) {
             return Response.json({ message: 'user promoted to admin successfully', users: allNewUsers }, { status: 200 })
         } else {

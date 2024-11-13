@@ -7,14 +7,14 @@ import React from 'react'
 
 async function Users() {
 
-  connectToDataBase()
-
-  const users = await UserModel.find({ role: 'USER' })
-
   const token = (await cookies()).get('token')?.value
   const manager = await authUserWithToken(token)
   if (!manager) return
 
+
+  connectToDataBase()
+
+  const users = await UserModel.find({ role: 'USER' }).sort({ _id: -1 })
 
   return (
     <div className='custom-scrollbar overflow-x-scroll pb-2'>
