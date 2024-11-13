@@ -10,9 +10,11 @@ type props = {
     user: UserInterface
     number: number
     setUsers: React.Dispatch<React.SetStateAction<UserInterface[]>>
+    managerRole: "ADMIN" | 'OWNER' | 'USER'
+
 }
 
-function UserItem({ isOdd, user, number, setUsers }: props) {
+function UserItem({ isOdd, user, number, setUsers, managerRole }: props) {
 
 
     return (
@@ -35,9 +37,9 @@ function UserItem({ isOdd, user, number, setUsers }: props) {
 
                     <ShowBtn user={user} isOdd={isOdd} />
 
-                    <PromoteBtn setUsers={setUsers} isOdd={isOdd} phone={user.phone} id={user._id} />
-
-                    <DeleteBtn id={user._id} isOdd={isOdd} phone={user.phone} setUsers={setUsers} />
+                    {managerRole == 'OWNER' && <PromoteBtn setUsers={setUsers} isOdd={isOdd} phone={user.phone} id={user._id} />}
+                    
+                    {managerRole == 'OWNER' && <DeleteBtn id={user._id} isOdd={isOdd} phone={user.phone} setUsers={setUsers} />}
 
                 </div>
             </td>

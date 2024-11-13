@@ -9,9 +9,10 @@ type props = {
     admin: UserInterface
     number: number
     setAdmins: React.Dispatch<React.SetStateAction<UserInterface[]>>
+    managerRole: "ADMIN" | 'OWNER' | 'USER'
 }
 
-function AdminItem({ isOdd, number, admin, setAdmins }: props) {
+function AdminItem({ isOdd, number, admin, setAdmins, managerRole }: props) {
     return (
         <tr className={`${isOdd ? 'bg-secondary' : 'bg-[#0f0f0f]'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
@@ -32,7 +33,7 @@ function AdminItem({ isOdd, number, admin, setAdmins }: props) {
 
                     <ShowBtn isOdd={isOdd} admin={admin} />
 
-                    <DemoteBtn id={admin._id} phone={admin.phone} isOdd={isOdd} setAdmins={setAdmins} />
+                    {managerRole == 'OWNER' && <DemoteBtn id={admin._id} phone={admin.phone} isOdd={isOdd} setAdmins={setAdmins} />}
 
                 </div>
             </td>

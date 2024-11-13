@@ -5,9 +5,10 @@ import AdminItem from './AdminItem'
 
 type props = {
     intialAdmins: UserInterface[]
+    managerRole: "ADMIN" | 'OWNER' | 'USER'
 }
 
-function AdminsTable({ intialAdmins }: props) {
+function AdminsTable({ intialAdmins, managerRole }: props) {
 
     const [admins, setAdmins] = useState(intialAdmins)
 
@@ -37,7 +38,7 @@ function AdminsTable({ intialAdmins }: props) {
             <tbody>
 
                 {admins.map((admin, index) => (
-                    <AdminItem setAdmins={setAdmins} key={admin.username} admin={admin} number={index + 1} isOdd={index % 2 !== 0} />
+                    <AdminItem managerRole={managerRole} setAdmins={setAdmins} key={admin.username} admin={admin} number={index + 1} isOdd={index % 2 !== 0} />
                 ))}
 
             </tbody>

@@ -5,9 +5,10 @@ import { UserInterface } from '@/models/User'
 
 type props = {
     intialUsers: UserInterface[]
+    managerRole: "ADMIN" | 'OWNER' | 'USER'
 }
 
-function UsersTable({ intialUsers }: props) {
+function UsersTable({ intialUsers, managerRole }: props) {
 
     const [users, setUsers] = useState(intialUsers)
 
@@ -37,7 +38,7 @@ function UsersTable({ intialUsers }: props) {
             <tbody>
 
                 {users.map((user, index) => (
-                    <UserItem setUsers={setUsers} key={user.username} user={user} number={index + 1} isOdd={index % 2 !== 0} />
+                    <UserItem managerRole={managerRole} setUsers={setUsers} key={user.username} user={user} number={index + 1} isOdd={index % 2 !== 0} />
                 ))}
 
             </tbody>
