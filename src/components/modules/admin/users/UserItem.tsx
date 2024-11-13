@@ -3,6 +3,7 @@ import toPersionNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import PromoteBtn from './PeomoteBtn'
 import DeleteBtn from './DeleteBtn'
+import ShowBtn from './ShowBtn'
 
 type props = {
     isOdd: boolean
@@ -32,9 +33,7 @@ function UserItem({ isOdd, user, number, setUsers }: props) {
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>
 
-                    <button className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
-                        مشاهده
-                    </button>
+                    <ShowBtn user={user} isOdd={isOdd} />
 
                     <PromoteBtn setUsers={setUsers} isOdd={isOdd} phone={user.phone} id={user._id} />
 

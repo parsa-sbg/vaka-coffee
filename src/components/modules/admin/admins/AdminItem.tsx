@@ -2,6 +2,7 @@ import { UserInterface } from '@/models/User'
 import toPersionNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import DemoteBtn from './DemoteBtn'
+import ShowBtn from './ShowBtn'
 
 type props = {
     isOdd: boolean
@@ -29,9 +30,7 @@ function AdminItem({ isOdd, number, admin, setAdmins }: props) {
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>
 
-                    <button className={`text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 ${isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'}  sm:hover:text-main`} >
-                        مشاهده
-                    </button>
+                    <ShowBtn isOdd={isOdd} admin={admin} />
 
                     <DemoteBtn id={admin._id} phone={admin.phone} isOdd={isOdd} setAdmins={setAdmins} />
 
