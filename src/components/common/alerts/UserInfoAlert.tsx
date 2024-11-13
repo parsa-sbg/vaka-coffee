@@ -81,7 +81,7 @@ function UserInfoAlert({ user, t, adminOrUser }: props) {
             </div>
 
             <div className='flex justify-end'>
-                <button onClick={() => { toast.dismiss(t.id) }} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-8 py-1 rounded-md transition-all duration-300 sm:hover:bg-maborder-main border-opacity-50 sm:hover:text-main'>
+                <button onClick={() => { toast.dismiss(t.id) }} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-8 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>
                     بستن
                 </button>
             </div>
