@@ -32,3 +32,27 @@ export const PUT = async (
         return Response.json({ message: 'internal serever error' }, { status: 500 })
     }
 }
+
+export const DELETE = async (
+    req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) => {
+    const token = req.cookies.get('token')?.value
+    const user = await authUserWithToken(token)
+
+    if (!user || user.role == "USER") return Response.json({ message: "this route is protected and you can't access to it ." }, { status: 401 })
+
+    connectToDataBase()
+
+    try {
+        const result = await categoryModel.findByIdAndDelete((await params).id)
+        const allCats = await categoryModel.find({}).sort({ _id: -1 })
+        if (result) {
+            return Response.json({ message: 'category updated successfully', allCategories: allCats }, { status: 200 })
+        }
+        return Response.json({ message: 'internal serever error' }, { status: 500 })
+    } catch (err) {
+        console.log('create category error => ', err);
+        return Response.json({ message: 'internal serever error' }, { status: 500 })
+    }
+}

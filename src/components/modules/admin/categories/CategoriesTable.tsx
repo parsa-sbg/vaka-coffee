@@ -98,7 +98,7 @@ function CategoriesTable({ intialCategories }: props) {
                 <tbody>
 
                     {categories.map((category, index) => (
-                        <CategoryItem editBtnClickhandler={editBtnClickhandler} key={category._id.toString()} category={category} isOdd={index % 2 == 0} number={index + 1} />
+                        <CategoryItem setCategories={setCategories} editBtnClickhandler={editBtnClickhandler} key={category._id.toString()} category={category} isOdd={index % 2 == 0} number={index + 1} />
                     ))}
 
                 </tbody>
