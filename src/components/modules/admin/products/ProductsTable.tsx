@@ -1,10 +1,20 @@
-import toPersionNumber from '@/utils/toPersianNubmer'
-import Image from 'next/image'
-import React from 'react'
+"use client"
+
+import React, { useState } from 'react'
 import Header from './Header/Header'
 import ProductItem from './ProductItem'
+import { ProductInterface } from '@/models/Product'
 
-function ProductsTable() {
+
+type props = {
+    intialProducts: ProductInterface[]
+}
+
+function ProductsTable({ intialProducts }: props) {
+
+
+    const [products, setProducts] = useState(intialProducts)
+
     return (
         <>
             <Header />
@@ -35,11 +45,9 @@ function ProductsTable() {
 
                 <tbody>
 
-                    <ProductItem isOdd={false} />
-                    <ProductItem isOdd={true} />
-                    <ProductItem isOdd={false} />
-                    <ProductItem isOdd={true} />
-
+                    {products.map((product, index) => (
+                        <ProductItem key={product._id?.toString()} isOdd={index % 2 == 0} />
+                    ))}
 
                 </tbody>
             </table>

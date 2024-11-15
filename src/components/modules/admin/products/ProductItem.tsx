@@ -8,7 +8,7 @@ type props = {
 
 function ProductItem({ isOdd }: props) {
     return (
-        <tr className={`${!isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
+        <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
                 <span className='w-full flex justify-center items-center'>{toPersionNumber('1')}</span>
             </th>
@@ -41,7 +41,8 @@ function ProductItem({ isOdd }: props) {
 
                 </div>
             </td>
-        </tr>)
+        </tr>
+    )
 }
 
 export default ProductItem
