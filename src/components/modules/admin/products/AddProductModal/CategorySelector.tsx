@@ -1,12 +1,19 @@
+import { CategoryInterface } from '@/models/Category'
+import mongoose from 'mongoose'
 import React, { useCallback, useEffect, useState } from 'react'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 
-function CategorySelector() {
-  type selecctedcatType = 'priceHighToLow' | 'priceLowToHigh' | 'latest' | 'score'
-  type buttonTextType = 'انتخاب کنید' | 'قهوه ترک' | 'قهوه عربیکا' | 'قهوه روبوستا'
+type props = {
+  categories: CategoryInterface[]
+
+}
+
+function CategorySelector({ categories }: props) {
+  type selecctedCatIdType = mongoose.Types.ObjectId | null
+  type buttonTextType = string
 
   const [isOpen, setIsOpen] = useState(false)
-  const [selecctedcat, setSelecctedcat] = useState<selecctedcatType>('latest')
+  const [selecctedCatId, setSelecctedCatIdId] = useState<selecctedCatIdType>(null)
   const [buttonText, setButtonText] = useState<buttonTextType>('انتخاب کنید')
 
   const windowClickhandler = useCallback(() => {
@@ -27,8 +34,8 @@ function CategorySelector() {
     setIsOpen(prev => !prev)
   }
 
-  const OptionClickHandler = (selecctedcat: selecctedcatType, title: buttonTextType) => {
-    setSelecctedcat(selecctedcat)
+  const OptionClickHandler = (selecctedCatId: selecctedCatIdType, title: buttonTextType) => {
+    setSelecctedCatIdId(selecctedCatId)
     setButtonText(title)
     setIsOpen(false)
   }
@@ -47,17 +54,13 @@ function CategorySelector() {
 
       <div className={`${isOpen && '!max-h-52 border'} w-full transition-all rounded-b-md duration-200 top-full bg-bgColer border-secondary left-0 max-h-0 overflow-hidden`}>
 
-        <button onClick={e => { OptionClickHandler('score', 'قهوه ترک') }} className='py-2 px-4 text-nowrap w-full hover:bg-[#0f0f0f] transition-all duration-200'>
-          قهوه ترک
-        </button>
+        {categories.map(cat => (
 
-        <button onClick={e => { OptionClickHandler('priceLowToHigh', 'قهوه عربیکا') }} className='py-2 px-4 text-nowrap w-full hover:bg-[#0f0f0f] transition-all duration-200'>
-          قهوه عربیکا
-        </button>
+          <button key={cat._id.toString()} onClick={e => { OptionClickHandler(cat._id, cat.name) }} className='py-2 px-4 text-nowrap w-full hover:bg-[#0f0f0f] transition-all duration-200'>
+            {cat.name}
+          </button>
 
-        <button onClick={e => { OptionClickHandler('priceHighToLow', 'قهوه روبوستا') }} className='py-2 px-4 text-nowrap w-full hover:bg-[#0f0f0f] transition-all duration-200'>
-          قهوه روبوستا
-        </button>
+        ))}
 
       </div>
 

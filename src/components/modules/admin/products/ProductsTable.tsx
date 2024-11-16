@@ -4,20 +4,22 @@ import React, { useState } from 'react'
 import Header from './Header/Header'
 import ProductItem from './ProductItem'
 import { ProductInterface } from '@/models/Product'
+import { CategoryInterface } from '@/models/Category'
 
 
 type props = {
     intialProducts: ProductInterface[]
+    categories: CategoryInterface[]
 }
 
-function ProductsTable({ intialProducts }: props) {
+function ProductsTable({ intialProducts, categories }: props) {
 
 
     const [products, setProducts] = useState(intialProducts)
 
     return (
         <>
-            <Header setProducts={setProducts} />
+            <Header categories={categories} setProducts={setProducts} />
             <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
 
                 <thead className="text-xs text-nowrap bg-secondary">

@@ -5,13 +5,16 @@ import { useModal } from '@/hooks/useModal';
 import Modal from '@/components/common/Modal';
 import AddProductModal from '../AddProductModal/AddProductModal';
 import { ProductInterface } from '@/models/Product';
+import { CategoryInterface } from '@/models/Category';
 
 
 type props = {
     setProducts: React.Dispatch<React.SetStateAction<ProductInterface[]>>
+    categories: CategoryInterface[]
+
 }
 
-function Header({ setProducts }: props) {
+function Header({ setProducts, categories }: props) {
 
     const { isModalShow, showModal, hideModal } = useModal()
 
@@ -23,10 +26,10 @@ function Header({ setProducts }: props) {
                 افزودن محصول
             </button>
 
-            <Categories />
+            <Categories categories={categories} />
 
             <Modal coverClickhandler={hideModal} isModalShow={isModalShow} >
-                <AddProductModal setProducts={setProducts} hideModal={hideModal} />
+                <AddProductModal categories={categories} setProducts={setProducts} hideModal={hideModal} />
             </Modal>
 
         </div>
