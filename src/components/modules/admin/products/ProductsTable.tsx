@@ -17,7 +17,7 @@ function ProductsTable({ intialProducts }: props) {
 
     return (
         <>
-            <Header />
+            <Header setProducts={setProducts} />
             <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
 
                 <thead className="text-xs text-nowrap bg-secondary">
