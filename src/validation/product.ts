@@ -12,7 +12,7 @@ const imageFileSchema = z.custom<File>((file) => {
         file.size <= MAX_FILE_SIZE
     );
 }, {
-    message: toPersionNumber('فرمت عکس های محصول باید jpeg ، png و یا webp و از 5 مگابایت کمتر باشد .'),
+    message: toPersionNumber(`حجم تصویر محصول نباید از 5 مگابایت بیشتر باشد .`),
     path: ['pictures']
 });
 
@@ -25,8 +25,9 @@ const dynamicFieldSchema = z.object({
 
     value: z.string()
         .min(2, 'مقدار داینامیک فیلد نباید از دو کاراکتر کمتر باشد.')
-        .max(15, toPersionNumber('مقدار داینامیک فیلد نباید از 15 کاراکتر بیشتر باشد.'))
+        .max(15, toPersionNumber('مقدار داینامیک فیلد نباید از 15 کاراکتر بیشتر باشد.')),
 
+    id: z.any()
 })
 
 export const productSchema = z.object({
@@ -50,7 +51,7 @@ export const productSchema = z.object({
     stock: z.number()
         .min(0, 'موجودی انبار نمیتواند از صفر کمتر باشد !'),
 
-    category: z.string().min(1, "دسته‌بندی نمی‌تواند خالی باشد"),
+    category: z.string({ message: 'دسته بندی انتخاب نشده !' }).min(1, "دسته‌بندی نمی‌تواند خالی باشد"),
 
 
     pictures: z.array(imageFileSchema)
