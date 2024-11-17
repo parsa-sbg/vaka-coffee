@@ -17,7 +17,7 @@ export interface ProductInterface {
     pictures: string[]
     dynamicFields: DynamicField[]
     stock?: number
-    category: CategoryInterface | mongoose.Types.ObjectId
+    category: CategoryInterface & mongoose.Types.ObjectId
 }
 
 export interface ProductDocument extends Document, ProductInterface { }

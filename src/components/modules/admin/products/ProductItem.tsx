@@ -1,28 +1,33 @@
+import { ProductInterface } from '@/models/Product'
 import toPersionNumber from '@/utils/toPersianNubmer'
 import Image from 'next/image'
 import React from 'react'
 
 type props = {
     isOdd: boolean
+    product: ProductInterface
 }
 
-function ProductItem({ isOdd }: props) {
+function ProductItem({ isOdd, product }: props) {
     return (
         <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
                 <span className='w-full flex justify-center items-center'>{toPersionNumber('1')}</span>
             </th>
             <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
-                <Image className='w-20 h-20 min-w-20' alt='products image' width={500} height={500} src='https://vakacoffee.com/wp-content/uploads/2024/02/vaka-products-051604.jpg' />
+                {product.pictures[0]
+                    ? <Image className='w-20 h-20 min-w-20' alt='products image' width={500} height={500} src={product.pictures[0]} />
+                    : <div className='w-20 h-20 bg-gray-600'></div>
+                }
             </th>
             <td className="px-3 lg:px-6 py-4">
-                پودر قهوه ترک 5 کیلوگرم
+                {product.name}
             </td>
             <td className="px-3 lg:px-6 py-4">
-                قهوه ترک
+                {product.category.name}
             </td>
             <td className="px-3 lg:px-6 py-4">
-                {toPersionNumber('250,000 تومان')}
+                {product.price ? toPersionNumber(`${product.price.toLocaleString()} تومان`) : 'رایگان'}
             </td>
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>

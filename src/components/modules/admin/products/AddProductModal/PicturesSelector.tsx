@@ -7,10 +7,11 @@ import { errorsType } from './AddProductModal';
 type props = {
     setPictures: React.Dispatch<React.SetStateAction<File[]>>
     errors: number[]
+    pictures: File[]
     setErrors: React.Dispatch<React.SetStateAction<errorsType>>
 }
 
-function PicturesSelector({ setPictures, errors, setErrors }: props) {
+function PicturesSelector({ setPictures, errors, setErrors, pictures }: props) {
 
     const [preview, setPreview] = useState<{ url: string, error: boolean }[]>([]);
 
@@ -26,6 +27,15 @@ function PicturesSelector({ setPictures, errors, setErrors }: props) {
             })
         }
     }, [errors])
+
+
+    useEffect(() => {
+        if (!pictures.length) {
+            setPreview([])
+        }
+    }, [pictures])
+
+
 
     const changehandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

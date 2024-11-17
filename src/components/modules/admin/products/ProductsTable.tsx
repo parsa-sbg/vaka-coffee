@@ -48,7 +48,7 @@ function ProductsTable({ intialProducts, categories }: props) {
                 <tbody>
 
                     {products.map((product, index) => (
-                        <ProductItem key={product._id?.toString()} isOdd={index % 2 == 0} />
+                        <ProductItem product={product} key={product._id?.toString()} isOdd={index % 2 == 0} />
                     ))}
 
                 </tbody>

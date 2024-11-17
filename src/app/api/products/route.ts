@@ -37,9 +37,7 @@ const uploadImage = async (pic: File) => {
         Expires: 315360000000,
     });
 
-
 }
-
 
 
 export const POST = async (req: NextRequest) => {
@@ -75,7 +73,6 @@ export const POST = async (req: NextRequest) => {
 
     connectToDataBase()
 
-    // upload images in liara cloud
     try {
 
 
@@ -95,7 +92,7 @@ export const POST = async (req: NextRequest) => {
         })
 
         if (newProduct) {
-            const allProducts = await productmodel.find()
+            const allProducts = await productmodel.find().sort({ _id: -1 })
             return Response.json({ message: 'product crete successfully', allProducts: allProducts }, { status: 201 })
         } else {
             return Response.json({ message: 'internal server error' }, { status: 500 })

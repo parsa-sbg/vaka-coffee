@@ -7,7 +7,7 @@ import React from 'react'
 async function Products() {
 
   connectToDataBase()
-  const allProducts = await productmodel.find({}).sort({ id: -1 }).populate('category')
+  const allProducts = await productmodel.find({}).sort({ _id: -1 }).populate('category')
   const categories = await categoryModel.find({})
 
   return (

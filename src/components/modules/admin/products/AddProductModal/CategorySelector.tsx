@@ -6,12 +6,13 @@ import { errorsType } from './AddProductModal'
 
 type props = {
   categories: CategoryInterface[]
-  category: React.Dispatch<React.SetStateAction<mongoose.Types.ObjectId | null>>
+  setCategory: React.Dispatch<React.SetStateAction<mongoose.Types.ObjectId | null>>
   error: boolean
   setErrors: React.Dispatch<React.SetStateAction<errorsType>>
+  category: mongoose.Types.ObjectId | null
 }
 
-function CategorySelector({ categories, category, error, setErrors }: props) {
+function CategorySelector({ categories, setCategory, error, setErrors, category }: props) {
   type buttonTextType = string
   type selectedCatIdType = mongoose.Types.ObjectId | null
 
@@ -21,6 +22,13 @@ function CategorySelector({ categories, category, error, setErrors }: props) {
   const windowClickhandler = useCallback(() => {
     isOpen && setIsOpen(false)
   }, [isOpen])
+
+
+  useEffect(() => {
+    if (!category) {
+      setButtonText('انتخاب کنید')
+    }
+  }, [category])
 
 
   useEffect(() => {
@@ -38,7 +46,7 @@ function CategorySelector({ categories, category, error, setErrors }: props) {
   }
 
   const OptionClickHandler = (selecctedCatId: selectedCatIdType, title: buttonTextType) => {
-    category(selecctedCatId)
+    setCategory(selecctedCatId)
     setErrors(prev => ({ ...prev, category: false }))
     setButtonText(title)
     setIsOpen(false)
