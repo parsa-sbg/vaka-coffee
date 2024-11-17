@@ -54,7 +54,7 @@ function CategorySelector({ categories, setCategory, error, setErrors, category 
 
 
   return (
-    <div onClick={e => { e.stopPropagation() }} className={`text-sm w-full ${error ? 'text-red-600' : ''}`}>
+    <div onClick={e => { e.stopPropagation() }} className={`text-sm ${error ? 'text-red-600' : ''}`}>
       <h5 className='mb-1 font-semibold transition-all duration-300'>دسته بندی</h5>
 
       <button
@@ -64,11 +64,11 @@ function CategorySelector({ categories, setCategory, error, setErrors, category 
         <MdKeyboardArrowLeft className={`transition-transform duration-300 ${isOpen && '-rotate-90'}`} size={25} />
       </button>
 
-      <div className={`${isOpen && '!max-h-52 border'} w-full transition-all rounded-b-md duration-200 top-full bg-bgColer border-secondary left-0 max-h-0 overflow-hidden`}>
+      <div className={`${isOpen && '!max-h-52 border'} flex flex-col transition-all rounded-b-md duration-200 top-full bg-bgColer border-secondary left-0 max-h-0 overflow-hidden`}>
 
         {categories.map(cat => (
 
-          <button key={cat._id.toString()} onClick={() => { OptionClickHandler(cat._id, cat.name) }} className='py-2 px-4 text-nowrap w-full hover:bg-[#0f0f0f]'>
+          <button key={cat._id.toString()} onClick={() => { OptionClickHandler(cat._id, cat.name) }} className='py-2 px-4 text-nowrap hover:bg-[#0f0f0f]'>
             {cat.name}
           </button>
 
