@@ -21,11 +21,11 @@ const dynamicFieldSchema = z.object({
 
     key: z.string()
         .min(2, 'کلید داینامیک فیلد نباید از دو کاراکتر کمتر باشد.')
-        .max(15, toPersionNumber('کلید داینامیک فیلد نباید از 15 کاراکتر بیشتر باشد.')),
+        .max(30, toPersionNumber('کلید داینامیک فیلد نباید از 30 کاراکتر بیشتر باشد.')),
 
     value: z.string()
         .min(2, 'مقدار داینامیک فیلد نباید از دو کاراکتر کمتر باشد.')
-        .max(15, toPersionNumber('مقدار داینامیک فیلد نباید از 15 کاراکتر بیشتر باشد.')),
+        .max(30, toPersionNumber('مقدار داینامیک فیلد نباید از 30 کاراکتر بیشتر باشد.')),
 
     id: z.any()
 })
@@ -34,7 +34,7 @@ export const productSchema = z.object({
 
     name: z.string()
         .min(7, toPersionNumber('نام محصول باید حداقل 7 کاراکتر داشته باشد.'))
-        .max(20, toPersionNumber('نام محصول باید حداکثر 20 کاراکتر داشته باشد.')),
+        .max(50, toPersionNumber('نام محصول باید حداکثر 50 کاراکتر داشته باشد.')),
 
 
     price: z.number()

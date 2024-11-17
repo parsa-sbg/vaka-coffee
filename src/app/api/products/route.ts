@@ -92,7 +92,7 @@ export const POST = async (req: NextRequest) => {
         })
 
         if (newProduct) {
-            const allProducts = await productmodel.find().sort({ _id: -1 })
+            const allProducts = await productmodel.find().sort({ _id: -1 }).populate('category')
             return Response.json({ message: 'product crete successfully', allProducts: allProducts }, { status: 201 })
         } else {
             return Response.json({ message: 'internal server error' }, { status: 500 })
