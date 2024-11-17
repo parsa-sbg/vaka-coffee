@@ -2,6 +2,8 @@ import { ProductInterface } from '@/models/Product'
 import toPersionNumber from '@/utils/toPersianNubmer'
 import Image from 'next/image'
 import React from 'react'
+import { LuImageOff } from "react-icons/lu";
+
 
 type props = {
     isOdd: boolean
@@ -16,8 +18,8 @@ function ProductItem({ isOdd, product }: props) {
             </th>
             <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
                 {product.pictures[0]
-                    ? <Image className='w-20 h-20 min-w-20' alt='products image' width={500} height={500} src={product.pictures[0]} />
-                    : <div className='w-20 h-20 bg-gray-600'></div>
+                    ? <Image className='w-20 h-20 min-w-20 rounded-md' alt='products image' width={500} height={500} src={product.pictures[0]} />
+                    : <div className='w-20 h-20 bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={30} className='text-main' /></div>
                 }
             </th>
             <td className="px-3 lg:px-6 py-4">
