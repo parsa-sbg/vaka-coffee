@@ -1,9 +1,11 @@
 import { productSchema } from '@/validation/product'
 import mongoose from 'mongoose'
-import React from 'react'
+import React, { useState } from 'react'
 import { errorsType } from './AddProductModal'
 import toast from 'react-hot-toast'
 import ErrorAlert from '@/components/common/alerts/ErrorAlert'
+import SuccessAlert from '@/components/common/alerts/SuccessAlert'
+import { ProductInterface } from '@/models/Product'
 
 type props = {
     name: string
@@ -18,12 +20,19 @@ type props = {
         value: string;
     }[]
     setErrors: React.Dispatch<React.SetStateAction<errorsType>>
+    hideModal: () => void
+    resetDatas: () => void
+    setProducts: React.Dispatch<React.SetStateAction<ProductInterface[]>>
 }
 
-function AddBtn({ discount, dynamicFields, name, pictures, price, category, stock, setErrors }: props) {
+function AddBtn({ discount, dynamicFields, name, pictures, price, category, stock, setErrors, hideModal, resetDatas, setProducts }: props) {
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const clickHandler = async () => {
 
 
-    const clickHandler = () => {
+        // client dalidation
         const parsedData = productSchema.safeParse({
             name,
             price: +price,
@@ -34,6 +43,7 @@ function AddBtn({ discount, dynamicFields, name, pictures, price, category, stoc
             category
         })
 
+        // show validation errors
         if (!parsedData.success) {
 
             parsedData.error.issues.map(issue => {
@@ -56,14 +66,50 @@ function AddBtn({ discount, dynamicFields, name, pictures, price, category, stoc
             return
         }
 
-        
+        const formData = new FormData()
+        formData.append('name', name)
+        formData.append('price', price)
+        formData.append('discount', discount)
+        formData.append('dynamicFields', JSON.stringify(dynamicFields))
+        formData.append('stock', stock)
+        formData.append('category', JSON.stringify(category))
+        pictures.forEach(pic => {
+            formData.append('pictures', pic)
+        })
+
+        setIsLoading(true)
+        const res = await fetch('/api/products', {
+            method: "POST",
+            body: formData
+        })
+        const data = await res.json()
+        setIsLoading(false)
+
+
+        if (res.status == 201) {
+            hideModal()
+            resetDatas()
+            setProducts(data.allProducts)
+            toast.custom((t) => (
+                <SuccessAlert t={t} title='محصول جدید با موفقیت اضافه شد .' />
+            ), {
+                position: 'top-left'
+            })
+        } else {
+            toast.custom((t) => (
+                <ErrorAlert t={t} title='خطایی رخ داد !' />
+            ), {
+                position: 'top-left'
+            })
+        }
 
     }
 
     return (
-        <button onClick={clickHandler} className='text-nowrap w-full bg-main text-bgColer font-semibold px-4 py-1.5 rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main'>
-            افزودن محصول
+        <button disabled={isLoading} onClick={clickHandler} className={`${isLoading ? '!bg-bgColer' : ''} h-9 text-nowrap w-full bg-main text-bgColer font-semibold px-4 py-1.5 rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main`}>
+            {isLoading ? <div className='w-3 h-3 border-x-2 border-main rounded-full animate-spin mx-auto' /> : 'افزودن محصول '}
         </button>
+
     )
 }
 

@@ -15,7 +15,7 @@ function ProductBox({ priceGoldColor }: productBoxProps) {
     return (
         <Link href=' ' className='w-full flex flex-col items-center'>
 
-            <Image className='w-full rounded-md' src='https://vakacoffee.com/wp-content/uploads/2024/02/vaka-products-051604-1024x1024.jpg' alt='product image' width={300} height={300} />
+            <Image className='w-full rounded-md' src='https://vakacoffee.storage.c2.liara.space/Untitled.png?AWSAccessKeyId=qntsumvcd1ien623&Expires=1763411479&Signature=SrhQNSoQXlf4w4JieWa7pJV0QWg%3D' alt='product image' width={300} height={300} />
 
             <span className='mt-2 font-semibold'>پودر قهوه ترک 5 کیلوگرم</span>
 

@@ -50,6 +50,15 @@ function AddProductModal({ hideModal, setProducts, categories }: props) {
         dynamicFields: [],
     })
 
+    const resetDatas = () => {
+        setName('')
+        setDiscount('0')
+        setStock('0')
+        setCategory(null)
+        setPrice('0')
+        setPictures([])
+        setDynamicFields([{ id: crypto.randomUUID(), key: '', value: '' }])
+    }
 
     return (
         <div className=' py-20 px-10 h-full'>
@@ -70,7 +79,7 @@ function AddProductModal({ hideModal, setProducts, categories }: props) {
 
                     <div className='flex justify-between items-center gap-3'>
                         <CancelBtn hideModal={hideModal} />
-                        <AddBtn setErrors={setErrors} category={category} discount={discount} dynamicFields={dynamicFields} name={name} pictures={pictures} price={price} stock={stock} />
+                        <AddBtn setProducts={setProducts} resetDatas={resetDatas} hideModal={hideModal} setErrors={setErrors} category={category} discount={discount} dynamicFields={dynamicFields} name={name} pictures={pictures} price={price} stock={stock} />
                     </div>
                 </div>
 
