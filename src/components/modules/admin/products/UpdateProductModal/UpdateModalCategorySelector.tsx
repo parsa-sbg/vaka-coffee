@@ -18,7 +18,7 @@ function UpdateModalCategorySelector({ categories, setCategory, error, setErrors
   type selectedCatIdType = mongoose.Types.ObjectId | null
 
   const [isOpen, setIsOpen] = useState(false)
-  const [buttonText, setButtonText] = useState<buttonTextType>('انتخاب کنید')
+  const [buttonText, setButtonText] = useState<buttonTextType>(selectedcatName)
 
   const windowClickhandler = useCallback(() => {
     isOpen && setIsOpen(false)
@@ -28,8 +28,6 @@ function UpdateModalCategorySelector({ categories, setCategory, error, setErrors
   useEffect(() => {
     if (!category) {
       setButtonText('انتخاب کنید')
-    } else {
-      setButtonText(selectedcatName)
     }
   }, [category])
 

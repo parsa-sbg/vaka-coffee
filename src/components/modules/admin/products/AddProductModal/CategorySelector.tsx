@@ -27,8 +27,6 @@ function CategorySelector({ categories, setCategory, error, setErrors, category 
   useEffect(() => {
     if (!category) {
       setButtonText('انتخاب کنید')
-    } else {
-      setButtonText(category._id?.toString())
     }
   }, [category])
 

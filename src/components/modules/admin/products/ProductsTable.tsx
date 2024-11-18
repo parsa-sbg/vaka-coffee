@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './Header/Header'
 import ProductItem from './ProductItem'
 import { ProductInterface } from '@/models/Product'
@@ -19,19 +19,20 @@ function ProductsTable({ intialProducts, categories }: props) {
 
 
     const [products, setProducts] = useState(intialProducts)
+    const [shownProducts, setShownProducts] = useState(intialProducts)
+
     const { hideModal: hideUpdateModal, isModalShow: isUpdateModalShow, showModal: showUpdateModal } = useModal()
     const [clickedProduct, setClickedProduct] = useState<ProductInterface>()
 
 
     const editBtnClickHandler = (product: ProductInterface) => {
-        console.log(product);
         setClickedProduct(product)
         showUpdateModal()
     }
 
     return (
         <>
-            <Header categories={categories} setProducts={setProducts} />
+            <Header setShownProducts={setShownProducts} products={products} categories={categories} setProducts={setProducts} />
             <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
 
                 <thead className="text-xs text-nowrap bg-secondary">
@@ -59,7 +60,7 @@ function ProductsTable({ intialProducts, categories }: props) {
 
                 <tbody>
 
-                    {products.map((product, index) => (
+                    {shownProducts.map((product, index) => (
                         <ProductItem number={index + 1} editBtnClickHandler={editBtnClickHandler} setProducts={setProducts} product={product} key={product._id?.toString()} isOdd={index % 2 == 0} />
                     ))}
 

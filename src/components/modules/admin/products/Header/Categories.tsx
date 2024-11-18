@@ -1,21 +1,41 @@
 "use client"
 import { CategoryInterface } from '@/models/Category'
-import mongoose from 'mongoose'
+import { ProductInterface } from '@/models/Product'
 import React, { useCallback, useEffect, useState } from 'react'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 
 type props = {
     categories: CategoryInterface[]
+    products: ProductInterface[]
+    setShownProducts: React.Dispatch<React.SetStateAction<ProductInterface[]>>
 }
 
-function Categories({ categories }: props) {
+function Categories({ categories, products, setShownProducts }: props) {
 
-    type selecctedCatIdType = mongoose.Types.ObjectId | null
+    type selecctedCatIdType = CategoryInterface | null
     type buttonTextType = string
 
     const [isOpen, setIsOpen] = useState(false)
     const [selecctedcat, setSelecctedcat] = useState<selecctedCatIdType>(null)
     const [buttonText, setButtonText] = useState<buttonTextType>('نمایش همه')
+
+    const [allProducts, setAllProducts] = useState(products)
+
+    useEffect(() => {
+        setAllProducts(products)
+        setShownProducts([...products].filter(item => item.category._id == selecctedcat?._id))
+    }, [products])
+
+    useEffect(() => {
+        setButtonText(selecctedcat?.name || 'نمایش همه')
+        setIsOpen(false)
+
+        if (!selecctedcat) {
+            setShownProducts(allProducts)
+        } else {
+            setShownProducts([...products].filter(item => item.category._id == selecctedcat._id))
+        }
+    }, [selecctedcat])
 
     const windowClickhandler = useCallback(() => {
         isOpen && setIsOpen(false)
@@ -35,12 +55,6 @@ function Categories({ categories }: props) {
         setIsOpen(prev => !prev)
     }
 
-    const OptionClickHandler = (selecctedcat: selecctedCatIdType, title: buttonTextType) => {
-        setSelecctedcat(selecctedcat)
-        setButtonText(title)
-        setIsOpen(false)
-    }
-
 
     return (
         <div onClick={e => { e.stopPropagation() }} className='relative text-sm '>
@@ -54,9 +68,12 @@ function Categories({ categories }: props) {
 
             <div className={`${isOpen && '!max-h-52 border'} w-fit absolute right-0 transition-all rounded-b-md duration-200 top-full bg-bgColer border-secondary left-0 max-h-0 overflow-hidden`}>
 
+                <button onClick={e => { setSelecctedcat(null) }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
+                    نمایش همه
+                </button>
 
                 {categories.map(cat => (
-                    <button key={cat._id.toString()} onClick={e => { OptionClickHandler(cat._id, cat.name) }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
+                    <button key={cat._id.toString()} onClick={e => { setSelecctedcat(cat) }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
                         {cat.name}
                     </button>
                 ))}

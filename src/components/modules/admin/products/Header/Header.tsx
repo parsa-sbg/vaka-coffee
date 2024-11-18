@@ -11,10 +11,11 @@ import { CategoryInterface } from '@/models/Category';
 type props = {
     setProducts: React.Dispatch<React.SetStateAction<ProductInterface[]>>
     categories: CategoryInterface[]
-
+    products: ProductInterface[]
+    setShownProducts: React.Dispatch<React.SetStateAction<ProductInterface[]>>
 }
 
-function Header({ setProducts, categories }: props) {
+function Header({ setProducts, categories, products, setShownProducts }: props) {
 
     const { isModalShow, showModal, hideModal } = useModal()
 
@@ -26,7 +27,7 @@ function Header({ setProducts, categories }: props) {
                 افزودن محصول
             </button>
 
-            <Categories categories={categories} />
+            <Categories setShownProducts={setShownProducts} products={products} categories={categories} />
 
             <Modal coverClickhandler={hideModal} isModalShow={isModalShow} >
                 <AddProductModal categories={categories} setProducts={setProducts} hideModal={hideModal} />
