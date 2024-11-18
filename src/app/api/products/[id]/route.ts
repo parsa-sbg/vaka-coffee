@@ -16,7 +16,7 @@ export const DELETE = async (
     try {
         connectToDataBase()
         const result = await productmodel.findByIdAndDelete((await params).id)
-        const allnewProducts = await productmodel.find({}).sort({ _id: -1 })
+        const allnewProducts = await productmodel.find({}).sort({ _id: -1 }).populate('category')
         if (result) {
             return Response.json({ message: 'products deleted successfully', allProducts: allnewProducts }, { status: 200 })
         } else {
