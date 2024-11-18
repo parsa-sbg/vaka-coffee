@@ -5,6 +5,9 @@ import Header from './Header/Header'
 import ProductItem from './ProductItem'
 import { ProductInterface } from '@/models/Product'
 import { CategoryInterface } from '@/models/Category'
+import { useModal } from '@/hooks/useModal'
+import Modal from '@/components/common/Modal'
+import UpdateProductModal from './UpdateProductModal/UpdateProductModal'
 
 
 type props = {
@@ -16,6 +19,15 @@ function ProductsTable({ intialProducts, categories }: props) {
 
 
     const [products, setProducts] = useState(intialProducts)
+    const { hideModal: hideUpdateModal, isModalShow: isUpdateModalShow, showModal: showUpdateModal } = useModal()
+    const [clickedProduct, setClickedProduct] = useState<ProductInterface>()
+
+
+    const editBtnClickHandler = (product: ProductInterface) => {
+        console.log(product);
+        setClickedProduct(product)
+        showUpdateModal()
+    }
 
     return (
         <>
@@ -48,11 +60,14 @@ function ProductsTable({ intialProducts, categories }: props) {
                 <tbody>
 
                     {products.map((product, index) => (
-                        <ProductItem setProducts={setProducts} product={product} key={product._id?.toString()} isOdd={index % 2 == 0} />
+                        <ProductItem number={index + 1} editBtnClickHandler={editBtnClickHandler} setProducts={setProducts} product={product} key={product._id?.toString()} isOdd={index % 2 == 0} />
                     ))}
 
                 </tbody>
             </table>
+            <Modal isModalShow={isUpdateModalShow} coverClickhandler={hideUpdateModal}>
+                {clickedProduct && <UpdateProductModal product={clickedProduct} categories={categories} hideModal={hideUpdateModal} setProducts={setProducts} />}
+            </Modal>
         </>
 
     )

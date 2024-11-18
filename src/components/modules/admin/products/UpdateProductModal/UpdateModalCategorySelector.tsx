@@ -2,7 +2,7 @@ import { CategoryInterface } from '@/models/Category'
 import mongoose from 'mongoose'
 import React, { useCallback, useEffect, useState } from 'react'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
-import { errorsType } from './AddProductModal'
+import { errorsType } from './UpdateProductModal' 
 
 type props = {
   categories: CategoryInterface[]
@@ -10,9 +10,10 @@ type props = {
   error: boolean
   setErrors: React.Dispatch<React.SetStateAction<errorsType>>
   category: mongoose.Types.ObjectId | null
+  selectedcatName: string
 }
 
-function CategorySelector({ categories, setCategory, error, setErrors, category }: props) {
+function UpdateModalCategorySelector({ categories, setCategory, error, setErrors, category, selectedcatName }: props) {
   type buttonTextType = string
   type selectedCatIdType = mongoose.Types.ObjectId | null
 
@@ -28,7 +29,7 @@ function CategorySelector({ categories, setCategory, error, setErrors, category 
     if (!category) {
       setButtonText('انتخاب کنید')
     } else {
-      setButtonText(category._id?.toString())
+      setButtonText(selectedcatName)
     }
   }, [category])
 
@@ -83,4 +84,4 @@ function CategorySelector({ categories, setCategory, error, setErrors, category 
   )
 }
 
-export default CategorySelector
+export default UpdateModalCategorySelector

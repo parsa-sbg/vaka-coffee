@@ -16,7 +16,7 @@ export interface ProductInterface {
     discount: number
     pictures: string[]
     dynamicFields: DynamicField[]
-    stock?: number
+    stock: number
     category: CategoryInterface & mongoose.Types.ObjectId
 }
 

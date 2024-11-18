@@ -10,13 +10,15 @@ type props = {
     isOdd: boolean
     product: ProductInterface
     setProducts: React.Dispatch<React.SetStateAction<ProductInterface[]>>
+    editBtnClickHandler: (product: ProductInterface) => void
+    number: number
 }
 
-function ProductItem({ isOdd, product, setProducts }: props) {
+function ProductItem({ isOdd, product, setProducts, editBtnClickHandler, number }: props) {
     return (
         <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                <span className='w-full flex justify-center items-center'>{toPersionNumber('1')}</span>
+                <span className='w-full flex justify-center items-center'>{toPersionNumber(number.toString())}</span>
             </th>
             <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
                 {product.pictures[0]
@@ -42,7 +44,7 @@ function ProductItem({ isOdd, product, setProducts }: props) {
 
                     <DeleteBtn isOdd={isOdd} id={product._id} productname={product.name} setProducts={setProducts} />
 
-                    <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
+                    <button onClick={() => { editBtnClickHandler(product) }} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
                         ویرایش
                     </button>
 

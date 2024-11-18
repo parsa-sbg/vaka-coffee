@@ -30,7 +30,6 @@ export const DELETE = async (
 }
 
 
-
 export const PUT = async (
     req: NextRequest,
     { params }: { params: Promise<{ id: string }> }
@@ -51,7 +50,7 @@ export const PUT = async (
     const category = formData.get('category')
     const pictures = formData.getAll('pictures')
 
-    const useOldImages = formData.get('useOldImages')
+    const useOldImages = formData.get('useOldImages') === null ? true : formData.get('useOldImages')
 
 
     const updateProductDatas = {
@@ -78,7 +77,7 @@ export const PUT = async (
 
         let picturesUrl = null
 
-        if (useOldImages) {
+        if (JSON.parse(useOldImages as string)) {
             picturesUrl = product.pictures
         } else {
             picturesUrl = await Promise.all(parsedData.data.pictures.map(pic => {
