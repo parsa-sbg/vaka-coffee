@@ -10,7 +10,7 @@ export interface DynamicField {
 }
 
 export interface ProductInterface {
-    _id?: mongoose.Types.ObjectId
+    _id: mongoose.Types.ObjectId
     name: string
     price: number
     discount: number

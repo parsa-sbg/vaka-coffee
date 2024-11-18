@@ -3,14 +3,16 @@ import toPersionNumber from '@/utils/toPersianNubmer'
 import Image from 'next/image'
 import React from 'react'
 import { LuImageOff } from "react-icons/lu";
+import DeleteBtn from './DeleteBtn';
 
 
 type props = {
     isOdd: boolean
     product: ProductInterface
+    setProducts: React.Dispatch<React.SetStateAction<ProductInterface[]>>
 }
 
-function ProductItem({ isOdd, product }: props) {
+function ProductItem({ isOdd, product, setProducts }: props) {
     return (
         <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
@@ -38,9 +40,7 @@ function ProductItem({ isOdd, product }: props) {
                         مشاهده
                     </button>
 
-                    <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                        حذف
-                    </button>
+                    <DeleteBtn isOdd={isOdd} id={product._id} productname={product.name} setProducts={setProducts} />
 
                     <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
                         ویرایش
