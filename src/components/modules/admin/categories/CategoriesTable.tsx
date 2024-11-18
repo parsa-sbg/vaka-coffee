@@ -102,6 +102,9 @@ function CategoriesTable({ intialCategories }: props) {
                         <th scope="col" className="px-1 py-3">
                             <span>شماره</span>
                         </th>
+                        <th scope="col" className="px-3 py-3">
+                            <span>آیکون</span>
+                        </th>
                         <th scope="col" className="px-3 lg:px-6 py-3">
                             نام
                         </th>
