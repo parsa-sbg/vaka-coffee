@@ -34,7 +34,7 @@ function CategoryItem({ isOdd, category, number, editBtnClickhandler, setCategor
                         ویرایش
                     </button>
 
-                    <DeleteBtn category={category} setCategories={setCategories} />
+                    <DeleteBtn isOdd={isOdd} category={category} setCategories={setCategories} />
 
                 </div>
             </td>

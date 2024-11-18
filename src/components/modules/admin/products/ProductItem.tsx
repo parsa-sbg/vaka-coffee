@@ -38,13 +38,13 @@ function ProductItem({ isOdd, product, setProducts, editBtnClickHandler, number 
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>
 
-                    <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
+                    <button className={`${!isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:text-main`} >
                         مشاهده
                     </button>
 
                     <DeleteBtn isOdd={isOdd} id={product._id} productname={product.name} setProducts={setProducts} />
 
-                    <button onClick={() => { editBtnClickHandler(product) }} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
+                    <button onClick={() => { editBtnClickHandler(product) }} className={`${!isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:text-main`} >
                         ویرایش
                     </button>
 

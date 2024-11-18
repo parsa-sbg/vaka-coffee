@@ -19,11 +19,12 @@ function Categories({ categories, products, setShownProducts }: props) {
     const [selecctedcat, setSelecctedcat] = useState<selecctedCatIdType>(null)
     const [buttonText, setButtonText] = useState<buttonTextType>('نمایش همه')
 
-    const [allProducts, setAllProducts] = useState(products)
-
     useEffect(() => {
-        setAllProducts(products)
-        setShownProducts([...products].filter(item => item.category._id == selecctedcat?._id))
+        if (!selecctedcat) {
+            setShownProducts(products)
+        } else {
+            setShownProducts([...products].filter(item => item.category._id == selecctedcat._id))
+        }
     }, [products])
 
     useEffect(() => {
@@ -31,7 +32,7 @@ function Categories({ categories, products, setShownProducts }: props) {
         setIsOpen(false)
 
         if (!selecctedcat) {
-            setShownProducts(allProducts)
+            setShownProducts(products)
         } else {
             setShownProducts([...products].filter(item => item.category._id == selecctedcat._id))
         }
