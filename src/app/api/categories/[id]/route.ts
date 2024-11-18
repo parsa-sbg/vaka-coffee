@@ -1,4 +1,5 @@
 import categoryModel from "@/models/Category"
+import { productmodel } from "@/models/Product"
 import { authUserWithToken } from "@/utils/server/auth"
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { uploadImage } from "@/utils/server/uploadImage"
@@ -47,7 +48,7 @@ export const PUT = async (
         iconUrl = cat.iconUrl
     }
 
-    if (!iconUrl) return Response.json({message: 'error in upload the icon in cloud'})
+    if (!iconUrl) return Response.json({ message: 'error in upload the icon in cloud' })
 
 
     try {
@@ -78,6 +79,7 @@ export const DELETE = async (
         const result = await categoryModel.findByIdAndDelete((await params).id)
         const allCats = await categoryModel.find({}).sort({ _id: -1 })
         if (result) {
+            await productmodel.deleteMany({ category: (await params).id })
             return Response.json({ message: 'category updated successfully', allCategories: allCats }, { status: 200 })
         }
         return Response.json({ message: 'internal serever error' }, { status: 500 })
