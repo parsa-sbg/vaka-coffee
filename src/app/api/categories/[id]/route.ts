@@ -1,7 +1,8 @@
 import categoryModel from "@/models/Category"
 import { authUserWithToken } from "@/utils/server/auth"
 import { connectToDataBase } from "@/utils/server/dataBase"
-import { categorySchema } from "@/validation/category"
+import { uploadImage } from "@/utils/server/uploadImage"
+import { CategoryImageFileSchema, categorySchema } from "@/validation/category"
 import { NextRequest } from "next/server"
 
 export const PUT = async (
@@ -13,15 +14,44 @@ export const PUT = async (
 
     if (!user || user.role == "USER") return Response.json({ message: "this route is protected and you can't access to it ." }, { status: 401 })
 
-    const reqBody = await req.json()
+    const formData = await req.formData()
+    const name = formData.get('name')
+    const shortName = formData.get('shortName')
+    const icon = formData.get('icon')
 
-    const parsedData = categorySchema.safeParse(reqBody)
+
+    const newCatData = {
+        name,
+        shortName,
+    }
+
+    const parsedData = categorySchema.safeParse(newCatData)
+
     if (!parsedData.success) return Response.json(parsedData, { status: 400 })
 
     connectToDataBase()
 
+    let iconUrl = null
+
+
+    // Upload and use the new icon URL if the client sends a new icon; otherwise, reuse the old one
+    if (icon && icon instanceof File) {
+        const iconParsedData = CategoryImageFileSchema.safeParse({ icon })
+
+        if (!iconParsedData.success) return Response.json(iconParsedData)
+
+        iconUrl = await uploadImage(iconParsedData.data.icon as File)
+    } else {
+        const cat = await categoryModel.findById((await params).id)
+        if (!cat) return Response.json({ message: 'category not found' }, { status: 404 })
+        iconUrl = cat.iconUrl
+    }
+
+    if (!iconUrl) return Response.json({message: 'error in upload the icon in cloud'})
+
+
     try {
-        const result = await categoryModel.findByIdAndUpdate((await params).id, { name: reqBody.name, shortName: reqBody.shortName })
+        const result = await categoryModel.findByIdAndUpdate((await params).id, { name: parsedData.data.name, shortName: parsedData.data.shortName, iconUrl })
         const allCats = await categoryModel.find({}).sort({ _id: -1 })
         if (result) {
             return Response.json({ message: 'category updated successfully', allCategories: allCats }, { status: 200 })

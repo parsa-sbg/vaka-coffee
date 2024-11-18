@@ -1,7 +1,8 @@
 import categoryModel from "@/models/Category"
 import { authUserWithToken } from "@/utils/server/auth"
 import { connectToDataBase } from "@/utils/server/dataBase"
-import { categorySchema } from "@/validation/category"
+import { uploadImage } from "@/utils/server/uploadImage"
+import { CategoryImageFileSchema, categorySchema } from "@/validation/category"
 import { NextRequest } from "next/server"
 
 export const POST = async (req: NextRequest) => {
@@ -10,17 +11,36 @@ export const POST = async (req: NextRequest) => {
 
     if (!user || user.role == "USER") return Response.json({ message: "this route is protected and you can't access to it ." }, { status: 401 })
 
-    const reqBody = await req.json()
+    const formData = await req.formData()
+    const name = formData.get('name')
+    const shortName = formData.get('shortName')
+    const icon = formData.get('icon')
 
-    const parsedData = categorySchema.safeParse(reqBody)
+
+    const newCatData = {
+        name,
+        shortName,
+    }
+
+    const iconParseddata = CategoryImageFileSchema.safeParse({ icon })
+
+    if (!iconParseddata.success) return Response.json(iconParseddata, { status: 400 })
+
+    const parsedData = categorySchema.safeParse(newCatData)
     if (!parsedData.success) return Response.json(parsedData, { status: 400 })
 
     connectToDataBase()
 
+    const iconUrl = await uploadImage(iconParseddata.data.icon)
+
+    if (!iconUrl) return Response.json({messgae: 'error in upload the icon in cloud'})
+
+
     try {
         const result = await categoryModel.create({
-            name: reqBody.name,
-            shortName: reqBody.shortName,
+            name: parsedData.data.name,
+            shortName: parsedData.data.shortName,
+            iconUrl: iconUrl
         })
         const allCats = await categoryModel.find({}).sort({ _id: -1 })
         if (result) {

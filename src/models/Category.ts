@@ -7,6 +7,7 @@ export interface CategoryInterface {
     _id: mongoose.Types.ObjectId
     name: string
     shortName: string
+    iconUrl: string
 }
 
 export interface categoryDocument extends Document, CategoryInterface { }
@@ -25,6 +26,10 @@ const schema = new mongoose.Schema({
     shortName: {
         type: String,
         required: true,
+    },
+    iconUrl:{
+        type : String,
+        required: true
     }
 })
 

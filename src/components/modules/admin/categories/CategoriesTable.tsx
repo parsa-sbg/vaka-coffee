@@ -10,6 +10,9 @@ import toast from 'react-hot-toast'
 import ErrorAlert from '@/components/common/alerts/ErrorAlert'
 import SuccessAlert from '@/components/common/alerts/SuccessAlert'
 import mongoose from 'mongoose'
+import { BiSolidImageAdd } from 'react-icons/bi'
+import Image from 'next/image'
+import { LuImageOff } from 'react-icons/lu'
 
 type props = {
     intialCategories: CategoryInterface[]
@@ -19,9 +22,10 @@ function CategoriesTable({ intialCategories }: props) {
 
     const [categories, setCategories] = useState(intialCategories)
     const { showModal: showEditModal, hideModal: hideEditModal, isModalShow } = useModal()
-    const [editModalvalues, setEditModalvalues] = useState<{ name: string, shortName: string, _id: null | mongoose.Types.ObjectId }>({ name: '', shortName: '', _id: null })
+    const [editModalvalues, setEditModalvalues] = useState<{ name: string, shortName: string, _id: null | mongoose.Types.ObjectId, iconUrl: string }>({ name: '', shortName: '', _id: null, iconUrl: '' })
     const [errors, setErrors] = useState({ name: false, shortName: false })
 
+    const [icon, setIcon] = useState<File | undefined>(undefined)
 
     const updateCategory = async () => {
 
@@ -38,16 +42,15 @@ function CategoriesTable({ intialCategories }: props) {
             return false
         }
 
+        const formdata = new FormData()
+        formdata.append('name', editModalvalues.name)
+        formdata.append('shortName', editModalvalues.shortName)
+        formdata.append('icon', icon ? icon : JSON.stringify(null) )
+
 
         const res = await fetch(`/api/categories/${editModalvalues._id}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: editModalvalues.name,
-                shortName: editModalvalues.shortName
-            })
+            body: formdata
         })
 
         if (res.status == 200) {
@@ -68,8 +71,24 @@ function CategoriesTable({ intialCategories }: props) {
         }
     }
 
+    const iconsChangehandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            setErrors(prev => ({ ...prev, pictures: [] }))
+            reader.onload = () => {
+                setIcon(file)
+                setEditModalvalues(prev => ({...prev, iconUrl: reader.result as string}))
+                e.target.value = ''
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+
     const editBtnClickhandler = (category: CategoryInterface) => {
-        setEditModalvalues({ name: category.name, shortName: category.shortName, _id: category._id })
+        console.log(category);
+        setEditModalvalues({ name: category.name, shortName: category.shortName, _id: category._id, iconUrl: category.iconUrl })
         showEditModal()
     }
 
@@ -121,6 +140,33 @@ function CategoriesTable({ intialCategories }: props) {
                             setErrors(prev => ({ ...prev, shortName: false }))
                         }} className={`${errors.shortName ? '!border-red-600' : ''} bg-bgColer border border-transparent focus:border-main transition-all duration-300 outline-none rounded-md py-1 px-3`} type="text" />
                     </div>
+
+                    <div className='flex flex-col gap-2 mt-2'>
+                        <span>آیکون :</span>
+
+                        <div className='flex items-center justify-evenly'>
+
+                            <div className="group col-span-1 border-2  w-24 h-24 !border-opacity-50 hover:!border-opacity-100 transition-colors border-dashed relative dark:border-gray-500 cursor-pointer rounded-lg ">
+                                <input
+                                    onChange={e => { iconsChangehandler(e) }}
+                                    className="w-full h-full absolute bg-red-300 cursor-pointer z-20 opacity-0 hover:file:cursor-pointer"
+                                    type="file"
+                                    accept="image/png,image/jpeg"
+                                />
+                                <BiSolidImageAdd className="absolute top-0 bottom-0 right-0 left-0 m-auto opacity-50 transition-all group-hover:opacity-100" size={35} />
+                            </div>
+
+                            {editModalvalues.iconUrl
+                                ? <div className='w-24 h-24  rounded-md overflow-hidden'>
+                                    <Image className='object-cover w-full h-full' width={200} height={200} alt='' src={editModalvalues.iconUrl} ></Image>
+                                </div>
+
+                                : <div className='w-24 h-24 bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={30} className='text-main' /></div>
+                            }
+
+                        </div>
+                    </div>
+
                     <div className='mt-3 flex justify-between items-center gap-1'>
                         <button onClick={hideEditModal} className='text-nowrap bg-main text-bgColer font-semibold w-full px-4 md:px-7 py-1 text-sm rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main'>
                             لغو

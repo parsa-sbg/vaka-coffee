@@ -1,8 +1,44 @@
 import toPersionNumber from "@/utils/toPersianNubmer";
 import { z } from "zod";
 
+const MAX_FILE_SIZE = 1 * 1024 * 512; //500kb
+const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
+
+export const imageFileSchema = z.custom<File>()
+    .superRefine((file, ctx) => {
+        console.log(file);
+
+        if (!file) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "لطفا آیکون را انتخاب کنید .",
+            });
+            return;
+        }
+
+        if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "فرمت فایل مجاز نیست. فرمت‌های مجاز: JPEG, PNG و غیره.",
+            });
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: `حجم فایل باید کمتر از 500 کیلوبایت باشد.`,
+            });
+        }
+    });
+
+
+export const CategoryImageFileSchema = z.object({
+    icon: imageFileSchema
+})
+
 export const categorySchema = z.object({
-    name: z.string({message: 'iosjgdi'})
+    name: z.string({ message: 'iosjgdi' })
         .min(3, 'نام بسیار کوتاه است !')
         .max(20, toPersionNumber('نام نمیتواند از 20 کاراکتر بیشتر باشد !'))
         .trim(),
