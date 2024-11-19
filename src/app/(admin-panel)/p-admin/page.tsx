@@ -8,11 +8,11 @@ import { TfiPackage } from "react-icons/tfi";
 import { PiShapesThin } from "react-icons/pi";
 import Title from '@/components/modules/admin/index/Title';
 import { authUserWithToken } from '@/utils/server/auth';
-import { NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
+import { Metadata } from 'next';
 
 
-async function AdminPanel(req: NextRequest) {
+export default async function AdminPanel() {
     const token = (await cookies()).get('token')?.value
     const user = await authUserWithToken(token)
     if (!user) return
@@ -37,4 +37,8 @@ async function AdminPanel(req: NextRequest) {
     )
 }
 
-export default AdminPanel
+
+export const metadata: Metadata = {
+    title: "پنل مدیریت",
+  };
+  

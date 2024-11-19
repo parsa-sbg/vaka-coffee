@@ -1,7 +1,7 @@
 "use server"
 
-import { OtpModel } from "@/models/Otp"
-import UserModel from "@/models/User"
+import { OtpModel } from "@/models"
+import { UserModel } from "@/models";
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { phoneSchema } from "@/validation/auth"
 

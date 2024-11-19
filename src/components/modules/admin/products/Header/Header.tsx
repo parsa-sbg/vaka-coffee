@@ -5,7 +5,8 @@ import { useModal } from '@/hooks/useModal';
 import Modal from '@/components/common/Modal';
 import AddProductModal from '../AddProductModal/AddProductModal';
 import { ProductInterface } from '@/models/Product';
-import { CategoryInterface } from '@/models/Category';
+import { CategoryInterface } from '@/models/Category' 
+;
 
 
 type props = {

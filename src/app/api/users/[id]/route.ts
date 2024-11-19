@@ -1,4 +1,4 @@
-import UserModel from "@/models/User"
+import { UserModel } from "@/models";
 import { authUserWithToken } from "@/utils/server/auth"
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { NextRequest } from "next/server"

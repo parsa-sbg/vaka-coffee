@@ -1,5 +1,5 @@
 import CategoriesTable from '@/components/modules/admin/categories/CategoriesTable'
-import categoryModel from '@/models/Category'
+import { categoryModel } from '@/models'
 import { connectToDataBase } from '@/utils/server/dataBase'
 import React from 'react'
 

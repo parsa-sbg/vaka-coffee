@@ -4,9 +4,16 @@ import CategorySection from "@/components/modules/index/CategorySection";
 import FrequentlyQuestions from "@/components/modules/index/FrequentlyQuestions/FrequentlyQuestions";
 import Header from "@/components/modules/index/Header";
 import SeasionSection from "@/components/modules/index/SeasionSection";
+import { categoryModel } from "@/models";
+import { connectToDataBase } from "@/utils/server/dataBase";
 import { Metadata } from "next";
 
-export default function Home() {
+export default async function Home() {
+
+  connectToDataBase()
+
+  const categoriesWithProducts = await categoryModel.find({}).populate('products')
+
   return (
     <div className="">
       <div className="container">
@@ -27,6 +34,8 @@ export default function Home() {
     </div>
   );
 }
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: "خرید قهوه | فروشگاه آنلاین قهوه واکا 🧙 ☕️",

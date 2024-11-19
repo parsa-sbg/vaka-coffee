@@ -1,6 +1,6 @@
 import ProductsTable from '@/components/modules/admin/products/ProductsTable'
-import categoryModel from '@/models/Category'
-import { productmodel } from '@/models/Product'
+import { categoryModel } from '@/models'
+import { productmodel } from '@/models'
 import { connectToDataBase } from '@/utils/server/dataBase'
 import React from 'react'
 

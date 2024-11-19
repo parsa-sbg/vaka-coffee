@@ -1,5 +1,6 @@
 "use client"
-import { CategoryInterface } from '@/models/Category'
+import { CategoryInterface } from '@/models/Category' 
+
 import { ProductInterface } from '@/models/Product'
 import React, { useCallback, useEffect, useState } from 'react'
 import { MdKeyboardArrowLeft } from 'react-icons/md'

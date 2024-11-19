@@ -1,5 +1,5 @@
 import mongoose, { Model } from "mongoose";
-
+import { ProductInterface } from "./Product";
 
 // types and interfaces
 
@@ -8,6 +8,7 @@ export interface CategoryInterface {
     name: string
     shortName: string
     iconUrl: string
+    products?: ProductInterface[]
 }
 
 export interface categoryDocument extends Document, CategoryInterface { }
@@ -27,11 +28,21 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    iconUrl:{
-        type : String,
+    iconUrl: {
+        type: String,
         required: true
     }
 })
+
+schema.virtual('products', {
+    ref: 'product',
+    localField: '_id', 
+    foreignField: 'category',
+});
+
+// فعال کردن قابلیت virtuals در زمان تبدیل به JSON یا Object
+schema.set('toObject', { virtuals: true });
+schema.set('toJSON', { virtuals: true })
 
 // the model
 

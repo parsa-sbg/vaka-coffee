@@ -1,5 +1,5 @@
 import mongoose, { Model } from "mongoose";
-import categoryModel, { CategoryInterface } from "./Category";
+import { CategoryInterface } from "./Category";
 
 
 // types and interfaces

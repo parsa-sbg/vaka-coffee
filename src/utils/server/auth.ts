@@ -1,4 +1,4 @@
-import UserModel from "@/models/User"
+import { UserModel } from "@/models";
 import { connectToDataBase } from "./dataBase"
 import mongoose from "mongoose"
 import { verifyToken } from "./token"

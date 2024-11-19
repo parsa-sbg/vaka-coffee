@@ -1,11 +1,11 @@
-import UserModel from "@/models/User"
+import { UserModel } from "@/models";
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { generateToken } from "@/utils/server/token"
 import { userRegisterSchema } from "@/validation/auth"
 import { cookies } from "next/headers"
 import { NextRequest } from "next/server"
 import bcrypt from 'bcryptjs'
-import { OtpModel } from "@/models/Otp"
+import { OtpModel } from "@/models"
 
 export const POST = async (req: NextRequest) => {
 

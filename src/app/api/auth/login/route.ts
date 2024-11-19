@@ -1,4 +1,4 @@
-import UserModel from "@/models/User";
+import { UserModel } from "@/models";;
 import { passwordSchema, usernameSchema } from "@/validation/auth";
 import { NextRequest } from "next/server";
 import bcrypt from 'bcryptjs'

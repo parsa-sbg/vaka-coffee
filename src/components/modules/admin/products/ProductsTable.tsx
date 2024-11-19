@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Header from './Header/Header'
 import ProductItem from './ProductItem'
 import { ProductInterface } from '@/models/Product'
-import { CategoryInterface } from '@/models/Category'
+import { CategoryInterface } from '@/models/Category' 
 import { useModal } from '@/hooks/useModal'
 import Modal from '@/components/common/Modal'
 import UpdateProductModal from './UpdateProductModal/UpdateProductModal'
