@@ -24,6 +24,10 @@ function UpdateModalCategorySelector({ categories, setCategory, error, setErrors
     isOpen && setIsOpen(false)
   }, [isOpen])
 
+  useEffect(() => {
+    setButtonText(selectedcatName)
+  }, [selectedcatName])
+
 
   useEffect(() => {
     if (!category) {
