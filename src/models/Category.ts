@@ -9,6 +9,7 @@ export interface CategoryInterface {
     shortName: string
     iconUrl: string
     products?: ProductInterface[]
+    showInHomePage: boolean
 }
 
 export interface categoryDocument extends Document, CategoryInterface { }
@@ -31,6 +32,10 @@ const schema = new mongoose.Schema({
     iconUrl: {
         type: String,
         required: true
+    },
+    showInHomePage: {
+        type : Boolean,
+        default : false
     }
 })
 

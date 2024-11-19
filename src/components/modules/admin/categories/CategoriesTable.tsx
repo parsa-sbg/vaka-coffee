@@ -122,6 +122,9 @@ function CategoriesTable({ intialCategories }: props) {
                         <th scope="col" className="px-3 lg:px-6 py-3">
                             عملیات
                         </th>
+                        <th scope="col" className="px-3 lg:px-6 py-3">
+                            نمایش در صفحه اصلی
+                        </th>
                     </tr>
                 </thead>
 

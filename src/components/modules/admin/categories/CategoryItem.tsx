@@ -3,6 +3,7 @@ import toPersionNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import DeleteBtn from './DeleteBtn'
 import Image from 'next/image'
+import ShowInHomePageCheckBox from './ShowInHomePageCheckBox'
 
 type props = {
     number: number
@@ -38,6 +39,11 @@ function CategoryItem({ isOdd, category, number, editBtnClickhandler, setCategor
 
                 </div>
             </td>
+
+            <td className="px-3 lg:px-6 py-4">
+                <ShowInHomePageCheckBox catName={category.name} catId={category._id} iscategoryShowInHomePageIntial={category.showInHomePage} />
+            </td>
+
         </tr>
     )
 }
