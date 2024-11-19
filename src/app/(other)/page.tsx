@@ -12,7 +12,9 @@ export default async function Home() {
 
   connectToDataBase()
 
-  const categoriesWithProducts = await categoryModel.find({}).populate('products')
+  const categoriesWithProducts = await categoryModel.find({ showInHomePage: true }).populate('products')
+  console.log(categoriesWithProducts);
+
 
   return (
     <div className="">
@@ -20,9 +22,9 @@ export default async function Home() {
         <Header />
         <AllCategories />
         <SeasionSection />
-        <CategorySection buttonText="همه قهوه ترک‌ها" title="قهوه ترک" />
-        <CategorySection buttonText="همه قهوه فوری‌ها" title="خرید قهوه فوری" />
-        <CategorySection buttonText="همه تجهیزات قهوه" title="تجهیزات قهوه" />
+        {categoriesWithProducts.map(cat => (
+          <CategorySection key={cat._id.toString()} categoryWithProducts={cat} />
+        ))}
       </div>
 
       <Baner />

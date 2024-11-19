@@ -14,7 +14,7 @@ function SeasionSection() {
             <h2 className='w-full text-center font-bold text-2xl mt-5'>پاییز فصل قهوه‌ست!</h2>
 
             <div className='mt-10'>
-                <ProductsSlider priceGoldColor />
+                <ProductsSlider products={[]} priceGoldColor />
             </div>
 
             <div className='flex justify-center mt-5'>

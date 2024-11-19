@@ -7,29 +7,35 @@ import { FaRegStar } from "react-icons/fa";
 
 type productBoxProps = {
     priceGoldColor?: boolean
+    name: string
+    price: number
+    discount: number
+    imageUrl: string
 }
 
 
-function ProductBox({ priceGoldColor }: productBoxProps) {
+function ProductBox({ priceGoldColor, discount, name, price, imageUrl }: productBoxProps) {
 
     return (
         <Link href=' ' className='w-full flex flex-col items-center'>
 
-            <Image className='w-full rounded-md' src='https://vakacoffee.storage.c2.liara.space/Untitled.png?AWSAccessKeyId=qntsumvcd1ien623&Expires=1763411479&Signature=SrhQNSoQXlf4w4JieWa7pJV0QWg%3D' alt='product image' width={300} height={300} />
-
-            <span className='mt-2 font-semibold'>پودر قهوه ترک 5 کیلوگرم</span>
-
-            <div className='flex items-center gap-1 mt-2'>
-                <FaStar className='text-[#eabe12]' />
-                <FaStar className='text-[#eabe12]' />
-                <FaStar className='text-[#eabe12]' />
-                <FaRegStar className='text-main' />
-                <FaRegStar className='text-main' />
+            <div className='max-w-[180px] sm:max-w-[152.5px] md:max-w-[230px]  max-h-[180px] sm:max-h-[152.5px] md:max-h-[230px]  overflow-hidden rounded-md'>
+                <Image className=' h-full object-cover' src={imageUrl} alt='product image' width={300} height={300} />
             </div>
 
-            <div className='flex items-center justify-cneter flex-wrap gap-2 mt-2'>
-                <span className='line-through text-nowrap text-sm text-neutral-400'>{toPersionNumber('565,750')}</span>
-                <span className={`${priceGoldColor ? 'text-[#eabe12]' : 'text-main'}  text-nowrap font-semibold`}>{toPersionNumber('365,750 تومان')}</span>
+            <span className='mt-2 text-sm sm:text-base font-semibold line-clamp-1'>{name}</span>
+
+            <div className='flex items-center gap-1 mt-2'>
+                <FaRegStar className='text-main' />
+                <FaRegStar className='text-main' />
+                <FaStar className='text-[#eabe12]' />
+                <FaStar className='text-[#eabe12]' />
+                <FaStar className='text-[#eabe12]' />
+            </div>
+
+            <div className='flex items-center justify-cneter gap-2 flex-wrap mt-2'>
+                {discount ? <span className='line-through text-nowrap text-xs sm:text-sm text-neutral-400'>{toPersionNumber(price.toString())}</span> : ''}
+                <span className={`${priceGoldColor ? 'text-[#eabe12]' : 'text-main'} text-sm sm:text-base text-nowrap font-semibold`}>{toPersionNumber((price - (price * discount / 100)).toString()) + ' تومان'}</span>
             </div>
 
         </Link>
