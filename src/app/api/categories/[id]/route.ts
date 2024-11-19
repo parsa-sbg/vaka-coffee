@@ -32,6 +32,9 @@ export const PUT = async (
 
     connectToDataBase()
 
+    const targetCategory = await categoryModel.findById((await params).id)
+    if (!targetCategory) return Response.json({ message: 'category not found' }, { status: 404 })
+
     let iconUrl = null
 
 
@@ -43,17 +46,16 @@ export const PUT = async (
 
         iconUrl = await uploadImage(iconParsedData.data.icon as File)
     } else {
-        const cat = await categoryModel.findById((await params).id)
-        if (!cat) return Response.json({ message: 'category not found' }, { status: 404 })
-        iconUrl = cat.iconUrl
+        iconUrl = targetCategory.iconUrl
     }
 
     if (!iconUrl) return Response.json({ message: 'error in upload the icon in cloud' })
 
 
     try {
+
         const isShortNameAlreadyExist = await categoryModel.findOne({ shortName: parsedData.data.shortName })
-        if (isShortNameAlreadyExist) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است .' }, { status: 409 })
+        if (isShortNameAlreadyExist && targetCategory.shortName !== parsedData.data.shortName) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است .' }, { status: 409 })
 
 
         const result = await categoryModel.findByIdAndUpdate((await params).id, { name: parsedData.data.name, shortName: parsedData.data.shortName, iconUrl })
