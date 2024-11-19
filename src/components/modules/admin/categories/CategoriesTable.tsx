@@ -24,6 +24,7 @@ function CategoriesTable({ intialCategories }: props) {
     const { showModal: showEditModal, hideModal: hideEditModal, isModalShow } = useModal()
     const [editModalvalues, setEditModalvalues] = useState<{ name: string, shortName: string, _id: null | mongoose.Types.ObjectId, iconUrl: string }>({ name: '', shortName: '', _id: null, iconUrl: '' })
     const [errors, setErrors] = useState({ name: false, shortName: false })
+    const [isLoading, setIsLoading] = useState(false)
 
     const [icon, setIcon] = useState<File | undefined>(undefined)
 
@@ -48,11 +49,14 @@ function CategoriesTable({ intialCategories }: props) {
         formdata.append('icon', icon ? icon : JSON.stringify(null))
 
 
+        setIsLoading(true)
         const res = await fetch(`/api/categories/${editModalvalues._id}`, {
             method: "PUT",
             body: formdata
         })
         const data = await res.json()
+        setIsLoading(false)
+
 
         if (res.status == 200) {
             setCategories(data.allCategories)
@@ -185,8 +189,8 @@ function CategoriesTable({ intialCategories }: props) {
                         <button onClick={hideEditModal} className='text-nowrap bg-main text-bgColer font-semibold w-full px-4 md:px-7 py-1 text-sm rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main'>
                             لغو
                         </button>
-                        <button onClick={updateCategory} className='text-nowrap bg-main text-bgColer font-semibold w-full px-4 md:px-7 py-1 text-sm rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main'>
-                            آپدیت
+                        <button disabled={isLoading} onClick={updateCategory} className={`${isLoading ? '!bg-bgColer' : ''} min-h-7 text-nowrap bg-main text-bgColer font-semibold w-full px-4 md:px-7 py-1 text-sm rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main`}>
+                            {isLoading ? <div className='w-3 h-3 border-x-2 border-secondary rounded-full animate-spin mx-auto' /> : 'آپدیت'}
                         </button>
                     </div>
                 </div>
