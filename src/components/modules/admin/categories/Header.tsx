@@ -22,6 +22,8 @@ function Header({ setCategories }: { setCategories: React.Dispatch<React.SetStat
     const [icon, setIcon] = useState<File | undefined>(undefined)
     const [iconPreview, setIconPreview] = useState<string>('')
 
+    const [isLoading, setIsLoading] = useState(false)
+
 
 
     const iconsChangehandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +56,6 @@ function Header({ setCategories }: { setCategories: React.Dispatch<React.SetStat
         }
 
         const parsedData = categorySchema.safeParse({ name, shortName, icon })
-        console.log(parsedData);
         if (!parsedData.success) {
             parsedData.error.issues.map(issue => {
                 toast.custom((t) => (
@@ -74,14 +75,14 @@ function Header({ setCategories }: { setCategories: React.Dispatch<React.SetStat
         formData.append('icon', icon as File)
 
 
+        setIsLoading(true)
         const res = await fetch('/api/categories', {
             method: "POST",
             body: formData
         })
         const data = await res.json()
-        console.log(res);
-        console.log(data);
-        
+        setIsLoading(false)
+
 
         if (res.status == 201) {
             setCategories(data.allCategories)
@@ -166,8 +167,11 @@ function Header({ setCategories }: { setCategories: React.Dispatch<React.SetStat
                         <button onClick={hideModal} className='text-nowrap bg-main text-bgColer font-semibold w-full px-4 md:px-7 py-1 text-sm rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main'>
                             لغو
                         </button>
-                        <button onClick={createCategory} className='text-nowrap bg-main text-bgColer font-semibold w-full px-4 md:px-7 py-1 text-sm rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main'>
-                            افزودن
+                        <button
+                            disabled={isLoading}
+                            onClick={createCategory} 
+                            className={`${isLoading ? '!bg-bgColer' : '' } min-h-7 text-nowrap bg-main text-bgColer font-semibold w-full px-4 md:px-7 py-1 text-sm rounded-md transition-all duration-300 sm:hover:bg-bgColer sm:hover:text-main`}>
+                            {isLoading ? <div className='w-3 h-3 border-x-2 border-main rounded-full animate-spin mx-auto' /> : 'افزودن'}
                         </button>
                     </div>
 
