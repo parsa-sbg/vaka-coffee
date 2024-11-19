@@ -52,6 +52,10 @@ export const PUT = async (
 
 
     try {
+        const isShortNameAlreadyExist = await categoryModel.findOne({ shortName: parsedData.data.shortName })
+        if (isShortNameAlreadyExist) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است .' }, { status: 409 })
+
+
         const result = await categoryModel.findByIdAndUpdate((await params).id, { name: parsedData.data.name, shortName: parsedData.data.shortName, iconUrl })
         const allCats = await categoryModel.find({}).sort({ _id: -1 })
         if (result) {

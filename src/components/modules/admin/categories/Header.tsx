@@ -52,7 +52,7 @@ function Header({ setCategories }: { setCategories: React.Dispatch<React.SetStat
                 setErrors(prev => ({ ...prev, [issue.path[0]]: true }))
             })
         }
-        
+
         const parsedData = categorySchema.safeParse({ name, shortName, icon })
         console.log(parsedData);
         if (!parsedData.success) {
@@ -64,8 +64,9 @@ function Header({ setCategories }: { setCategories: React.Dispatch<React.SetStat
                 })
                 setErrors(prev => ({ ...prev, [issue.path[0]]: true }))
             })
-            return false
         }
+
+        if (!parsedData.success || !iconParseddata.success) return
 
         const formData = new FormData()
         formData.append('name', name)
@@ -77,13 +78,29 @@ function Header({ setCategories }: { setCategories: React.Dispatch<React.SetStat
             method: "POST",
             body: formData
         })
+        const data = await res.json()
+        console.log(res);
+        console.log(data);
+        
 
         if (res.status == 201) {
-            const data = await res.json()
             setCategories(data.allCategories)
             hideModal()
             toast.custom((t) => (
                 <SuccessAlert t={t} title='دسته بندی با موفقیت ساخته شد .' />
+            ), {
+                position: 'top-left'
+            })
+        } else if (res.status == 409) {
+            toast.custom((t) => (
+                <ErrorAlert t={t} title={data.message} />
+            ), {
+                position: 'top-left'
+            })
+            setErrors(prev => ({ ...prev, shortName: true }))
+        } else {
+            toast.custom((t) => (
+                <ErrorAlert t={t} title='خطایی رخ داد !' />
             ), {
                 position: 'top-left'
             })

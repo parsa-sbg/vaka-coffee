@@ -45,16 +45,16 @@ function CategoriesTable({ intialCategories }: props) {
         const formdata = new FormData()
         formdata.append('name', editModalvalues.name)
         formdata.append('shortName', editModalvalues.shortName)
-        formdata.append('icon', icon ? icon : JSON.stringify(null) )
+        formdata.append('icon', icon ? icon : JSON.stringify(null))
 
 
         const res = await fetch(`/api/categories/${editModalvalues._id}`, {
             method: "PUT",
             body: formdata
         })
+        const data = await res.json()
 
         if (res.status == 200) {
-            const data = await res.json()
             setCategories(data.allCategories)
             hideEditModal()
             toast.custom((t) => (
@@ -62,7 +62,15 @@ function CategoriesTable({ intialCategories }: props) {
             ), {
                 position: 'top-left'
             })
-        } else {
+
+        } else if (res.status == 409) {
+            toast.custom((t) => (
+                <ErrorAlert t={t} title={data.message} />
+            ), {
+                position: 'top-left'
+            })
+            setErrors(prev => ({ ...prev, shortName: true }))
+        }else {
             toast.custom((t) => (
                 <ErrorAlert t={t} title='خطایی رخ داد !' />
             ), {
@@ -78,7 +86,7 @@ function CategoriesTable({ intialCategories }: props) {
             setErrors(prev => ({ ...prev, pictures: [] }))
             reader.onload = () => {
                 setIcon(file)
-                setEditModalvalues(prev => ({...prev, iconUrl: reader.result as string}))
+                setEditModalvalues(prev => ({ ...prev, iconUrl: reader.result as string }))
                 e.target.value = ''
             };
 

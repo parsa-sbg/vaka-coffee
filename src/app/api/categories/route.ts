@@ -33,10 +33,13 @@ export const POST = async (req: NextRequest) => {
 
     const iconUrl = await uploadImage(iconParseddata.data.icon)
 
-    if (!iconUrl) return Response.json({messgae: 'error in upload the icon in cloud'})
+    if (!iconUrl) return Response.json({ messgae: 'error in upload the icon in cloud' })
 
 
     try {
+        const isShortNameAlreadyExist = await categoryModel.findOne({ shortName: parsedData.data.shortName })
+        if (isShortNameAlreadyExist) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است .' }, { status: 409 })
+
         const result = await categoryModel.create({
             name: parsedData.data.name,
             shortName: parsedData.data.shortName,
