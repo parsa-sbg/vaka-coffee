@@ -8,7 +8,6 @@ type categorySectionProps = {
 }
 
 function CategorySection({ categoryWithProducts }: categorySectionProps) {
-    console.log(categoryWithProducts);
     
     return (
         <section className='mt-16 pb-16 border-b border-secondary'>

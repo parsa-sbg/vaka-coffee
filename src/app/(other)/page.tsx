@@ -4,7 +4,7 @@ import CategorySection from "@/components/modules/index/CategorySection";
 import FrequentlyQuestions from "@/components/modules/index/FrequentlyQuestions/FrequentlyQuestions";
 import Header from "@/components/modules/index/Header";
 import SeasionSection from "@/components/modules/index/SeasionSection";
-import { categoryModel } from "@/models";
+import { categoryModel, productmodel } from "@/models";
 import { connectToDataBase } from "@/utils/server/dataBase";
 import { Metadata } from "next";
 
@@ -13,18 +13,24 @@ export default async function Home() {
   connectToDataBase()
 
   const categoriesWithProducts = await categoryModel.find({ showInHomePage: true }).populate('products')
-  console.log(categoriesWithProducts);
 
+  const discountedProducts = await productmodel.find({ discount: { $gt: 0 } })
+  console.log(discountedProducts);
+  
 
   return (
     <div className="">
       <div className="container">
         <Header />
         <AllCategories />
-        <SeasionSection />
+
+
+        <SeasionSection discountedProducts={discountedProducts} />
+
         {categoriesWithProducts.map(cat => (
           <CategorySection key={cat._id.toString()} categoryWithProducts={cat} />
         ))}
+
       </div>
 
       <Baner />

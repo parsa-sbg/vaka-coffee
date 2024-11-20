@@ -2,8 +2,13 @@ import Image from 'next/image'
 import React from 'react'
 import ProductsSlider from '../../common/ProductsSlider'
 import Button from '@/components/common/Button'
+import { ProductInterface } from '@/models/Product'
 
-function SeasionSection() {
+type props = {
+    discountedProducts: ProductInterface[]
+}
+
+function SeasionSection({ discountedProducts }: props) {
     return (
         <section className='mt-16 rounded-2xl bg-main bg-gradient-to-t from-maindark to-[#ffa950] py-5'>
 
@@ -14,13 +19,13 @@ function SeasionSection() {
             <h2 className='w-full text-center font-bold text-2xl mt-5'>پاییز فصل قهوه‌ست!</h2>
 
             <div className='mt-10'>
-                <ProductsSlider products={[]} priceGoldColor />
+                <ProductsSlider products={JSON.parse(JSON.stringify(discountedProducts))} priceGoldColor />
             </div>
 
             <div className='flex justify-center mt-5'>
                 <Button link={true} href='/off' text='همه تخفیف‌ها' />
             </div>
-            
+
         </section>
     )
 }

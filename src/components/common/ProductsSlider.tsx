@@ -20,7 +20,7 @@ function ProductsSlider({ priceGoldColor, products }: productsSliderProps) {
     return (
         <div className='px-5 md:px-0'>
             <Swiper
-                modules={[ EffectCoverflow]}
+                modules={[Autoplay, EffectCoverflow]}
                 spaceBetween={0}
                 slidesPerView={1.5}
                 centeredSlides
