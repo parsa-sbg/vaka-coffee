@@ -5,9 +5,14 @@ import ProductsList from './ProductsList/ProductsList'
 import Categories from './Categories/Categories'
 import Filters from './Filters/Filters'
 import { IoClose } from "react-icons/io5";
+import { CategoryInterface } from '@/models/Category'
 
 
-function Products() {
+type props = {
+    categories: CategoryInterface[]
+}
+
+function Products({ categories }: props) {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -22,7 +27,7 @@ function Products() {
                         <span>فیلتر ها</span>
                         <IoClose onClick={() => { setIsMenuOpen(false) }} className='cursor-pointer' size={25} />
                     </div>
-                    <Categories />
+                    <Categories categories={categories} />
                 </div>
 
                 <Filters />

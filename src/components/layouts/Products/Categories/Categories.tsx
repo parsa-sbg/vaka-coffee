@@ -1,7 +1,13 @@
+import { CategoryInterface } from '@/models/Category'
 import Link from 'next/link'
 import React from 'react'
 
-function Categories() {
+type props = {
+  categories: CategoryInterface[]
+}
+
+
+function Categories({ categories }: props) {
   return (
     <div className=' rounded-md p-4 sm:border border-secondary'>
 
@@ -12,20 +18,15 @@ function Categories() {
       <ul className='mt-5'>
 
         <li className=''>
-          <Link className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main' href='/category/cat-short-name'>قهوه عربیکا</Link>
+          <Link href={`/products`} className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main'>همه محصولات</Link>
         </li>
 
-        <li className=''>
-          <Link className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main' href='/category/cat-short-name'>قهوه روبوستا</Link>
-        </li>
+        {categories.map(cat => (
+          <li className=''>
+            <Link href={`categories/${cat.shortName}`} className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main'>{cat.name}</Link>
+          </li>
+        ))}
 
-        <li className=''>
-          <Link className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main' href='/category/cat-short-name'>قهوه ترک</Link>
-        </li>
-
-        <li className=''>
-          <Link className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main' href='/category/cat-short-name'>قهوه سبک زندگی</Link>
-        </li>
 
       </ul>
 
