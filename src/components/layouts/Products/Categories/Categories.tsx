@@ -18,12 +18,12 @@ function Categories({ categories }: props) {
       <ul className='mt-5'>
 
         <li className=''>
-          <Link href={`/products`} className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main'>همه محصولات</Link>
+          <Link href={`/products`} className='py-2 px-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main'>همه محصولات</Link>
         </li>
 
         {categories.map(cat => (
           <li key={cat._id.toString()} className=''>
-            <Link href={`/categories/${cat.shortName}`} className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main'>{cat.name}</Link>
+            <Link href={`/categories/${cat.shortName}`} className='py-2 block px-2 transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main'>{cat.name}</Link>
           </li>
         ))}
 

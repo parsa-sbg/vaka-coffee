@@ -17,7 +17,7 @@ const page = async ({ params }: { params: Promise<{ search: string }> }) => {
             <ProductsHeader title={`نتیجه جستجوی : ${search}`} />
 
             <div className='container mt-8'>
-                <Products />
+                <Products products={[]} categories={[]} />
             </div>
         </div>
     )

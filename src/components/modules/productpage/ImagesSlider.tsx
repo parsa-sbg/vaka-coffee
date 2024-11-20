@@ -13,8 +13,12 @@ import './ImagesSlider.css'
 import Image from 'next/image';
 
 
+type props = {
+    picturesUrl: string[]
+}
 
-function ImagesSlider() {
+
+function ImagesSlider({ picturesUrl }: props) {
 
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
@@ -30,54 +34,35 @@ function ImagesSlider() {
                 slidesPerView={1}
             >
 
-                <SwiperSlide className='!flex !justify-center '>
-                    <Image className='w-full rounded-md' alt='product image' width={600} height={600} src='https://vakacoffee.com/wp-content/uploads/2023/03/vaka-products-051604.jpg' quality={100}></Image>
-                </SwiperSlide>
-
-                <SwiperSlide className='!flex !justify-center '>
-                    <Image className='w-full rounded-md' alt='product image' width={600} height={600} src='https://vakacoffee.com/wp-content/uploads/2023/03/vaka-products-051604.jpg' quality={100}></Image>
-                </SwiperSlide>
-
-                <SwiperSlide className='!flex !justify-center '>
-                    <Image className='w-full rounded-md' alt='product image' width={600} height={600} src='https://vakacoffee.com/wp-content/uploads/2023/03/vaka-products-051604.jpg' quality={100}></Image>
-                </SwiperSlide>
-
-                <SwiperSlide className='!flex !justify-center '>
-                    <Image className='w-full rounded-md' alt='product image' width={600} height={600} src='https://vakacoffee.com/wp-content/uploads/2023/03/vaka-products-051604.jpg' quality={100}></Image>
-                </SwiperSlide>
+                {picturesUrl.map(url => (
+                    <SwiperSlide key={url} className='!flex !justify-center '>
+                        <Image priority className='w-full rounded-md' alt='product image' width={600} height={600} src={url} quality={70}></Image>
+                    </SwiperSlide>
+                ))}
 
 
             </Swiper>
 
             {/* thumb */}
-            <Swiper
-                onSwiper={setThumbsSwiper}
-                // freeMode={true}
-                // watchSlidesProgress={true}
-                className='mt-3'
-                centeredSlides
-                modules={[Thumbs]}
-                spaceBetween={10}
-                slidesPerView={3}
-            >
+            {picturesUrl.length > 1 &&
+                <Swiper
+                    onSwiper={setThumbsSwiper}
+                    // freeMode={true}
+                    // watchSlidesProgress={true}
+                    className='mt-3'
+                    centeredSlides
+                    modules={[Thumbs]}
+                    spaceBetween={10}
+                    slidesPerView={3}
+                >
 
-                <SwiperSlide className='!flex !justify-center opacity-50 cursor-pointer'>
-                    <Image className='w-full rounded-md' alt='product image' width={300} height={300} src='https://vakacoffee.com/wp-content/uploads/2023/03/vaka-products-051604.jpg' quality={100}></Image>
-                </SwiperSlide>
+                    {picturesUrl.map(url => (
+                        <SwiperSlide key={url} className='!flex !justify-center opacity-50 cursor-pointer'>
+                            <Image priority className='w-full rounded-md' alt='product image' width={300} height={300} src={url} quality={50}></Image>
+                        </SwiperSlide>
+                    ))}
 
-                <SwiperSlide className='!flex !justify-center opacity-50 cursor-pointer'>
-                    <Image className='w-full rounded-md' alt='product image' width={300} height={300} src='https://vakacoffee.com/wp-content/uploads/2023/03/vaka-products-051604.jpg' quality={100}></Image>
-                </SwiperSlide>
-
-                <SwiperSlide className='!flex !justify-center opacity-50 cursor-pointer'>
-                    <Image className='w-full rounded-md' alt='product image' width={300} height={300} src='https://vakacoffee.com/wp-content/uploads/2023/03/vaka-products-051604.jpg' quality={100}></Image>
-                </SwiperSlide>
-
-                <SwiperSlide className='!flex !justify-center opacity-50 cursor-pointer'>
-                    <Image className='w-full rounded-md' alt='product image' width={300} height={300} src='https://vakacoffee.com/wp-content/uploads/2023/03/vaka-products-051604.jpg' quality={100}></Image>
-                </SwiperSlide>
-
-            </Swiper>
+                </Swiper>}
         </div>
 
     )

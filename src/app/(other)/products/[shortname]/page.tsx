@@ -1,5 +1,3 @@
-"use client"
-
 import AddToCart from '@/components/modules/productpage/AddToCart'
 import Breadcrumb from '@/components/modules/productpage/Breadcrumb'
 import Content from '@/components/modules/productpage/Content'
@@ -7,21 +5,37 @@ import Details from '@/components/modules/productpage/Details'
 import ImagesSlider from '@/components/modules/productpage/ImagesSlider'
 import MoreProducts from '@/components/modules/productpage/MoreProducts'
 import RelatedProducts from '@/components/modules/productpage/RelatedProducts'
+import { connectToDataBase, productmodel } from '@/models'
+import { notFound } from 'next/navigation'
 import React from 'react'
 
-function Product() {
+type props = {
+    params: Promise<{ shortname: string }>
+}
+
+export default async function Product({ params }: props) {
+
+    const shortName = (await params).shortname
+
+    connectToDataBase()
+
+    const product = await productmodel.findOne({ shortName }).populate('category')
+    if (!product) notFound()
+    console.log(product);
+
+
     return (
         <div className=' mt-16 '>
 
-            <div className='container grid grid-cols-1 sm:grid-cols-7 gap-7 sm:gap-3 md:gap-7'>
-                <div className='h-full min-h-56 sm:col-span-2 md:col-span-2'>
-                    <ImagesSlider />
+            <div className='container grid grid-cols-1 sm:grid-cols-12 gap-7 sm:gap-3 md:gap-7'>
+                <div className='h-full min-h-56 sm:col-span-5 md:col-span-4 lg:col-span-3'>
+                    <ImagesSlider picturesUrl={product.pictures} />
                 </div>
 
-                <div className='sm:col-span-5 md:col-span-5'>
-                    <Breadcrumb categoryName=' قهوه ترک' categoryShortName='turkk-coffee' productName='پودر قهوه ترک 500 گرم' />
-                    <Details title='پودر قهوه ترک 500 گرم' commentsCount={3} score={3} price={465_000} dynamicFields={[{ key: 'ترکیب قهوه', value: '100 روبوستا' }, { key: 'میزان کافنین', value: 'کافئین خیلی بالا' }, { key: 'رست', value: 'مدیوم' }, { key: 'وزن', value: '250 گرم' }]} />
-                    <AddToCart />
+                <div className='sm:col-span-7 md:col-span-8'>
+                    <Breadcrumb categoryName={product.category.name} categoryShortName={product.category.shortName} productName={product.name} />
+                    <Details title={product.name} commentsCount={3} score={3} price={product.price} dynamicFields={product.dynamicFields} />
+                    <AddToCart stock={product.stock} />
                 </div>
             </div>
 
@@ -38,4 +52,19 @@ function Product() {
     )
 }
 
-export default Product 
+
+export const revalidate = 60
+
+export const generateMetadata = async ({ params }: props) => {
+    const shortName = (await params).shortname
+
+    connectToDataBase()
+
+    const product = await productmodel.findOne({ shortName }).populate('category')
+    if (!product) notFound()
+
+    return {
+        title: product.name,
+        description: `فروش ${product.name}`
+    }
+}

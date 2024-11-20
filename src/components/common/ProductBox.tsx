@@ -8,19 +8,20 @@ import { FaRegStar } from "react-icons/fa";
 type productBoxProps = {
     priceGoldColor?: boolean
     name: string
+    shortName: string
     price: number
     discount: number
     imageUrl: string
 }
 
 
-function ProductBox({ priceGoldColor, discount, name, price, imageUrl }: productBoxProps) {
+function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName }: productBoxProps) {
 
     return (
-        <Link href=' ' className='w-full flex flex-col items-center'>
+        <Link href={`/products/${shortName}`} className='w-full flex flex-col items-center'>
 
             <div className='w-[180px] sm:w-[180px] md:w-[180px] xl:w-[220px]  h-[180px] sm:h-[180px] md:h-[180px] xl:h-[220px]  overflow-hidden rounded-md'>
-                <Image className=' h-full object-cover' src={imageUrl} alt='product image' width={300} height={300} />
+                <Image className=' h-full object-cover' src={imageUrl} alt='product image' quality={60} width={300} height={300} />
             </div>
 
             <span className='mt-2 text-sm sm:text-base font-semibold line-clamp-1'>{name}</span>

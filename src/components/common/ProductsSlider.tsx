@@ -50,7 +50,7 @@ function ProductsSlider({ priceGoldColor, products }: productsSliderProps) {
                         }
                     },
                     1280: {
-                        slidesPerView: 5,
+                        slidesPerView: 5.2,
                         coverflowEffect: {
                             depth: 0
                         }
@@ -60,7 +60,7 @@ function ProductsSlider({ priceGoldColor, products }: productsSliderProps) {
 
                 {products.map(product => (
                     <SwiperSlide key={product._id.toString()} className='!flex !justify-center !px-2'>
-                        <div className='max-w-60'><ProductBox imageUrl={product.pictures[0]} discount={product.discount} name={product.name} price={product.price} priceGoldColor={priceGoldColor} /></div>
+                        <div className='max-w-60'><ProductBox shortName={product.shortName} imageUrl={product.pictures[0]} discount={product.discount} name={product.name} price={product.price} priceGoldColor={priceGoldColor} /></div>
                     </SwiperSlide>
                 ))}
 

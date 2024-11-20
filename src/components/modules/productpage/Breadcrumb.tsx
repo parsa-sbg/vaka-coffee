@@ -13,7 +13,7 @@ function Breadcrumb({ categoryName, categoryShortName, productName }: Breadcrumb
     return (
         <div className='text-sm'>
 
-            <Link className='opacity-80 transition-opacity duration-200 hover:opacity-100' href='/' >خانه </Link> / <Link className='opacity-80 transition-opacity duration-200 hover:opacity-100' href='/producs'>محصولات </Link> / <Link className='opacity-80 transition-opacity duration-200 hover:opacity-100' href={`/categories/${categoryShortName}`}>{categoryName} </Link> / <span className='font-semibold'>{toPersionNumber(productName)}</span>
+            <Link className='opacity-80 transition-opacity duration-200 hover:opacity-100' href='/' >خانه </Link> / <Link className='opacity-80 transition-opacity duration-200 hover:opacity-100' href='/products'>محصولات </Link> / <Link className='opacity-80 transition-opacity duration-200 hover:opacity-100' href={`/categories/${categoryShortName}`}>{categoryName} </Link> / <span className='font-semibold'>{toPersionNumber(productName)}</span>
 
         </div>
     )
