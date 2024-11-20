@@ -16,6 +16,7 @@ export const POST = async (req: NextRequest) => {
     const formData = await req.formData()
 
     const name = formData.get('name')
+    const shortName = formData.get('shortName')
     const price = formData.get('price')
     const stock = formData.get('stock')
     const discount = formData.get('discount')
@@ -25,6 +26,7 @@ export const POST = async (req: NextRequest) => {
 
     const newProductDatas = {
         name,
+        shortName,
         price: Number(price),
         stock: Number(stock),
         discount: Number(discount),
@@ -42,6 +44,10 @@ export const POST = async (req: NextRequest) => {
 
     try {
 
+        // check shortName duplication
+        const isShortNameAlreadyExist = await productmodel.findOne({ shortName })
+        if (isShortNameAlreadyExist) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است.' }, { status: 409 })
+
 
         const picturesUrl = await Promise.all(parsedData.data.pictures.map(pic => {
             return uploadImage(pic)
@@ -50,6 +56,7 @@ export const POST = async (req: NextRequest) => {
 
         const newProduct = await productmodel.create({
             name: parsedData.data.name,
+            shortName: parsedData.data.shortName,
             price: parsedData.data.price,
             discount: parsedData.data.discount,
             stock: parsedData.data.stock,

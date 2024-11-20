@@ -43,6 +43,7 @@ export const PUT = async (
     const formData = await req.formData()
 
     const name = formData.get('name')
+    const shortName = formData.get('shortName')
     const price = formData.get('price')
     const stock = formData.get('stock')
     const discount = formData.get('discount')
@@ -55,6 +56,7 @@ export const PUT = async (
 
     const updateProductDatas = {
         name,
+        shortName,
         price: Number(price),
         stock: Number(stock),
         discount: Number(discount),
@@ -71,6 +73,10 @@ export const PUT = async (
     connectToDataBase()
 
     try {
+        // check shortName duplication
+        const isShortNameAlreadyExist = await productmodel.findOne({ shortName })
+        if (isShortNameAlreadyExist) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است.' }, { status: 409 })
+
 
         const product = await productmodel.findById((await params).id)
         if (!product) return Response.json({ message: 'product not found' }, { status: 404 })
@@ -86,8 +92,9 @@ export const PUT = async (
         }
 
 
-        const updatedProduct = await productmodel.findByIdAndUpdate( (await params).id ,{
+        const updatedProduct = await productmodel.findByIdAndUpdate((await params).id, {
             name: parsedData.data.name,
+            shortName: parsedData.data.shortName,
             price: parsedData.data.price,
             discount: parsedData.data.discount,
             stock: parsedData.data.stock,

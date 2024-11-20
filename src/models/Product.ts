@@ -12,6 +12,7 @@ export interface DynamicField {
 export interface ProductInterface {
     _id: mongoose.Types.ObjectId
     name: string
+    shortName: string
     price: number
     discount: number
     pictures: string[]
@@ -32,6 +33,12 @@ const schema = new mongoose.Schema({
     name: {
         type: String,
         required: true
+    },
+
+    shortName: {
+        type: String,
+        required: true,
+        unique: true
     },
 
     price: {
@@ -71,7 +78,7 @@ const schema = new mongoose.Schema({
         ref: 'category',
         required: true
     }
-    
+
 }, { timestamps: true })
 
 export const productmodel: ProductModelInterface = mongoose.models.product || mongoose.model<ProductDocument>('product', schema)

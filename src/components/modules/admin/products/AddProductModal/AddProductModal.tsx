@@ -8,14 +8,15 @@ import DynamicFieldsSelector from './DynamicFieldsSelector'
 import CancelBtn from './CancelBtn'
 import AddBtn from './AddBtn'
 import { CategoryInterface } from '@/models/Category' 
-
 import mongoose from 'mongoose'
 import DiscountInput from './DiscountInput'
 import StockInput from './StockInput'
+import ShortNameInput from './ShortNameInput'
 
 
 export type errorsType = {
     name: boolean;
+    shortName: boolean;
     discount: boolean;
     stock: boolean;
     category: boolean;
@@ -34,6 +35,7 @@ type props = {
 function AddProductModal({ hideModal, setProducts, categories }: props) {
 
     const [name, setName] = useState('')
+    const [shortName, setshortName] = useState('')
     const [discount, setDiscount] = useState('0')
     const [stock, setStock] = useState('0')
     const [category, setCategory] = useState<mongoose.Types.ObjectId | null>(null)
@@ -43,6 +45,7 @@ function AddProductModal({ hideModal, setProducts, categories }: props) {
 
     const [errors, setErrors] = useState<errorsType>({
         name: false,
+        shortName: false,
         discount: false,
         stock: false,
         category: false,
@@ -53,6 +56,7 @@ function AddProductModal({ hideModal, setProducts, categories }: props) {
 
     const resetDatas = () => {
         setName('')
+        setshortName('')
         setDiscount('0')
         setStock('0')
         setCategory(null)
@@ -69,6 +73,7 @@ function AddProductModal({ hideModal, setProducts, categories }: props) {
                 <div className='mt-5 flex flex-col gap-5'>
 
                     <NameInput error={errors.name} setErrors={setErrors} name={name} setName={setName} />
+                    <ShortNameInput error={errors.shortName} setErrors={setErrors} shortName={shortName} setShortName={setshortName} />
                     <CategorySelector category={category} error={errors.category} setCategory={setCategory} setErrors={setErrors} categories={categories} />
                     <PriceInput error={errors.price} setErrors={setErrors} price={price} setPrice={setPrice} />
                     <div className='max-w-[312px] flex gap-3'>
@@ -80,7 +85,7 @@ function AddProductModal({ hideModal, setProducts, categories }: props) {
 
                     <div className='flex justify-between items-center gap-3'>
                         <CancelBtn hideModal={hideModal} />
-                        <AddBtn setProducts={setProducts} resetDatas={resetDatas} hideModal={hideModal} setErrors={setErrors} category={category} discount={discount} dynamicFields={dynamicFields} name={name} pictures={pictures} price={price} stock={stock} />
+                        <AddBtn shortName={shortName} setProducts={setProducts} resetDatas={resetDatas} hideModal={hideModal} setErrors={setErrors} category={category} discount={discount} dynamicFields={dynamicFields} name={name} pictures={pictures} price={price} stock={stock} />
                     </div>
                 </div>
 

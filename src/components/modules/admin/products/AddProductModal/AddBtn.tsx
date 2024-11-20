@@ -9,6 +9,7 @@ import { ProductInterface } from '@/models/Product'
 
 type props = {
     name: string
+    shortName: string
     discount: string
     stock: string
     category: mongoose.Types.ObjectId | null
@@ -25,7 +26,7 @@ type props = {
     setProducts: React.Dispatch<React.SetStateAction<ProductInterface[]>>
 }
 
-function AddBtn({ discount, dynamicFields, name, pictures, price, category, stock, setErrors, hideModal, resetDatas, setProducts }: props) {
+function AddBtn({ discount, dynamicFields, name, shortName, pictures, price, category, stock, setErrors, hideModal, resetDatas, setProducts }: props) {
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -35,6 +36,7 @@ function AddBtn({ discount, dynamicFields, name, pictures, price, category, stoc
         // client dalidation
         const parsedData = productSchema.safeParse({
             name,
+            shortName,
             price: +price,
             discount: +discount,
             dynamicFields,
@@ -68,6 +70,7 @@ function AddBtn({ discount, dynamicFields, name, pictures, price, category, stoc
 
         const formData = new FormData()
         formData.append('name', name)
+        formData.append('shortName', shortName)
         formData.append('price', price)
         formData.append('discount', discount)
         formData.append('dynamicFields', JSON.stringify(dynamicFields))
@@ -92,6 +95,13 @@ function AddBtn({ discount, dynamicFields, name, pictures, price, category, stoc
             setProducts(data.allProducts)
             toast.custom((t) => (
                 <SuccessAlert t={t} title='محصول جدید با موفقیت اضافه شد .' />
+            ), {
+                position: 'top-left'
+            })
+        } else if (res.status == 409) {
+            setErrors(prev => ({...prev, shortName: true}))
+            toast.custom((t) => (
+                <ErrorAlert t={t} title={data.message} />
             ), {
                 position: 'top-left'
             })

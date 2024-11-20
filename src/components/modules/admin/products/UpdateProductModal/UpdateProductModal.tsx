@@ -2,10 +2,9 @@ import { ProductInterface } from '@/models/Product'
 import React, { useEffect, useState } from 'react'
 import NameInput from '../AddProductModal/NameInput'
 import PriceInput from '../AddProductModal/PriceInput'
-import PicturesSelectors from '../AddProductModal/PicturesSelector'
 import DynamicFieldsSelector from '../AddProductModal/DynamicFieldsSelector'
 import CancelBtn from '../AddProductModal/CancelBtn'
-import { CategoryInterface } from '@/models/Category' 
+import { CategoryInterface } from '@/models/Category'
 
 import mongoose from 'mongoose'
 import DiscountInput from '../AddProductModal/DiscountInput'
@@ -13,10 +12,12 @@ import StockInput from '../AddProductModal/StockInput'
 import UpdateBtn from './UpdateBtn'
 import UpdateModalCategorySelector from './UpdateModalCategorySelector'
 import UpdateProductModalPicturesSelector from './UpdateProductModalPicturesSelector'
+import ShortNameInput from '../AddProductModal/ShortNameInput'
 
 
 export type errorsType = {
     name: boolean;
+    shortName: boolean;
     discount: boolean;
     stock: boolean;
     category: boolean;
@@ -38,17 +39,19 @@ function UpdateProductModal({ hideModal, setProducts, categories, product }: pro
 
 
     const [name, setName] = useState(product.name)
+    const [shortName, setShortName] = useState(product.shortName)
     const [discount, setDiscount] = useState<string>(product.discount.toString())
     const [stock, setStock] = useState<string>(product.stock.toString())
     const [category, setCategory] = useState<mongoose.Types.ObjectId | null>(product.category._id)
     const [price, setPrice] = useState<string>(product.price.toString())
     const [pictures, setPictures] = useState<File[]>([])
     const [dynamicFields, setDynamicFields] = useState<{ id: string; key: string; value: string }[]>(product.dynamicFields.map(item => ({ ...item, id: crypto.randomUUID() })));
-    
+
     const [uploadNewPictures, setUploadNewPictures] = useState(true);
-    
+
     const [errors, setErrors] = useState<errorsType>({
         name: false,
+        shortName: false,
         discount: false,
         stock: false,
         category: false,
@@ -59,6 +62,7 @@ function UpdateProductModal({ hideModal, setProducts, categories, product }: pro
 
     useEffect(() => {
         setName(product.name)
+        setShortName(product.shortName)
         setDiscount(product.discount.toString())
         setStock(product.stock.toString())
         setCategory(product.category._id)
@@ -68,6 +72,7 @@ function UpdateProductModal({ hideModal, setProducts, categories, product }: pro
 
         setErrors({
             name: false,
+            shortName: false,
             discount: false,
             stock: false,
             category: false,
@@ -79,6 +84,7 @@ function UpdateProductModal({ hideModal, setProducts, categories, product }: pro
 
     const resetDatas = () => {
         setName('')
+        setShortName('')
         setDiscount('0')
         setStock('0')
         setCategory(null)
@@ -94,6 +100,7 @@ function UpdateProductModal({ hideModal, setProducts, categories, product }: pro
 
                 <div className='mt-5 flex flex-col gap-5'>
                     <NameInput error={errors.name} setErrors={setErrors} name={name} setName={setName} />
+                    <ShortNameInput error={errors.shortName} setErrors={setErrors} setShortName={setShortName} shortName={shortName} />
                     {/* <CategorySelector category={category} error={errors.category} setCategory={setCategory} setErrors={setErrors} categories={categories} /> */}
                     <UpdateModalCategorySelector selectedcatName={product.category.name} category={category} error={errors.category} setCategory={setCategory} setErrors={setErrors} categories={categories} />
 
@@ -108,7 +115,7 @@ function UpdateProductModal({ hideModal, setProducts, categories, product }: pro
 
                     <div className='flex justify-between items-center gap-3'>
                         <CancelBtn hideModal={hideModal} />
-                        <UpdateBtn productId={product._id.toString()} uploadNewPictures={uploadNewPictures} setProducts={setProducts} resetDatas={resetDatas} hideModal={hideModal} setErrors={setErrors} category={category} discount={discount} dynamicFields={dynamicFields} name={name} pictures={pictures} price={price} stock={stock} />
+                        <UpdateBtn shortName={shortName} productId={product._id.toString()} uploadNewPictures={uploadNewPictures} setProducts={setProducts} resetDatas={resetDatas} hideModal={hideModal} setErrors={setErrors} category={category} discount={discount} dynamicFields={dynamicFields} name={name} pictures={pictures} price={price} stock={stock} />
                     </div>
                 </div>
 

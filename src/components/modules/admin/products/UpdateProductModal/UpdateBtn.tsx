@@ -1,7 +1,7 @@
 import { productSchema } from '@/validation/product'
 import mongoose from 'mongoose'
 import React, { useState } from 'react'
-import { errorsType } from './UpdateProductModal' 
+import { errorsType } from './UpdateProductModal'
 import toast from 'react-hot-toast'
 import ErrorAlert from '@/components/common/alerts/ErrorAlert'
 import SuccessAlert from '@/components/common/alerts/SuccessAlert'
@@ -9,6 +9,7 @@ import { ProductInterface } from '@/models/Product'
 
 type props = {
     name: string
+    shortName: string
     discount: string
     stock: string
     category: mongoose.Types.ObjectId | null
@@ -27,7 +28,7 @@ type props = {
     productId: string
 }
 
-function UpdateBtn({ discount, dynamicFields, name, pictures, price, category, stock, setErrors, hideModal, resetDatas, setProducts, uploadNewPictures, productId }: props) {
+function UpdateBtn({ discount, dynamicFields, name, shortName, pictures, price, category, stock, setErrors, hideModal, resetDatas, setProducts, uploadNewPictures, productId }: props) {
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -37,6 +38,7 @@ function UpdateBtn({ discount, dynamicFields, name, pictures, price, category, s
         // client dalidation
         const parsedData = productSchema.safeParse({
             name,
+            shortName,
             price: +price,
             discount: +discount,
             dynamicFields,
@@ -70,6 +72,7 @@ function UpdateBtn({ discount, dynamicFields, name, pictures, price, category, s
 
         const formData = new FormData()
         formData.append('name', name)
+        formData.append('shortName', shortName)
         formData.append('price', price)
         formData.append('discount', discount)
         formData.append('dynamicFields', JSON.stringify(dynamicFields))
@@ -95,6 +98,13 @@ function UpdateBtn({ discount, dynamicFields, name, pictures, price, category, s
             setProducts(data.allProducts)
             toast.custom((t) => (
                 <SuccessAlert t={t} title='محصول با موفقیت آپدیت شد .' />
+            ), {
+                position: 'top-left'
+            })
+        } else if (res.status == 409) {
+            setErrors(prev => ({ ...prev, shortName: true }))
+            toast.custom((t) => (
+                <ErrorAlert t={t} title={data.message} />
             ), {
                 position: 'top-left'
             })
