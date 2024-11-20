@@ -23,7 +23,7 @@ function Categories({ categories }: props) {
 
         {categories.map(cat => (
           <li key={cat._id.toString()} className=''>
-            <Link href={`categories/${cat.shortName}`} className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main'>{cat.name}</Link>
+            <Link href={`/categories/${cat.shortName}`} className='py-2 block transition-all duration-200 rounded-sm hover:bg-secondary hover:text-main'>{cat.name}</Link>
           </li>
         ))}
 
