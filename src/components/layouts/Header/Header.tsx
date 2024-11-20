@@ -23,8 +23,8 @@ function Header() {
 
                     <div className='items-center gap-5 hidden lg:flex'>
                         <Categories />
-                        <Link href={'/account'} className='hover:text-main duration-200 text-nowrap'>تخفیف ها🔥</Link>
-                        <Link href={'/account'} className='hover:text-main duration-200 text-nowrap'>حساب کاربری من</Link>
+                        <Link href={'/off'} className='hover:text-main duration-200 text-nowrap'>تخفیف ها🔥</Link>
+                        <Link href={'/dashboard'} className='hover:text-main duration-200 text-nowrap'>حساب کاربری من</Link>
                     </div>
 
                     <CartIcon />
