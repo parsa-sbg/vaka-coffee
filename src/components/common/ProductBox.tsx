@@ -19,7 +19,7 @@ function ProductBox({ priceGoldColor, discount, name, price, imageUrl }: product
     return (
         <Link href=' ' className='w-full flex flex-col items-center'>
 
-            <div className='max-w-[180px] sm:max-w-[152.5px] md:max-w-[230px]  max-h-[180px] sm:max-h-[152.5px] md:max-h-[230px]  overflow-hidden rounded-md'>
+            <div className='w-[180px] sm:w-[180px] md:w-[180px] xl:w-[220px]  h-[180px] sm:h-[180px] md:h-[180px] xl:h-[220px]  overflow-hidden rounded-md'>
                 <Image className=' h-full object-cover' src={imageUrl} alt='product image' width={300} height={300} />
             </div>
 

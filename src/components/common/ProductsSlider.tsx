@@ -32,6 +32,12 @@ function ProductsSlider({ priceGoldColor, products }: productsSliderProps) {
                 }}
                 breakpoints={{
                     640: {
+                        slidesPerView: 2.5,
+                        coverflowEffect: {
+                            depth: 0
+                        }
+                    },
+                    768: {
                         slidesPerView: 3.5,
                         coverflowEffect: {
                             depth: 0
