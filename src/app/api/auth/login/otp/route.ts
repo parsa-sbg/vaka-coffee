@@ -23,7 +23,7 @@ export const POST = async (req: NextRequest) => {
         })
     }
 
-    connectToDataBase()
+    await connectToDataBase()
 
 
     // // check otp code

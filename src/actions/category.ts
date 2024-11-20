@@ -12,7 +12,7 @@ export const showCatInHomePage = async (catId: mongoose.Types.ObjectId) => {
     const user = await authUserWithToken(token)
     if (!user) return { success: false }
     if (user.role == "USER") return { success: false }
-    connectToDataBase()
+    await connectToDataBase()
 
     const result = await categoryModel.findByIdAndUpdate(catId, { showInHomePage: true })
 
@@ -29,7 +29,7 @@ export const hideCatFromHomePage = async (catId: mongoose.Types.ObjectId) => {
     const user = await authUserWithToken(token)
     if (!user) return { success: false }
     if (user.role == "USER") return { success: false }
-    connectToDataBase()
+    await connectToDataBase()
 
     const result = await categoryModel.findByIdAndUpdate(catId, { showInHomePage: false })
 

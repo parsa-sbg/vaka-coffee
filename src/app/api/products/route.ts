@@ -40,7 +40,7 @@ export const POST = async (req: NextRequest) => {
     if (!parsedData.success) return Response.json({ message: 'invalid datas', data: parsedData.error }, { status: 400 })
 
 
-    connectToDataBase()
+    await connectToDataBase()
 
     try {
 

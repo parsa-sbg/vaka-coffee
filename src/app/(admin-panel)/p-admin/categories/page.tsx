@@ -5,7 +5,7 @@ import React from 'react'
 
 async function Categories() {
 
-  connectToDataBase()
+  await connectToDataBase()
   const categories = await categoryModel.find({}).sort({ _id: -1 })
 
 

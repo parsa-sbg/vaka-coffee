@@ -13,7 +13,7 @@ export default async function page({ params }: props) {
     const catShortname = (await params).shortname
 
 
-    connectToDataBase()
+    await connectToDataBase()
     const categoryWithProducts = await categoryModel.findOne({ shortName: catShortname }).populate('products')
     const allCategories = await categoryModel.find({})
 
@@ -39,7 +39,7 @@ export const generateMetadata = async ({ params }: props) => {
     const catShortname = (await params).shortname
 
 
-    connectToDataBase()
+    await connectToDataBase()
     const category = await categoryModel.findOne({ shortName: catShortname })
 
     return {

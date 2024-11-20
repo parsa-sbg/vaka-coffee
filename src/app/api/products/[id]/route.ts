@@ -16,7 +16,7 @@ export const DELETE = async (
 
 
     try {
-        connectToDataBase()
+        await connectToDataBase()
         const result = await productmodel.findByIdAndDelete((await params).id)
         const allnewProducts = await productmodel.find({}).sort({ _id: -1 }).populate('category')
         if (result) {
@@ -70,7 +70,7 @@ export const PUT = async (
     if (!parsedData.success) return Response.json({ message: 'invalid datas', data: parsedData.error }, { status: 400 })
 
 
-    connectToDataBase()
+    await connectToDataBase()
 
     try {
 

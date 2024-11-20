@@ -6,7 +6,7 @@ import React from 'react'
 export default async function page() {
 
 
-  connectToDataBase()
+  await connectToDataBase()
   const categories = await categoryModel.find()
   const allProducts = await productmodel.find()
 

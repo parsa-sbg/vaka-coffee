@@ -29,7 +29,7 @@ export const POST = async (req: NextRequest) => {
     const parsedData = categorySchema.safeParse(newCatData)
     if (!parsedData.success) return Response.json(parsedData, { status: 400 })
 
-    connectToDataBase()
+    await connectToDataBase()
 
     const iconUrl = await uploadImage(iconParseddata.data.icon)
 

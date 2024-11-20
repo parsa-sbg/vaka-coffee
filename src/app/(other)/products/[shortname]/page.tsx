@@ -17,7 +17,7 @@ export default async function Product({ params }: props) {
 
     const shortName = (await params).shortname
 
-    connectToDataBase()
+    await connectToDataBase()
 
     const product = await productmodel.findOne({ shortName }).populate('category')
     if (!product) notFound()
@@ -58,7 +58,7 @@ export const revalidate = 60
 export const generateMetadata = async ({ params }: props) => {
     const shortName = (await params).shortname
 
-    connectToDataBase()
+    await connectToDataBase()
 
     const product = await productmodel.findOne({ shortName }).populate('category')
     if (!product) notFound()

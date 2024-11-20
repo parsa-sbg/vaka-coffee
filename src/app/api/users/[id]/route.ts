@@ -15,7 +15,7 @@ export const DELETE = async (
     if (user.role !== "OWNER") return Response.json({ message: "this route is protected and you can't access to it ." }, { status: 401 })
 
     try {
-        connectToDataBase()
+        await connectToDataBase()
         const result = await UserModel.findByIdAndDelete((await params).id)
         const allNewUsers = await UserModel.find({ role: "USER" }).sort({ _id: -1 })
         if (result) {

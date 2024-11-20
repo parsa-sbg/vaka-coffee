@@ -3,7 +3,7 @@ import { connectToDataBase } from "./dataBase"
 import mongoose from "mongoose"
 import { verifyToken } from "./token"
 
-connectToDataBase()
+await connectToDataBase()
 export const authUser = async (id: mongoose.Types.ObjectId) => {
     try {
 

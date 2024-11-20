@@ -12,7 +12,7 @@ async function Users() {
   if (!manager) return
 
 
-  connectToDataBase()
+  await connectToDataBase()
 
   const users = await UserModel.find({ role: 'USER' }).sort({ _id: -1 })
 

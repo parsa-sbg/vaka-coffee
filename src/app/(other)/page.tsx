@@ -10,7 +10,7 @@ import { Metadata } from "next";
 
 export default async function Home() {
 
-  connectToDataBase()
+  await connectToDataBase()
 
   const categoriesWithProducts = await categoryModel.find({ showInHomePage: true }).populate('products')
 

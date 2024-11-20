@@ -6,7 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 
 async function Categories() {
 
-    connectToDataBase()
+    await connectToDataBase()
     const categories = await categoryModel.find()
 
     return (

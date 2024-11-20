@@ -11,7 +11,7 @@ async function page() {
     const manager = await authUserWithToken(token)
     if (!manager) return
     
-    connectToDataBase()
+    await connectToDataBase()
     const admins = await UserModel.find({ role: 'ADMIN' }).sort({ _id: -1 })
     
     return (

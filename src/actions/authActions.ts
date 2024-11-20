@@ -6,7 +6,7 @@ import { connectToDataBase } from "@/utils/server/dataBase"
 import { phoneSchema } from "@/validation/auth"
 
 export const checkIsUserNameExist = async (username: string) => {
-    connectToDataBase()
+    await connectToDataBase()
     const isExist = await UserModel.exists({ username })
     if (isExist) {
         return true
@@ -15,7 +15,7 @@ export const checkIsUserNameExist = async (username: string) => {
 }
 
 export const checkIsPhoneExist = async (phone: string) => {
-    connectToDataBase()
+    await connectToDataBase()
     const isExist = await UserModel.exists({ phone })
     if (isExist) {
         return true
@@ -24,7 +24,7 @@ export const checkIsPhoneExist = async (phone: string) => {
 }
 
 export const sentOtpAction = async (phone: string) => {
-    connectToDataBase()
+    await connectToDataBase()
 
     const parsedData = phoneSchema.safeParse(phone)
 

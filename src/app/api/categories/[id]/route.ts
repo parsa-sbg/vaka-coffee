@@ -30,7 +30,7 @@ export const PUT = async (
 
     if (!parsedData.success) return Response.json(parsedData, { status: 400 })
 
-    connectToDataBase()
+    await connectToDataBase()
 
     const targetCategory = await categoryModel.findById((await params).id)
     if (!targetCategory) return Response.json({ message: 'category not found' }, { status: 404 })
@@ -79,7 +79,7 @@ export const DELETE = async (
 
     if (!user || user.role == "USER") return Response.json({ message: "this route is protected and you can't access to it ." }, { status: 401 })
 
-    connectToDataBase()
+    await connectToDataBase()
 
     try {
         const result = await categoryModel.findByIdAndDelete((await params).id)

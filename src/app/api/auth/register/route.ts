@@ -26,7 +26,7 @@ export const POST = async (req: NextRequest) => {
         })
     }
 
-    connectToDataBase()
+    await connectToDataBase()
 
     // // check otp code
     const checkOtpResult = await OtpModel.findOne({ phone: parsedData.data.phone, otpCode: parsedData.data.otp })

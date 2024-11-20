@@ -13,7 +13,7 @@ export const PUT = async (req: NextRequest) => {
     const reqBody = await req.json()
 
     try {
-        connectToDataBase()
+        await connectToDataBase()
         const result = await UserModel.findByIdAndUpdate(reqBody._id, { role: reqBody.role })
         const updatedDatas = await UserModel.find({ role: reqBody.role == 'USER' ? 'ADMIN' : 'USER' }).sort({ _id: -1 })
         if (result) {
