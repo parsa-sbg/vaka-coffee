@@ -17,9 +17,9 @@ function ShortNameInput({ shortName, setShortName, error, setErrors }: props) {
     }
 
     return (
-        <div className={`flex flex-col gap-1 ${error ? 'text-red-600' : ''} transition-all duration-300`}>
-            <h5 className='mb-1 font-semibold'>نام کوتاه</h5>
-            <input maxLength={20} value={shortName} onChange={changeHanndler} className={`${error ? '!border-red-600' : ''} outline-none rounded-md border border-transparent focus:border-main py-1.5 px-3 bg-bgColer`} type="text" />
+        <div className={`flex flex-col gap-1 ${error ? 'text-red-600' : ''} `}>
+            <h5 className='mb-1 font-semibold transition-all duration-300'>نام کوتاه</h5>
+            <input maxLength={20} value={shortName} onChange={changeHanndler} className={`${error ? '!border-red-600' : ''} transition-all duration-300 outline-none rounded-md border border-transparent focus:border-main py-1.5 px-3 bg-bgColer`} type="text" />
         </div>
     )
 }
