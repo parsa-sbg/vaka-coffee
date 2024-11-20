@@ -45,7 +45,7 @@ export const POST = async (req: NextRequest) => {
     try {
 
         // check shortName duplication
-        const isShortNameAlreadyExist = await productmodel.findOne({ shortName })
+        const isShortNameAlreadyExist = await productmodel.findOne({ shortName: parsedData.data.shortName })
         if (isShortNameAlreadyExist) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است.' }, { status: 409 })
 
 

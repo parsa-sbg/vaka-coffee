@@ -73,13 +73,13 @@ export const PUT = async (
     connectToDataBase()
 
     try {
-        // check shortName duplication
-        const isShortNameAlreadyExist = await productmodel.findOne({ shortName })
-        if (isShortNameAlreadyExist) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است.' }, { status: 409 })
-
 
         const product = await productmodel.findById((await params).id)
         if (!product) return Response.json({ message: 'product not found' }, { status: 404 })
+
+        // check shortName duplication
+        const isShortNameAlreadyExist = await productmodel.findOne({ shortName: parsedData.data.shortName })
+        if (isShortNameAlreadyExist && product.shortName !== parsedData.data.shortName) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است.' }, { status: 409 })
 
         let picturesUrl = null
 
