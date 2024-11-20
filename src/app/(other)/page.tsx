@@ -15,14 +15,13 @@ export default async function Home() {
   const categoriesWithProducts = await categoryModel.find({ showInHomePage: true }).populate('products')
 
   const discountedProducts = await productmodel.find({ discount: { $gt: 0 } })
-  console.log(discountedProducts);
-  
+
 
   return (
     <div className="">
       <div className="container">
         <Header />
-        <AllCategories />
+        <AllCategories allCats={categoriesWithProducts} />
 
 
         <SeasionSection discountedProducts={discountedProducts} />
