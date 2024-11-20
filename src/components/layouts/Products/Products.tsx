@@ -6,13 +6,16 @@ import Categories from './Categories/Categories'
 import Filters from './Filters/Filters'
 import { IoClose } from "react-icons/io5";
 import { CategoryInterface } from '@/models/Category'
+import { ProductInterface } from '@/models/Product'
 
 
 type props = {
     categories: CategoryInterface[]
+    products: ProductInterface[]
+
 }
 
-function Products({ categories }: props) {
+function Products({ categories = [], products = [] }: props) {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -34,7 +37,7 @@ function Products({ categories }: props) {
             </div>
 
             <div className='col-span-9 sm:col-span-6 md:col-span-9'>
-                <ProductsList setIsMenuOpen={setIsMenuOpen} />
+                <ProductsList products={products} setIsMenuOpen={setIsMenuOpen} />
             </div>
 
         </div>
