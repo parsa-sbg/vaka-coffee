@@ -147,7 +147,6 @@ function PhoneBox({ intialNumber }: props) {
                             ? async () => {
                                 await setStep(2)
                                 inputRef.current?.focus({})
-                                console.log(inputRef.current);
                             }
                             : step == 2 ? sentOtpCode : step == 3 ? updatePhone : () => { }
                         }>

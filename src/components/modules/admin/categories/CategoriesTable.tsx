@@ -99,7 +99,6 @@ function CategoriesTable({ intialCategories }: props) {
     }
 
     const editBtnClickhandler = (category: CategoryInterface) => {
-        console.log(category);
         setEditModalvalues({ name: category.name, shortName: category.shortName, _id: category._id, iconUrl: category.iconUrl })
         showEditModal()
     }

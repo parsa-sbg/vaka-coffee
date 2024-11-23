@@ -24,7 +24,6 @@ export const uploadImage = async (pic: File) => {
     };
 
     const response = await s3.upload(params).promise();
-    console.log('response ===>>>>>>>>', response);
 
     return s3.getSignedUrl('getObject', {
         Bucket: bucket,

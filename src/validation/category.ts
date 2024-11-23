@@ -7,7 +7,6 @@ const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export const imageFileSchema = z.custom<File>()
     .superRefine((file, ctx) => {
-        console.log(file);
 
         if (!file) {
             ctx.addIssue({
