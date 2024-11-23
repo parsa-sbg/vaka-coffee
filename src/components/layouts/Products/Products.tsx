@@ -22,7 +22,7 @@ function Products({ categories = [], products = [] }: props) {
     return (
         <div className='grid grid-cols-9 md:grid-cols-12 gap-5'>
 
-            <div className={`${isMenuOpen && '!right-0'} overflow-y-scroll md:overflow-y-visible no-scrollbar transition-all duration-300 fixed z-50 sm:z-10 w-full max-w-52 sm:max-w-full bg-bgColer sm:static md:col-span-3 top-0 bottom-0 -right-52 col-span-3 flex flex-col gap-5`}>
+            <div className={`${isMenuOpen && '!right-0'} overflow-y-scroll sm:overflow-y-visible no-scrollbar transition-all duration-300 fixed z-50 sm:z-10 w-full max-w-52 sm:max-w-full bg-bgColer sm:static md:col-span-3 top-0 bottom-0 -right-52 col-span-3 flex flex-col gap-5`}>
 
 
                 <div>
