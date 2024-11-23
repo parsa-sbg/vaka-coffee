@@ -19,6 +19,10 @@ export const PUT = async (req: NextRequest) => {
 
     const parsedData = updateUserInfosSchema.safeParse(updateInfos)
 
+    if (!parsedData.success) {
+        return Response.json(parsedData)
+    }
+
     try {
 
         const result = await UserModel.findByIdAndUpdate(user._id, parsedData.data)

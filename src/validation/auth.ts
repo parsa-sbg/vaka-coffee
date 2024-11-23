@@ -68,3 +68,8 @@ export const updateUserInfosSchema = z.object({
     email: z.optional(emailSchema)
 })
 
+
+export const cahngePhoneSchema = z.object({
+    newPhone: phoneSchema,
+    otpCode: otpSchema,
+})

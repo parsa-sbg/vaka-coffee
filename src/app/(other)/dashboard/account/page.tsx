@@ -14,14 +14,14 @@ async function page() {
   const token = (await cookies()).get('token')?.value
   const user = await authUserWithToken(token)
   if (!user) redirect('/')
-    
+
 
   return (
     <div className='bg-[#0f0f0f] grid md:grid-cols-2 gap-4 p-4 md:p-8 md:gap-8 rounded-3xl'>
 
-      <div className='bg-bgColer p-3 sm:p-5 shadow-secondary rounded-2xl md:col-span-2'><InfoBox intialUserInfos={{name: user.name, email: user.email, lastName: user.lastName}} /></div>
+      <div className='bg-bgColer p-3 sm:p-5 shadow-secondary rounded-2xl md:col-span-2'><InfoBox intialUserInfos={{ name: user.name, email: user.email, lastName: user.lastName }} /></div>
       <div className='bg-bgColer p-3 sm:p-5 shadow-secondary rounded-2xl'><PasswordBox /></div>
-      <div className='bg-bgColer p-3 sm:p-5 shadow-secondary rounded-2xl'><PhoneBox /></div>
+      <div className='bg-bgColer p-3 sm:p-5 shadow-secondary rounded-2xl'><PhoneBox intialNumber={user.phone} /></div>
 
     </div>
   )

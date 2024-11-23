@@ -16,8 +16,6 @@ type props = {
 
 function InfoBox({ intialUserInfos }: props) {
 
-  console.log(intialUserInfos);
-
 
   const [userInfos, setUserInfos] = useState({
     name: intialUserInfos.name,
