@@ -1,5 +1,6 @@
 import Box from '@/components/modules/dashboard/index/Box'
 import WelcomeTitle from '@/components/modules/dashboard/index/WelcomeTitle';
+import { connectToDataBase } from '@/models';
 import { authUserWithToken } from '@/utils/server/auth';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -9,6 +10,7 @@ import { RiListCheck3 } from "react-icons/ri";
 
 async function page() {
 
+  connectToDataBase()
   const token = (await cookies()).get('token')?.value
   const user = await authUserWithToken(token)
   if (!user) redirect('/')
