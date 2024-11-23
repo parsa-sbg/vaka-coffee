@@ -13,7 +13,7 @@ async function page() {
   connectToDataBase()
   const token = (await cookies()).get('token')?.value
   const user = await authUserWithToken(token)
-  if (!user) redirect('/')
+  if (!user) redirect('/login')
 
 
   return (
