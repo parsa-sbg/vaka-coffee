@@ -15,13 +15,13 @@ export interface Address {
 export interface UserInterface {
     _id: mongoose.Types.ObjectId
     name: string
-    lastName: string | undefined
+    lastName: string
     username: string
     phone: string
     password: string
     address: Address | undefined
     role: 'ADMIN' | 'USER' | 'OWNER'
-    email: string | undefined
+    email: string
 }
 
 export interface UserDocument extends Document, UserInterface { }
@@ -48,7 +48,7 @@ const user = new mongoose.Schema<UserDocument>({
     },
     lastName: {
         type: String,
-        default: undefined
+        default: ''
     },
     username: {
         type: String,
@@ -78,7 +78,7 @@ const user = new mongoose.Schema<UserDocument>({
     email: {
         type: String,
         required: false,
-        default: undefined
+        default: ''
     }
 })
 

@@ -92,6 +92,8 @@ function PhoneBox({ intialNumber }: props) {
                 otpCode
             })
         })
+        const data = await res.json()
+
 
         if (res.status == 200) {
             setPhone(newPhone)
@@ -101,8 +103,14 @@ function PhoneBox({ intialNumber }: props) {
                 position: 'top-left'
             })
             resetDatas()
+        } else if (res.status == 409) {
+            toast.custom((t) => (
+                <ErrorAlert t={t} title={data.message} />
+            ), {
+                position: 'top-left'
+            })
+            setError(true)
         } else if (res.status == 401) {
-            const data = await res.json()
             toast.custom((t) => (
                 <ErrorAlert t={t} title={data.message} />
             ), {

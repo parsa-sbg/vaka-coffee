@@ -40,7 +40,7 @@ export const POST = async (req: NextRequest) => {
     const isUserNameDuplicated = await UserModel.exists({ username: parsedData.data.username })
     if (isUserNameDuplicated) return Response.json({ message: 'این نام کاربری قبلا انتخاب شده است.', target: 'username' }, { status: 409 })
 
-    // check username duplicated
+    // check phone duplicated
     const isPhoneDuplicated = await UserModel.exists({ phone: parsedData.data.phone })
     if (isPhoneDuplicated) return Response.json({ message: 'این شماره تماس قبلا استفاده شده است.', target: 'phone' }, { status: 409 })
 

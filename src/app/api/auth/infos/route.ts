@@ -25,6 +25,10 @@ export const PUT = async (req: NextRequest) => {
 
     try {
 
+        parsedData.data['email'] == undefined ? parsedData.data['email'] = '' : ''
+        parsedData.data['lastName'] == undefined ? parsedData.data['lastName'] = '' : ''
+
+
         const result = await UserModel.findByIdAndUpdate(user._id, parsedData.data)
         if (result) {
             return Response.json({ message: 'user infos updated sucsessfully' }, { status: 200 })

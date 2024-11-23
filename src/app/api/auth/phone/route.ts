@@ -20,6 +20,12 @@ export const PUT = async (req: NextRequest) => {
 
     try {
         connectToDataBase()
+
+        // check phone duplicated
+        const isPhoneDuplicated = await UserModel.exists({ phone: parsedData.data.newPhone })
+        if (isPhoneDuplicated) return Response.json({ message: 'این شماره تماس قبلا استفاده شده است.', target: 'phone' }, { status: 409 })
+
+
         // // check otp code
         const checkOtpResult = await OtpModel.findOne({ phone: parsedData.data.newPhone, otpCode: parsedData.data.otpCode })
 
