@@ -1,3 +1,4 @@
+import { UserInfoContextProvider } from "@/contexts/userInfoContext";
 import "./globals.css";
 import { Vazirmatn } from "next/font/google"
 import { Toaster } from "react-hot-toast";
@@ -15,7 +16,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
       <body className={`${vazirFont.variable} font-vazir text-white custom-scrollbar antialiased`}>
 
-        {children}
+        <UserInfoContextProvider>
+          {children}
+        </UserInfoContextProvider>
 
         <Toaster />
       </body>
