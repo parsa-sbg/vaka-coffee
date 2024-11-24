@@ -1,51 +1,21 @@
-import Button from '@/components/common/Button'
+import AddressInfo from '@/components/modules/dashboard/address/AddressInfo'
+import { connectToDataBase } from '@/models'
+import { authUserWithToken } from '@/utils/server/auth'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import React from 'react'
+const provincese: { id: number, name: string }[] = require('@/app/api/locations/data/provinces.json')
 
-function page() {
+async function page() {
+
+
+  connectToDataBase()
+  const token = (await cookies()).get('token')?.value
+  const user = await authUserWithToken(token)
+  if (!user) redirect('/login')
+
   return (
-    <div className=''>
-      <p>آدرس‌ زیر به طور پیش‌فرض در صفحه پرداخت مورد استفاده قرار می‌گیرد.</p>
-
-      <div className='flex items-center gap-3 mt-3'>
-        <h4 className='font-semibold text-lg'>آدرس شما</h4>
-        <div className='text-xs'><Button link text='ویرایش' href='/dashboard/address/edit'></Button></div>
-      </div>
-
-      <div className='mt-3 flex flex-col gap-3'>
-
-        <div className='flex items-center gap-5'>
-          <span className='min-w-12'>نام</span>
-          <span className='text-main font-semibold'>ثنا</span>
-        </div>
-
-        <div className='flex items-center gap-5'>
-          <span className='min-w-12'>فامیل</span>
-          <span className='text-main font-semibold'>محمودی</span>
-        </div>
-
-        <div className='flex items-center gap-5'>
-          <span className='min-w-12'>استان</span>
-          <span className='text-main font-semibold'>تهران</span>
-        </div>
-
-        <div className='flex items-center gap-5'>
-          <span className='min-w-12'>شهر</span>
-          <span className='text-main font-semibold'>تهران</span>
-        </div>
-
-        <div className='flex items-center gap-5'>
-          <span className='min-w-12'>آدرس</span>
-          <span className='text-main font-semibold'>بلوار فلان کوچه 5 پلاک 1</span>
-        </div>
-
-        <div className='flex items-center gap-5'>
-          <span className='min-w-12'>پلاک</span>
-          <span className='text-main font-semibold'>69486949</span>
-        </div>
-
-      </div>
-
-    </div>
+    <AddressInfo provinces={JSON.parse(JSON.stringify(provincese))} intialAddress={JSON.parse(JSON.stringify(user.address))} />
   )
 }
 

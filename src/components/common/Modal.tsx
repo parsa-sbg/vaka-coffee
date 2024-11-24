@@ -8,7 +8,7 @@ type props = {
 function Modal({ isModalShow, children, coverClickhandler }: React.PropsWithChildren<props>) {
 
     return (
-        <div className={`modal ${isModalShow ? '' : 'invisible'} flex justify-center items-center fixed w-screen h-screen top-0 left-0 transition-all duration-200`}>
+        <div className={`modal ${isModalShow ? '' : 'invisible'} z-50 flex justify-center items-center fixed w-screen h-screen top-0 left-0 transition-all duration-200`}>
             <div className={`${isModalShow ? '!opacity-100 visible' : 'opacity-0 invisible'} flex items-center h-full m-auto z-50 transition-all duration-200`}>
                 {children}
             </div>
