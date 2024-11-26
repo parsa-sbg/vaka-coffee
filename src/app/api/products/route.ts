@@ -1,10 +1,10 @@
+import { categoryModel } from "@/models"
 import { productmodel } from "@/models/Product"
 import { authUserWithToken } from "@/utils/server/auth"
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { uploadImage } from "@/utils/server/uploadImage"
 import { productSchema } from "@/validation/product"
 import { NextRequest } from "next/server"
-
 
 
 export const POST = async (req: NextRequest) => {
@@ -74,6 +74,109 @@ export const POST = async (req: NextRequest) => {
 
     } catch (err) {
         console.log('create new product error => ', err);
+        return Response.json({ message: 'internal server error' }, { status: 500 })
+    }
+
+}
+
+
+export const GET = async (req: NextRequest) => {
+
+    const searchParams = req.nextUrl.searchParams
+
+    const categoryShortName = searchParams.get('categoryShortName')
+    const minPrice = searchParams.get('minPrice')
+    const maxPrice = searchParams.get('maxPrice')
+    const sort = searchParams.get('sort')
+
+
+    // min and max price validation 
+
+    if (minPrice && isNaN(+minPrice)) {
+        return Response.json({ message: 'Invalid minPrice value.' }, { status: 400 });
+    }
+    if (maxPrice && isNaN(+maxPrice)) {
+        return Response.json({ message: 'Invalid maxPrice value.' }, { status: 400 });
+    }
+
+    connectToDataBase()
+    const pipeline = []
+
+    // add final price field
+    pipeline.push({
+        $addFields: {
+            finalPrice: {
+                $subtract: [
+                    "$price",
+                    { $multiply: ["$price", { $divide: ["$discount", 100] }] }
+                ]
+            }
+        }
+    });
+
+
+    // price filtering
+    if (minPrice || maxPrice) {
+        pipeline.push({
+            $match: {
+                finalPrice: {
+                    ...(minPrice ? { $gte: +minPrice } : {}),
+                    ...(maxPrice ? { $lte: +maxPrice } : {})
+                }
+            }
+        });
+    }
+
+    // category filtering
+    if (categoryShortName) {
+        try {
+            const targetcategory = await categoryModel.findOne({ shortName: categoryShortName })
+            if (targetcategory) {
+                pipeline.push({
+                    $match: {
+                        category: targetcategory._id
+                    }
+                });
+            }
+        } catch {
+        }
+    }
+
+    // sort
+    switch (sort) {
+        case 'lastest': {
+            pipeline.push({
+                $sort: { createdAt: -1 as 1 | -1 }
+            })
+            break
+        }
+        case 'lowprice': {
+            pipeline.push({
+                $sort: { finalPrice: 1 as 1 | -1 }
+            })
+            break
+        }
+        case 'hightprice': {
+            pipeline.push({
+                $sort: { finalPrice: -1 as 1 | -1 }
+            })
+            break
+        }
+        default: {
+            pipeline.push({
+                $sort: { createdAt: -1 as 1 | -1 }
+            })
+        }
+    }
+
+
+
+    try {
+        const products = await productmodel.aggregate(pipeline)
+        return Response.json(products)
+
+    } catch (err) {
+        console.log('get products error ===>>>', err);
         return Response.json({ message: 'internal server error' }, { status: 500 })
     }
 

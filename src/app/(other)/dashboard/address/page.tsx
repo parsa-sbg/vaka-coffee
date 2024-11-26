@@ -15,7 +15,7 @@ async function page() {
   if (!user) redirect('/login')
 
   return (
-    <AddressInfo provinces={JSON.parse(JSON.stringify(provincese))} intialAddress={JSON.parse(JSON.stringify(user.address))} />
+    <AddressInfo provinces={JSON.parse(JSON.stringify(provincese))} intialAddress={user.address ? JSON.parse(JSON.stringify(user.address)) : undefined} />
   )
 }
 
