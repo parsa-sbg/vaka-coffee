@@ -4,7 +4,6 @@ import { OtpModel } from "@/models"
 import { UserModel } from "@/models";
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { phoneSchema } from "@/validation/auth"
-const request = require('request');
 
 
 export const checkIsUserNameExist = async (username: string) => {
