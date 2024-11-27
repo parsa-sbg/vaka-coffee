@@ -3,6 +3,7 @@ import { checkIsPhoneExist, checkIsUserNameExist, sentOtpAction } from '@/action
 import ErrorAlert from '@/components/common/alerts/ErrorAlert'
 import SuccessAlert from '@/components/common/alerts/SuccessAlert'
 import { otpSchema, passwordSchema, phoneSchema, usernameSchema } from '@/validation/auth'
+import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -197,7 +198,7 @@ function Login() {
     // send the code
     setIsSendOtpPending(true)
     const result = await sentOtpAction(phone)
-    
+
     if (!result.success) {
       toast.custom((t) => (
         <ErrorAlert title={result.message} t={t} />
@@ -369,7 +370,7 @@ function Login() {
         </button>
 
       </div>
-
+      <p className='text-sm mt-4'>حساب کاربری ندارید ؟ <Link className='text-main' href={'/register'}>ثبت نام کنید</Link></p>
     </div>
   )
 }
