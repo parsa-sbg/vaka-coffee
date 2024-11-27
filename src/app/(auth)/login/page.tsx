@@ -197,7 +197,8 @@ function Login() {
     // send the code
     setIsSendOtpPending(true)
     const result = await sentOtpAction(phone)
-
+    console.log('result ==>>', result);
+    
     if (!result.success) {
       toast.custom((t) => (
         <ErrorAlert title={result.message} t={t} />

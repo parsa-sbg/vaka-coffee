@@ -4,6 +4,8 @@ import { OtpModel } from "@/models"
 import { UserModel } from "@/models";
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { phoneSchema } from "@/validation/auth"
+const request = require('request');
+
 
 export const checkIsUserNameExist = async (username: string) => {
     await connectToDataBase()
@@ -49,11 +51,49 @@ export const sentOtpAction = async (phone: string) => {
             expiresAt: Date.now() + 5 * 60 * 1000
         })
 
-        // send otp using sms service
-        // 
-        // 
 
-        return { success: true, message: 'کد یکبار مصرف با موفقیت ارسال شد.' }
+        // send otp using sms service
+        const paternCode = process.env.SMS_PATERN_CODE
+        if (!paternCode) {
+            throw new Error('patern code is not defiend')
+        }
+
+        const userName = process.env.SMS_USER_NAME
+        if (!userName) {
+            throw new Error('sms userName is not defiend')
+        }
+
+        const password = process.env.SMS_PASSWORD
+        if (!password) {
+            throw new Error('sms password is not defiend')
+        }
+
+
+        const res = await fetch('http://ippanel.com/api/select', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "op": "pattern",
+                "user": userName,
+                "pass": password,
+                "fromNum": "3000505",
+                "toNum": phone,
+                "patternCode": paternCode,
+                "inputData": [
+                    { "verification-code": +otp },
+                ]
+            })
+        })
+
+        if (res.status == 200) {
+            return { success: true, message: 'کد یکبار مصرف با موفقیت ارسال شد.' }
+
+        } else {
+            return { success: false, message: 'خطای ناشناخته !' }
+        }
+
 
     } catch (err) {
         console.log('sent otp error => ', err);
