@@ -14,7 +14,7 @@ export default async function page({ params }: props) {
 
 
     await connectToDataBase()
-    const categoryWithProducts = await categoryModel.findOne({ shortName: catShortname }).populate('products')
+    const categoryWithProducts = await categoryModel.findOne({ shortName: catShortname }).populate('products').sort({createdAt : -1})
     const allCategories = await categoryModel.find({})
 
     if (!categoryWithProducts) {
@@ -26,7 +26,7 @@ export default async function page({ params }: props) {
             <ProductsHeader title={`محصولات دسته ${categoryWithProducts.name}`} />
 
             <div className='container mt-8'>
-                <Products categories={JSON.parse(JSON.stringify(allCategories))} products={JSON.parse(JSON.stringify(categoryWithProducts.products)) || []} />
+                <Products categoryShortName={catShortname} categories={JSON.parse(JSON.stringify(allCategories))} intialProducts={JSON.parse(JSON.stringify(categoryWithProducts.products)) || []} />
             </div>
         </div>
     )

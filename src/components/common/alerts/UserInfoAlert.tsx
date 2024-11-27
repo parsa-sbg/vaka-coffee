@@ -1,5 +1,5 @@
 import { UserInterface } from '@/models/User'
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import toast, { Toast } from 'react-hot-toast'
 
@@ -30,7 +30,7 @@ function UserInfoAlert({ user, t, adminOrUser }: props) {
 
             <div className='flex items-center gap-2 mt-2 border-r-2 pr-1 border-main border-opacity-50'>
                 <span> شماره تماس :</span>
-                <span className='text-main'>{toPersionNumber(user.phone)}</span>
+                <span className='text-main'>{toPersianNumber(user.phone)}</span>
             </div>
 
             <div className='flex items-center gap-2 mt-2 border-r-2 pr-1 border-main border-opacity-50'>

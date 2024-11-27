@@ -1,4 +1,4 @@
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import { FaRegStar, FaStar } from 'react-icons/fa'
 
@@ -25,19 +25,19 @@ function Details({ title, commentsCount, dynamicFields }: detailsPros) {
                     <FaRegStar className='text-main' />
                     <FaRegStar className='text-main' />
                 </div>
-                <span className='text-xs opacity-80'> (دیدگاه {toPersionNumber(commentsCount.toString())} کاربر)</span>
+                <span className='text-xs opacity-80'> (دیدگاه {toPersianNumber(commentsCount.toString())} کاربر)</span>
             </div>
 
             <div className='flex items-center justify-cneter flex-wrap gap-2 mt-4'>
-                <span className='line-through text-nowrap text-neutral-400'>{toPersionNumber('565,750')}</span>
-                <span className={`text-main text-lg text-nowrap font-semibold`}>{toPersionNumber('365,750 تومان')}</span>
+                <span className='line-through text-nowrap text-neutral-400'>{toPersianNumber('565,750')}</span>
+                <span className={`text-main text-lg text-nowrap font-semibold`}>{toPersianNumber('365,750 تومان')}</span>
             </div>
 
             <div className='mt-8'>
                 {dynamicFields.map(field => (
                     <div key={Math.random()} className='flex items-center text-sm gap-5 pb-2 mb-2 border-b border-dashed border-secondary '>
                         <span className='text-main'>{field.key}</span>
-                        <span className='opacity-80'>{toPersionNumber(field.value)}</span>
+                        <span className='opacity-80'>{toPersianNumber(field.value)}</span>
                     </div>
                 ))}
             </div>

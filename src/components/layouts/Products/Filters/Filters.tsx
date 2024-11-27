@@ -2,10 +2,18 @@ import React from 'react'
 import Price from './Price'
 import Weight from './Weight'
 
-function Filters() {
+type props = {
+  setMinPrice: React.Dispatch<React.SetStateAction<number>>
+  setMaxPrice: React.Dispatch<React.SetStateAction<number>>
+}
+
+function Filters({ setMaxPrice, setMinPrice }: props) {
+
+
+
   return (
     <div className=' flex flex-col gap-5'>
-      <Price />
+      <Price setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
       <Weight />
     </div>
   )

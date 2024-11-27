@@ -1,4 +1,4 @@
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import { z } from 'zod'
 
 
@@ -12,7 +12,7 @@ const imageFileSchema = z.custom<File>((file) => {
         file.size <= MAX_FILE_SIZE
     );
 }, {
-    message: toPersionNumber(`حجم تصویر محصول نباید از 5 مگابایت بیشتر باشد .`),
+    message: toPersianNumber(`حجم تصویر محصول نباید از 5 مگابایت بیشتر باشد .`),
     path: ['pictures']
 });
 
@@ -21,11 +21,11 @@ const dynamicFieldSchema = z.object({
 
     key: z.string()
         .min(2, 'کلید داینامیک فیلد نباید از دو کاراکتر کمتر باشد.')
-        .max(30, toPersionNumber('کلید داینامیک فیلد نباید از 30 کاراکتر بیشتر باشد.')),
+        .max(30, toPersianNumber('کلید داینامیک فیلد نباید از 30 کاراکتر بیشتر باشد.')),
 
     value: z.string()
         .min(2, 'مقدار داینامیک فیلد نباید از دو کاراکتر کمتر باشد.')
-        .max(30, toPersionNumber('مقدار داینامیک فیلد نباید از 30 کاراکتر بیشتر باشد.')),
+        .max(30, toPersianNumber('مقدار داینامیک فیلد نباید از 30 کاراکتر بیشتر باشد.')),
 
     id: z.any()
 })
@@ -33,8 +33,8 @@ const dynamicFieldSchema = z.object({
 export const productSchema = z.object({
 
     name: z.string()
-        .min(7, toPersionNumber('نام محصول باید حداقل 7 کاراکتر داشته باشد.'))
-        .max(50, toPersionNumber('نام محصول باید حداکثر 50 کاراکتر داشته باشد.')),
+        .min(7, toPersianNumber('نام محصول باید حداقل 7 کاراکتر داشته باشد.'))
+        .max(50, toPersianNumber('نام محصول باید حداکثر 50 کاراکتر داشته باشد.')),
 
     shortName: z.string({message: 'نام کوتاه وارد نشده است.'})
         .max(20, 'نام کوتاه باید حداکثر بیست کاراکتر داشته باشد .')
@@ -46,7 +46,7 @@ export const productSchema = z.object({
 
     discount: z.number()
         .min(0, 'درصد تخفیف نمیتواند از صفر کمتر باشد !')
-        .max(100, toPersionNumber('درصد تخفیف نمیتواند از 100 بیشتر باشد !')),
+        .max(100, toPersianNumber('درصد تخفیف نمیتواند از 100 بیشتر باشد !')),
 
 
     dynamicFields: z.array(dynamicFieldSchema),

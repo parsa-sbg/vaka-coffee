@@ -1,6 +1,6 @@
 "use client"
 import Button from '@/components/common/Button'
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 
 function OrderBox() {
@@ -24,7 +24,7 @@ function OrderBox() {
 
             <div className='flex items-center justify-between'>
                 <span className='text-nowrap text-xs sm:text-sm md:text-base'>مبلغ کل</span>
-                <span className='text-nowrap text-main text-xs sm:text-sm md:text-base'>{toPersionNumber('765,000 تومان')}</span>
+                <span className='text-nowrap text-main text-xs sm:text-sm md:text-base'>{toPersianNumber('765,000 تومان')}</span>
             </div>
 
             <div className='flex items-center justify-end'>

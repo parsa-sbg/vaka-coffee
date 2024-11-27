@@ -5,17 +5,21 @@ const STEP = 20_000
 
 type RangeInputProps = {
     values: number[]
-    setValues: (values: number[]) => void
+    setValues: React.Dispatch<React.SetStateAction<number[]>>
+    setFinalValues: React.Dispatch<React.SetStateAction<number[]>>
     MIN: number
     MAX: number
 }
 
-const RangeInput = ({ values, setValues, MIN, MAX }: RangeInputProps) => {
+const RangeInput = ({ values, setValues, MIN, MAX, setFinalValues }: RangeInputProps) => {
 
     return (
         <div className="p-4">
 
             <Range
+                onFinalChange={(finalValues) => {
+                    setFinalValues(finalValues)
+                }}
                 rtl
                 values={values}
                 step={STEP}

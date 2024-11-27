@@ -1,4 +1,4 @@
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 
 function CommetnsTable() {
@@ -30,13 +30,13 @@ function CommetnsTable() {
 
                 <tr className="bg-[#0f0f0f]">
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersionNumber('1')}</span>
+                        <span className='w-full flex justify-center items-center'>{toPersianNumber('1')}</span>
                     </th>
                     <td className="px-3 lg:px-6 py-4">
                         پارسا
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('1403/08/08')}
+                        {toPersianNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4 text-red-500">
                         رد شده
@@ -62,13 +62,13 @@ function CommetnsTable() {
 
                 <tr className="bg-secondary">
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersionNumber('2')}</span>
+                        <span className='w-full flex justify-center items-center'>{toPersianNumber('2')}</span>
                     </th>
                     <td className="px-3 lg:px-6 py-4">
                         پارسا
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('1403/08/08')}
+                        {toPersianNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4 text-yellow-500">
                         در حال بررسی
@@ -94,13 +94,13 @@ function CommetnsTable() {
 
                 <tr className="bg-[#0f0f0f]">
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersionNumber('3')}</span>
+                        <span className='w-full flex justify-center items-center'>{toPersianNumber('3')}</span>
                     </th>
                     <td className="px-3 lg:px-6 py-4">
                         پارسا
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('1403/08/08')}
+                        {toPersianNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4 text-green-500">
                         تایید شده

@@ -3,21 +3,35 @@ import React from 'react'
 import Header from './Header/Header'
 import ProductBox from '@/components/common/ProductBox'
 import { ProductInterface } from '@/models/Product'
+import ProductBoxSkeleton from '@/components/common/ProductBoxSkeleton'
+import { selectedSortType } from './Header/Sort'
 
 type ProductsListProps = {
   setIsMenuOpen: (isOpen: boolean) => void
   products: ProductInterface[]
+  isLoading: boolean
+  setSelectedSort: React.Dispatch<React.SetStateAction<selectedSortType>>
 }
 
-function ProductsList({ setIsMenuOpen, products }: ProductsListProps) {
+function ProductsList({ setIsMenuOpen, products, isLoading, setSelectedSort }: ProductsListProps) {
   return (
     <div className=''>
-      <Header setIsMenuOpen={setIsMenuOpen} />
+      <Header setSelectedSort={setSelectedSort} setIsMenuOpen={setIsMenuOpen} />
 
       <div className='container mt-5 grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-        {products.map(product => (
-          <ProductBox shortName={product.shortName} key={product._id.toString()} discount={product.discount} imageUrl={product.pictures[0]} name={product.name} price={product.price} />
-        ))}
+        {products.length
+          ? products.map(product => (
+            !isLoading
+              ? <ProductBox shortName={product.shortName} key={product._id.toString()} discount={product.discount} imageUrl={product.pictures[0]} name={product.name} price={product.price} />
+              : <ProductBoxSkeleton key={product._id.toString() + 'loading'} />
+          ))
+          : !isLoading
+            ? 'محصولی پیدا نشد !'
+            : Array(5).fill(0).map(item => (
+              <ProductBoxSkeleton key={crypto.randomUUID() + 'loading'} />
+            ))
+         
+        }
       </div>
     </div>
   )

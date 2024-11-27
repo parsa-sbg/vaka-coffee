@@ -1,4 +1,4 @@
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React, { useCallback, useEffect, useState } from 'react'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 
@@ -58,19 +58,19 @@ function Weight() {
                     </button>
 
                     <button onClick={e => { OptionClickHandler(250, '250 گرم') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
-                        {toPersionNumber('250 گرم')}
+                        {toPersianNumber('250 گرم')}
                     </button>
 
                     <button onClick={e => { OptionClickHandler(500, '500 گرم') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
-                        {toPersionNumber('500 گرم')}
+                        {toPersianNumber('500 گرم')}
                     </button>
 
                     <button onClick={e => { OptionClickHandler(750, '750 گرم') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
-                        {toPersionNumber('750 گرم')}
+                        {toPersianNumber('750 گرم')}
                     </button>
 
                     <button onClick={e => { OptionClickHandler(1_000, '1 کیلو گرم') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
-                        {toPersionNumber('1 کیلو گرم')}
+                        {toPersianNumber('1 کیلو گرم')}
                     </button>
 
                 </div>

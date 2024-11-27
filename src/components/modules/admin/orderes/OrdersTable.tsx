@@ -1,4 +1,4 @@
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import Image from 'next/image'
 import React from 'react'
 
@@ -34,16 +34,16 @@ function OrdersTable() {
 
                 <tr className="bg-[#0f0f0f]">
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersionNumber('1')}</span>
+                        <span className='w-full flex justify-center items-center'>{toPersianNumber('1')}</span>
                     </th>
                     <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
                         <span>#65823</span>
                     </th>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('1403/08/08')}
+                        {toPersianNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('۷۶۵,۰۰۰ تومان')}
+                        {toPersianNumber('۷۶۵,۰۰۰ تومان')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
                         در انتظار پرداخت
@@ -65,16 +65,16 @@ function OrdersTable() {
 
                 <tr className="bg-secondary">
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersionNumber('2')}</span>
+                        <span className='w-full flex justify-center items-center'>{toPersianNumber('2')}</span>
                     </th>
                     <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
                         <span>#58923</span>
                     </th>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('1403/08/08')}
+                        {toPersianNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('600,000 تومان')}
+                        {toPersianNumber('600,000 تومان')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
                         در حال بررسی
@@ -96,16 +96,16 @@ function OrdersTable() {
 
                 <tr className="bg-[#0f0f0f]">
                     <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersionNumber('3')}</span>
+                        <span className='w-full flex justify-center items-center'>{toPersianNumber('3')}</span>
                     </th>
                     <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
                         <span>#85863</span>
                     </th>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('1403/08/08')}
+                        {toPersinNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersionNumber('120,000 تومان')}
+                        {toPersianNumber('120,000 تومان')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
                         تحویل داده شده

@@ -1,4 +1,4 @@
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import { FaRegStar, FaStar } from 'react-icons/fa'
 
@@ -10,7 +10,7 @@ function Comment() {
                 <div>
                     <span className='font-semibold'>زهرا خانلو</span>
                     <span className='opacity-80'> (خریدار محصول) –</span>
-                    <span className='opacity-80'>{toPersionNumber('1403/07/29')}</span>
+                    <span className='opacity-80'>{toPersianNumber('1403/07/29')}</span>
                 </div>
                 <div className='flex items-center'>
                     <FaStar className='text-[#eabe12]' />

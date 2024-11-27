@@ -1,5 +1,5 @@
 import { CategoryInterface } from '@/models/Category'
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import DeleteBtn from './DeleteBtn'
 import Image from 'next/image'
@@ -17,7 +17,7 @@ function CategoryItem({ isOdd, category, number, editBtnClickhandler, setCategor
     return (
         <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                <span className='w-full flex justify-center items-center'>{toPersionNumber(number.toString())}</span>
+                <span className='w-full flex justify-center items-center'>{toPersianNumber(number.toString())}</span>
             </th>
             <td className="px-3 lg:px-6 py-4">
                 <Image className='w-14 h-14' alt='' width={200} height={200} src={category.iconUrl} />

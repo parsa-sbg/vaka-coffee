@@ -1,5 +1,5 @@
 import { UserInterface } from '@/models/User'
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import PromoteBtn from './PeomoteBtn'
 import DeleteBtn from './DeleteBtn'
@@ -20,7 +20,7 @@ function UserItem({ isOdd, user, number, setUsers, managerRole }: props) {
     return (
         <tr className={`${isOdd ? 'bg-secondary' : 'bg-[#0f0f0f]'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                <span className='w-full flex justify-center items-center'>{toPersionNumber(number.toString())}</span>
+                <span className='w-full flex justify-center items-center'>{toPersianNumber(number.toString())}</span>
             </th>
             <td className="px-3 lg:px-6 py-4">
                 {user.name}
@@ -29,7 +29,7 @@ function UserItem({ isOdd, user, number, setUsers, managerRole }: props) {
                 {user.username}
             </td>
             <td className="px-3 lg:px-6 py-4">
-                {toPersionNumber(user.phone)}
+                {toPersianNumber(user.phone)}
             </td>
 
             <td className="px-3 lg:px-6 py-4">

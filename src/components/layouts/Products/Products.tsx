@@ -1,23 +1,67 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductsList from './ProductsList/ProductsList'
 import Categories from './Categories/Categories'
 import Filters from './Filters/Filters'
 import { IoClose } from "react-icons/io5";
 import { CategoryInterface } from '@/models/Category'
 import { ProductInterface } from '@/models/Product'
+import { selectedSortType } from './ProductsList/Header/Sort'
+
 
 
 type props = {
     categories: CategoryInterface[]
-    products: ProductInterface[]
-
+    intialProducts: ProductInterface[]
+    categoryShortName?: string
 }
 
-function Products({ categories = [], products = [] }: props) {
+function Products({ categories = [], intialProducts, categoryShortName }: props) {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isFirdtRender, setIsFirdtRender] = useState(true)
+
+    const [products, setProducts] = useState(intialProducts)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [minPrice, setMinPrice] = useState(0)
+    const [maxPrice, setMaxPrice] = useState(2_000_000)
+    const [selectedSort, setSelectedSort] = useState<selectedSortType>('latest')
+
+
+    const [getProductsUrl, setGetProductsUrl] = useState(`/api/products?categoryShortName=${categoryShortName}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${selectedSort}`)
+
+
+    useEffect(() => {
+        setGetProductsUrl(`/api/products?categoryShortName=${categoryShortName}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${selectedSort}`)
+    }, [minPrice, maxPrice, selectedSort])
+
+
+    useEffect(() => {
+        if (!isFirdtRender) {            
+            setIsLoading(true)
+            fetch(getProductsUrl)
+                .then(res => {
+                    if (res.status == 200) {
+                        return res.json()
+                    } else {
+                        return null
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        setProducts(data)
+                    }
+                    setIsLoading(false)
+                })
+        }else {
+            setIsFirdtRender(false)
+        }
+
+    }, [getProductsUrl])
+
+
 
     return (
         <div className='grid grid-cols-9 md:grid-cols-12 gap-5'>
@@ -33,11 +77,11 @@ function Products({ categories = [], products = [] }: props) {
                     <Categories categories={categories} />
                 </div>
 
-                <Filters />
+                <Filters setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
             </div>
 
             <div className='col-span-9 sm:col-span-6 md:col-span-9'>
-                <ProductsList products={products} setIsMenuOpen={setIsMenuOpen} />
+                <ProductsList setSelectedSort={setSelectedSort} isLoading={isLoading} products={products} setIsMenuOpen={setIsMenuOpen} />
             </div>
 
         </div>

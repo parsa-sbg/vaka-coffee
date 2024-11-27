@@ -1,5 +1,5 @@
 import { ProductInterface } from '@/models/Product'
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import Image from 'next/image'
 import React from 'react'
 import { LuImageOff } from "react-icons/lu";
@@ -18,7 +18,7 @@ function ProductItem({ isOdd, product, setProducts, editBtnClickHandler, number 
     return (
         <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                <span className='w-full flex justify-center items-center'>{toPersionNumber(number.toString())}</span>
+                <span className='w-full flex justify-center items-center'>{toPersianNumber(number.toString())}</span>
             </th>
             <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
                 {product.pictures[0]
@@ -33,7 +33,7 @@ function ProductItem({ isOdd, product, setProducts, editBtnClickHandler, number 
                 {product.category.name}
             </td>
             <td className="px-3 lg:px-6 py-4">
-                {product.price ? toPersionNumber(`${product.price.toLocaleString()} تومان`) : 'رایگان'}
+                {product.price ? toPersianNumber(`${product.price.toLocaleString()} تومان`) : 'رایگان'}
             </td>
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>

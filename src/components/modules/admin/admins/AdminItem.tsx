@@ -1,5 +1,5 @@
 import { UserInterface } from '@/models/User'
-import toPersionNumber from '@/utils/toPersianNubmer'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import DemoteBtn from './DemoteBtn'
 import ShowBtn from './ShowBtn'
@@ -16,7 +16,7 @@ function AdminItem({ isOdd, number, admin, setAdmins, managerRole }: props) {
     return (
         <tr className={`${isOdd ? 'bg-secondary' : 'bg-[#0f0f0f]'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                <span className='w-full flex justify-center items-center'>{toPersionNumber(number.toString())}</span>
+                <span className='w-full flex justify-center items-center'>{toPersianNumber(number.toString())}</span>
             </th>
             <td className="px-3 lg:px-6 py-4">
                 {admin.name}
@@ -25,7 +25,7 @@ function AdminItem({ isOdd, number, admin, setAdmins, managerRole }: props) {
                 {admin.username}
             </td>
             <td className="px-3 lg:px-6 py-4">
-                {toPersionNumber(admin.phone)}
+                {toPersianNumber(admin.phone)}
             </td>
 
             <td className="px-3 lg:px-6 py-4">

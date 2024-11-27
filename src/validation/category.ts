@@ -1,4 +1,4 @@
-import toPersionNumber from "@/utils/toPersianNubmer";
+import toPersianNumber from "@/utils/toPersianNubmer";
 import { z } from "zod";
 
 const MAX_FILE_SIZE = 1 * 1024 * 512; //500kb
@@ -39,12 +39,12 @@ export const CategoryImageFileSchema = z.object({
 export const categorySchema = z.object({
     name: z.string({ message: 'iosjgdi' })
         .min(3, 'نام بسیار کوتاه است !')
-        .max(20, toPersionNumber('نام نمیتواند از 20 کاراکتر بیشتر باشد !'))
+        .max(20, toPersianNumber('نام نمیتواند از 20 کاراکتر بیشتر باشد !'))
         .trim(),
 
     shortName: z.string()
-        .min(3, toPersionNumber('نام کوتاه باید حداقل 3 کاراکتر داشته باشد !'))
-        .max(15, toPersionNumber('نام کوتاه نمیتواند از 15 کاراکتر بیشتر باشد !'))
+        .min(3, toPersianNumber('نام کوتاه باید حداقل 3 کاراکتر داشته باشد !'))
+        .max(15, toPersianNumber('نام کوتاه نمیتواند از 15 کاراکتر بیشتر باشد !'))
         .regex(/^\S*$/, "نام کوتاه نباید حاوی فاصله باشد .")
         .regex(/^[A-Za-z0-9]*$/, 'نام کوتاه فقط میتواند شامل حروف و اعداد انگلیسی باشد.')
         .trim(),

@@ -1,14 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
+export type selectedSortType = 'hightprice' | 'lowprice' | 'latest' | 'score'
+type buttonTextType = 'مرتب سازی بر اساس آخرین' | 'مرتب سازی بر اساس امتیاز' | 'مرتب سازی بر اساس ارزان ترین' | 'مرتب سازی بر اساس گران ترین'
 
-function Sort() {
 
-    type selectedSortType = 'priceHighToLow' | 'priceLowToHigh' | 'latest' | 'score'
-    type buttonTextType = 'مرتب سازی بر اساس آخرین' | 'مرتب سازی بر اساس امتیاز' | 'مرتب سازی بر اساس ارزان ترین' | 'مرتب سازی بر اساس گران ترین'
+type props = {
+    setSelectedSort: React.Dispatch<React.SetStateAction<selectedSortType>>
+}
+
+function Sort({ setSelectedSort }: props) {
+
 
     const [isOpen, setIsOpen] = useState(false)
-    const [selectedSort, setSelectedSort] = useState<selectedSortType>('latest')
     const [buttonText, setButtonText] = useState<buttonTextType>('مرتب سازی بر اساس آخرین')
 
     const windowClickhandler = useCallback(() => {
@@ -55,11 +59,11 @@ function Sort() {
                     مرتب سازی بر اساس امتیاز
                 </button>
 
-                <button onClick={e => { OptionClickHandler('priceLowToHigh', 'مرتب سازی بر اساس ارزان ترین') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
+                <button onClick={e => { OptionClickHandler('lowprice', 'مرتب سازی بر اساس ارزان ترین') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
                     مرتب سازی بر اساس ارزان ترین
                 </button>
 
-                <button onClick={e => { OptionClickHandler('priceHighToLow', 'مرتب سازی بر اساس گران ترین') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
+                <button onClick={e => { OptionClickHandler('hightprice', 'مرتب سازی بر اساس گران ترین') }} className='py-2 px-4 text-nowrap w-full hover:bg-secondary transition-all duration-200'>
                     مرتب سازی بر اساس گران ترین
                 </button>
 
