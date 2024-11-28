@@ -13,6 +13,7 @@ export default async function Home() {
   await connectToDataBase()
 
   const categoriesWithProducts = await categoryModel.find({ showInHomePage: true }).populate('products')
+  const allCategories = await categoryModel.find().sort({ createdAt: -1 })
 
   const discountedProducts = await productmodel.find({ discount: { $gt: 0 } })
 
@@ -21,7 +22,7 @@ export default async function Home() {
     <div className="">
       <div className="container">
         <Header />
-        <AllCategories allCats={categoriesWithProducts} />
+        <AllCategories allCats={allCategories} />
 
 
         <SeasionSection discountedProducts={discountedProducts} />
