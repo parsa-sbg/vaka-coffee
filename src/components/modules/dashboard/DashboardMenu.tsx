@@ -1,5 +1,6 @@
 import React from 'react'
 import DashboardMenuItem from './DashboardMenuItem'
+import LogOUtBtn from '../../common/LogOUtBtn'
 
 function DashboardMenu() {
 
@@ -15,9 +16,7 @@ function DashboardMenu() {
         <DashboardMenuItem text='آدرس' href='/dashboard/address' />
         <DashboardMenuItem text='جزئیات حساب' href='/dashboard/account' />
 
-        <li>
-          <button className='text-right py-2 px-4 rounded-md transition-all duration-200 hover:bg-[#0f0f0f] hover:text-main w-full'>خروج</button>
-        </li>
+        <LogOUtBtn />
 
       </ul>
 

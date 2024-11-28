@@ -1,5 +1,6 @@
 import React from 'react'
 import AdminMenuItem from './AdminMenuItem'
+import LogOUtBtn from '@/components/common/LogOUtBtn'
 
 function AdminMenu() {
 
@@ -18,9 +19,7 @@ function AdminMenu() {
                 <AdminMenuItem text='کاربران' href='/p-admin/users' />
                 <AdminMenuItem text='ادمین ها' href='/p-admin/admins' />
 
-                <li>
-                    <button className='text-right py-2 px-4 rounded-md transition-all duration-200 hover:bg-[#0f0f0f] hover:text-main w-full'>خروج</button>
-                </li>
+                <LogOUtBtn />
 
             </ul>
 
