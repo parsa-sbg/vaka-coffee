@@ -14,7 +14,7 @@ function CartModal({ userCart, isCartOpen }: props) {
             <div className='overflow-scroll h-full no-scrollbar flex flex-col gap-4'>
                 {userCart.length
                     ? userCart.map(item => (
-                        <CartItem key={item.product._id.toString()} count={item.count} disCount={item.product.discount} price={item.product.price} name={item.product.name} image={item.product.pictures[0]} />
+                        <CartItem key={item.product._id.toString()} count={item.count} produtc={item.product} />
                     ))
                     : <div className='h-full flex items-center justify-center text-nowrap'>سبد خریدتون خالیه ...</div>
                 }

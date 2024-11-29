@@ -54,13 +54,17 @@ function CartIcon({ userIntialCart }: props) {
 
 
   useEffect(() => {
+    if (!userIntialCart) {
+      getManyProductsById(localCart.map(item => item.productId.toString()))
+        .then(products => {
+          console.log('products ==>>', products);
 
-    getManyProductsById(localCart.map(item => item.productId.toString()))
-      .then(products => {
-        products.map((product, index) => {
-          setUserCart([{ count: localCart[index].count, product }])
+          const newCart = products.map((product, index) => {
+            return { count: localCart[index].count, product }
+          })
+          setUserCart(newCart)
         })
-      })
+    }
   }, [localCart])
 
   return (

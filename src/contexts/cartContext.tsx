@@ -11,6 +11,7 @@ export const cartContext = createContext<{
     contextCart: CartItemInterface[];
     setContextCart: Dispatch<SetStateAction<CartItemInterface[]>>
     addToCart: (productId: mongoose.Types.ObjectId, count: number, productName: string) => Promise<boolean>
+    deleteFromCart: (productId: mongoose.Types.ObjectId) => Promise<boolean>
     localCart: {
         count: number;
         productId: mongoose.Types.ObjectId;
@@ -26,7 +27,8 @@ export const cartContext = createContext<{
         setContextCart: () => { },
         addToCart: async () => true,
         localCart: [],
-        setLocalCart: () => { }
+        setLocalCart: () => { },
+        deleteFromCart: async () => true
     }
 )
 
@@ -58,6 +60,14 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
             const result = localCart.find(item => item.productId == productId)
             if (result) {
+                if (+data.foundProduct.stock < count + +result.count) {
+                    toast.custom((t) => (
+                        <ErrorAlert t={t} title='تعداد درخواستی از موجودی محصول بیشتر است .' />
+                    ), {
+                        position: 'top-left'
+                    })
+                    return false
+                }
                 setLocalCart(prev => prev.map(item => {
                     if (item.productId == productId) {
                         return { ...item, count: item.count + count }
@@ -103,13 +113,44 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
     }
 
+    const deleteFromCart = async (productId: mongoose.Types.ObjectId) => {
+        const res = await fetch('/api/cart/delete', {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                productId
+            })
+        })
+        const data = await res.json()
+
+        if (res.status == 401) {
+
+            setLocalCart(prev => prev.filter(item => item.productId !== productId))
+
+        } else if (res.status == 200) {
+            setContextCart(data.newCart.cart as CartItemInterface[])
+            return true
+        } else {
+            toast.custom((t) => (
+                <ErrorAlert t={t} title='خطایی رخ داد !' />
+            ), {
+                position: 'top-left'
+            })
+            return false
+        }
+
+        return false
+    }
+
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(localCart))
     }, [localCart])
 
     return (
 
-        <cartContext.Provider value={{ contextCart, setContextCart, addToCart, localCart, setLocalCart }}>
+        <cartContext.Provider value={{ contextCart, setContextCart, addToCart, localCart, setLocalCart, deleteFromCart }}>
             {children}
         </cartContext.Provider>
     )
