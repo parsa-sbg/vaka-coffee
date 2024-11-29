@@ -1,9 +1,12 @@
 "use client"
 
+import { useContextCart } from '@/contexts/cartContext';
 import { CartItemInterface } from '@/models/Cart';
 import toPersianNumber from '@/utils/toPersianNubmer';
 import React, { useEffect, useState } from 'react'
 import { PiShoppingCart } from "react-icons/pi";
+import Cover from '@/components/common/Cover';
+import CartModal from './CartModal';
 
 
 type props = {
@@ -12,32 +15,65 @@ type props = {
 
 function CartIcon({ userIntialCart }: props) {
 
-  console.log(userIntialCart);
+  const [isCartOpen, setIsCartOpen] = useState(false)
 
-  const [userCart, setUserCart] = useState(userIntialCart)
+  const [userCart, setUserCart] = useState(userIntialCart || [])
+
+  const { contextCart, setContextCart } = useContextCart()
+
+  const windowClickHandler = () => {
+    setIsCartOpen(false)
+  }
+
+  const toggleCart = (e: React.MouseEvent<SVGElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation()
+    setIsCartOpen(prev => !prev)
+
+  }
 
   useEffect(() => {
     if (!userIntialCart) {
       const localCart = JSON.parse(localStorage.getItem('cart') || '[]')
       setUserCart(localCart)
+      setContextCart(localCart)
+    } else {
+      setContextCart(userIntialCart)
+    }
+
+    window.addEventListener('click', windowClickHandler)
+    return () => {
+      window.removeEventListener('click', windowClickHandler)
     }
   }, [])
 
+  useEffect(() => {
+    console.log(contextCart);
+
+    setUserCart(contextCart)
+  }, [contextCart])
+
   return (
+    <>
 
-    <div className='cursor-pointer group p-1 relative'>
-      <PiShoppingCart className='group-hover:text-main transition-colors duration-200' size={25} />
+      <div className=' group relative select-none z-50'>
+        <PiShoppingCart onClick={(e) => { toggleCart(e) }} className={`${isCartOpen ? 'text-main' : ''} cursor-pointer p-1 group-hover:text-main transition-colors duration-200`} size={30} />
 
-      {userCart?.length
-        ?
-        <div className=' bg-main absolute text-bgColer top-0 left-0 rounded-full w-4 h-4 flex items-center justify-center'>
-          <span className='text-xs'>{toPersianNumber(userCart.length.toString())}</span>
-        </div>
+        {userCart?.length
+          ?
+          <div onClick={(e) => { toggleCart(e) }} className='cursor-pointer absolute bg-main text-bgColer -top-1 -left-1 rounded-full w-4 h-4 flex items-center justify-center'>
+            <span className='text-xs'>{toPersianNumber(userCart.length.toString())}</span>
+          </div>
 
-        : ''
-      }
+          : ''
+        }
 
-    </div>
+        <CartModal isCartOpen={isCartOpen} userCart={userCart} />
+
+
+      </div>
+      <Cover visible={isCartOpen}></Cover>
+    </>
+
 
   )
 }

@@ -1,13 +1,18 @@
 "use client"
+import { useContextCart } from '@/contexts/cartContext'
+import mongoose from 'mongoose'
 import React, { useState } from 'react'
 
 type props = {
     stock: number
+    productId: mongoose.Types.ObjectId,
+    productName: string
 }
 
-function AddToCart({ stock }: props) {
+function AddToCart({ stock, productId, productName }: props) {
 
     const [count, setCount] = useState(1)
+    const { addToCart } = useContextCart()
 
     const plusHandler = () => {
         if (count >= stock) return
@@ -18,6 +23,10 @@ function AddToCart({ stock }: props) {
 
         if (count == 1) return
         setCount(prev => prev - 1)
+    }
+
+    const btnClickHadler = () => {
+        addToCart(productId, count, productName)
     }
 
     return (
@@ -31,7 +40,7 @@ function AddToCart({ stock }: props) {
                 </div>
 
                 <div className=''>
-                    <button disabled={stock == 0} className={`${stock == 0 ? 'bg-gray-600' : ' bg-main hover:bg-secondary hover:text-main'} w-full text-nowrap text-bgColer font-semibold py-2 px-3 text-sm h-10 rounded-md transition-all duration-300`} >افزودن به سبد خرید</button>
+                    <button onClick={btnClickHadler} disabled={stock == 0} className={`${stock == 0 ? 'bg-gray-600' : ' bg-main hover:bg-secondary hover:text-main'} w-full text-nowrap text-bgColer font-semibold py-2 px-3 text-sm h-10 rounded-md transition-all duration-300`} >افزودن به سبد خرید</button>
                 </div>
             </div>
 

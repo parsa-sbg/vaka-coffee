@@ -16,9 +16,11 @@ async function Header() {
     const user = await authUserWithToken(token)
     if (user) {
         connectToDataBase()
-        const targetCart = await CartModel.findOne({ user: user._id })
+        const targetCart = await CartModel.findOne({ user: user._id }).populate('user').populate('cart.product')
         if (targetCart) {
             userIntialCart = targetCart.cart
+        } else {
+            userIntialCart = []
         }
     }
 

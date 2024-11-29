@@ -6,12 +6,12 @@ import { ProductInterface } from "./Product";
 // types 
 
 export interface CartItemInterface {
-    product: ProductInterface | mongoose.Types.ObjectId,
+    product: ProductInterface ,
     count: number
 }
 
 export interface CartInterface {
-    user: UserInterface | mongoose.Types.ObjectId
+    user: UserInterface ,
     cart: CartItemInterface[]
 }
 
@@ -24,9 +24,10 @@ export interface CartModelInterface extends Model<CartDocument> { }
 
 const cartItemSchema = new mongoose.Schema({
     product: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: 'product',
-        required: true
+        required: true,
+        unique: true
     },
     count: {
         type: Number,
@@ -44,7 +45,8 @@ const cartSchema = new mongoose.Schema<CartDocument>({
     },
     cart: {
         type: [cartItemSchema],
-        default: []
+        default: [],
+        required: true,
     }
 })
 

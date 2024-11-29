@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        custom: '0 0 30px rgba(0, 0, 0, 0.5)',
+      },
       fontFamily: {
         vazir: ['var(--font-vazir)']
       },
