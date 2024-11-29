@@ -7,10 +7,7 @@ import { z } from "zod";
 export const POST = async (req: NextRequest) => {
     const token = (await cookies()).get('token')?.value;
     const user = await authUserWithToken(token);
-
-    if (!user) {
-        return Response.json({ message: 'user not found' }, { status: 401 });
-    }
+    
 
     const reqBody = await req.json();
 
@@ -25,12 +22,17 @@ export const POST = async (req: NextRequest) => {
         return Response.json(parsedData, { status: 400 });
     }
 
+
     try {
         connectToDataBase();
 
         const targetProduct = await productmodel.findById(parsedData.data.productId)
         if (!targetProduct) {
             return Response.json({ message: 'product not found' }, { status: 404 })
+        }
+
+        if (!user) {
+            return Response.json({ message: 'user not found', foundProduct: targetProduct }, { status: 401 });
         }
 
         const { stock } = targetProduct;

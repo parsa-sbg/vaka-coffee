@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { PiShoppingCart } from "react-icons/pi";
 import Cover from '@/components/common/Cover';
 import CartModal from './CartModal';
+import { getManyProductsById } from '@/actions/products';
 
 
 type props = {
@@ -19,7 +20,7 @@ function CartIcon({ userIntialCart }: props) {
 
   const [userCart, setUserCart] = useState(userIntialCart || [])
 
-  const { contextCart, setContextCart } = useContextCart()
+  const { contextCart, setContextCart, localCart, setLocalCart } = useContextCart()
 
   const windowClickHandler = () => {
     setIsCartOpen(false)
@@ -28,14 +29,15 @@ function CartIcon({ userIntialCart }: props) {
   const toggleCart = (e: React.MouseEvent<SVGElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
     setIsCartOpen(prev => !prev)
-
   }
 
   useEffect(() => {
     if (!userIntialCart) {
+      console.log('set local cart');
+
       const localCart = JSON.parse(localStorage.getItem('cart') || '[]')
-      setUserCart(localCart)
-      setContextCart(localCart)
+      console.log(localCart);
+      setLocalCart(localCart)
     } else {
       setContextCart(userIntialCart)
     }
@@ -47,10 +49,19 @@ function CartIcon({ userIntialCart }: props) {
   }, [])
 
   useEffect(() => {
-    console.log(contextCart);
-
     setUserCart(contextCart)
   }, [contextCart])
+
+
+  useEffect(() => {
+
+    getManyProductsById(localCart.map(item => item.productId.toString()))
+      .then(products => {
+        products.map((product, index) => {
+          setUserCart([{ count: localCart[index].count, product }])
+        })
+      })
+  }, [localCart])
 
   return (
     <>

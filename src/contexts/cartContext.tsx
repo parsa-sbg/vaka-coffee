@@ -1,22 +1,32 @@
 "use client"
 import ErrorAlert from "@/components/common/alerts/ErrorAlert";
 import SuccessAlert from "@/components/common/alerts/SuccessAlert";
-import { CartInterface, CartItemInterface } from "@/models/Cart";
+import { CartItemInterface } from "@/models/Cart";
 import toPersianNumber from "@/utils/toPersianNubmer";
 import mongoose from "mongoose";
-import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from "react";
+import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export const cartContext = createContext<{
     contextCart: CartItemInterface[];
     setContextCart: Dispatch<SetStateAction<CartItemInterface[]>>
     addToCart: (productId: mongoose.Types.ObjectId, count: number, productName: string) => Promise<boolean>
+    localCart: {
+        count: number;
+        productId: mongoose.Types.ObjectId;
+    }[]
+    setLocalCart: Dispatch<SetStateAction<{
+        count: number;
+        productId: mongoose.Types.ObjectId;
+    }[]>>
 }
 >(
     {
         contextCart: [],
         setContextCart: () => { },
-        addToCart: async () => true
+        addToCart: async () => true,
+        localCart: [],
+        setLocalCart: () => { }
     }
 )
 
@@ -25,11 +35,11 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
 
     const [contextCart, setContextCart] = useState<CartItemInterface[]>([])
+    const [localCart, setLocalCart] = useState<{ count: number, productId: mongoose.Types.ObjectId }[]>([])
 
 
     const addToCart = async (productId: mongoose.Types.ObjectId, count: number, productName: string) => {
-        console.log('productId ==>>', productId);
-        console.log('count ==>>', count);
+
 
         const res = await fetch('/api/cart/add', {
             method: "POST",
@@ -46,10 +56,23 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
         if (res.status == 401) {
 
-            // add product to local storage cart
-            // ...
-            // ...
-            // ...
+            const result = localCart.find(item => item.productId == productId)
+            if (result) {
+                setLocalCart(prev => prev.map(item => {
+                    if (item.productId == productId) {
+                        return { ...item, count: item.count + count }
+                    }
+                    return item
+                }))
+            } else {
+                setLocalCart(prev => [...prev, { count, productId }])
+            }
+
+            toast.custom((t) => (
+                <SuccessAlert t={t} title={toPersianNumber(`${count} عدد از محصول ${productName} به سبد شما اضافه شد.`)} />
+            ), {
+                position: 'top-left'
+            })
 
         } else if (res.status == 200) {
             setContextCart(data.newCart.cart as CartItemInterface[])
@@ -80,9 +103,13 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
     }
 
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(localCart))
+    }, [localCart])
+
     return (
 
-        <cartContext.Provider value={{ contextCart, setContextCart, addToCart }}>
+        <cartContext.Provider value={{ contextCart, setContextCart, addToCart, localCart, setLocalCart }}>
             {children}
         </cartContext.Provider>
     )
