@@ -11,6 +11,7 @@ import { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import './ImagesSlider.css'
 import Image from 'next/image';
+import { LuImageOff } from 'react-icons/lu';
 
 
 type props = {
@@ -22,6 +23,13 @@ function ImagesSlider({ picturesUrl }: props) {
 
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
+    if (!picturesUrl.length) {
+        return (
+            <div className='px-5 h-full w-full md:px-0'>
+                <div className='w-full h-full max-h-80 sm:max-h-52 xl:max-h-72 bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={60} className='text-main' /></div>
+            </div>
+        )
+    }
 
     return (
         <div className='px-5 md:px-0'>

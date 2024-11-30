@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
+import { LuImageOff } from 'react-icons/lu';
 
 type productBoxProps = {
     priceGoldColor?: boolean
@@ -21,7 +22,11 @@ function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName
         <Link href={`/products/${shortName}`} className='w-full flex flex-col items-center'>
 
             <div className='w-[180px] sm:w-[180px] md:w-[180px] xl:w-[220px]  h-[180px] sm:h-[180px] md:h-[180px] xl:h-[220px]  overflow-hidden rounded-md'>
-                <Image className=' h-full object-cover' src={imageUrl} alt='product image' quality={60} width={300} height={300} />
+                {imageUrl
+                    ? <Image className=' h-full object-cover' src={imageUrl} alt='product image' quality={60} width={300} height={300} />
+                    : <div className='w-full h-full bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={60} className='text-main' /></div>
+            }
+
             </div>
 
             <span className='mt-2 text-sm sm:text-base font-semibold line-clamp-1'>{name}</span>
