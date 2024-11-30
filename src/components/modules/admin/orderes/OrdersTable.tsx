@@ -102,7 +102,7 @@ function OrdersTable() {
                         <span>#85863</span>
                     </th>
                     <td className="px-3 lg:px-6 py-4">
-                        {toPersinNumber('1403/08/08')}
+                        {toPersianNumber('1403/08/08')}
                     </td>
                     <td className="px-3 lg:px-6 py-4">
                         {toPersianNumber('120,000 تومان')}
