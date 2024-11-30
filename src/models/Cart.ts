@@ -27,7 +27,6 @@ const cartItemSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'product',
         required: true,
-        unique: true
     },
     count: {
         type: Number,

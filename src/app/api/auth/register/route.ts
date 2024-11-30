@@ -1,4 +1,4 @@
-import { UserModel } from "@/models";
+import { CartModel, UserModel } from "@/models";
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { generateToken } from "@/utils/server/token"
 import { userRegisterSchema } from "@/validation/auth"
@@ -6,6 +6,7 @@ import { cookies } from "next/headers"
 import { NextRequest } from "next/server"
 import bcrypt from 'bcryptjs'
 import { OtpModel } from "@/models"
+import { ProductInterface } from "@/models/Product";
 
 export const POST = async (req: NextRequest) => {
 
@@ -15,7 +16,8 @@ export const POST = async (req: NextRequest) => {
         phone: string;
         password: string;
         repeatPassword: string;
-        otp: string
+        otp: string,
+        localCart: { count: number, product: ProductInterface }[]
     } = await req.json()
 
     const parsedData = userRegisterSchema.safeParse(reqBody)
@@ -25,6 +27,7 @@ export const POST = async (req: NextRequest) => {
             status: 400
         })
     }
+
 
     await connectToDataBase()
 
@@ -56,6 +59,19 @@ export const POST = async (req: NextRequest) => {
         })
 
         if (newUser) {
+
+            // create new user cart and store local cart to database
+            console.log('newUser._id ==>>', newUser._id);
+            console.log('parsedData.data.localCart ==>>', parsedData.data.localCart);
+            
+            const newUserCart = await CartModel.create({
+                user: newUser._id,
+                cart: parsedData.data.localCart
+            })
+            console.log(newUserCart);
+            
+
+            // generate token and store it in cookies
             const token = generateToken(newUser._id)
             if (!token) return Response.json({ message: 'internal server error' }, { status: 500 })
 
@@ -74,7 +90,9 @@ export const POST = async (req: NextRequest) => {
             return Response.json({ message: 'internal server error' }, { status: 500 })
         }
 
-    } catch {
+    } catch (err) {
+        console.log('register error ===>>', err);
+        
         return Response.json({ message: 'internal server error' }, { status: 500 })
     }
 

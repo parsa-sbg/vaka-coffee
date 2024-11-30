@@ -17,7 +17,7 @@ export const DELETE = async (req: NextRequest) => {
         const reqBody = await req.json();
 
         const validationSchema = z.object({
-            productId: z.string().min(1),
+            product: z.string().min(1),
         });
 
         const parsedData = validationSchema.safeParse(reqBody);
@@ -26,13 +26,13 @@ export const DELETE = async (req: NextRequest) => {
             return Response.json(parsedData.error.format(), { status: 400 });
         }
 
-        const { productId } = parsedData.data;
+        const { product } = parsedData.data;
 
         await connectToDataBase();
 
         const updatedCart = await CartModel.findOneAndUpdate(
             { user: user._id },
-            { $pull: { cart: { product: productId } } },
+            { $pull: { cart: { product } } },
             { new: true }
         ).populate("user").populate("cart.product");
 

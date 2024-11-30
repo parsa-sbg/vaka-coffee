@@ -41,6 +41,11 @@ export const emailSchema = z.string()
     .min(1, 'ُلطفا ایمیل را وارد کنید .')
 
 
+export const cartItemSchema = z.object({
+    count: z.number().min(1, 'تعداد محصول نمیتواند صفر یا منفی باشد .'),
+    product: z.string().min(1, 'آیدی محصول وارد نشده است.')
+})
+
 // // // // // // // //
 
 
@@ -51,6 +56,7 @@ export const userRegisterSchema = z.object({
     otp: otpSchema,
     password: passwordSchema,
     repeatPassword: z.string(),
+    localCart: z.array(cartItemSchema)
 }).refine((data) => data.password === data.repeatPassword, {
     path: ['repeatPassword'],
     message: 'تکرار رمز عبور صحیح نیست !'

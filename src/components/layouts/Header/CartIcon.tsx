@@ -55,7 +55,7 @@ function CartIcon({ userIntialCart }: props) {
 
   useEffect(() => {
     if (!userIntialCart) {
-      getManyProductsById(localCart.map(item => item.productId.toString()))
+      getManyProductsById(localCart.map(item => item.product.toString()))
         .then(products => {
           console.log('products ==>>', products);
 

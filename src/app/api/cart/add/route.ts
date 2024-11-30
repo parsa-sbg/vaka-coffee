@@ -12,7 +12,7 @@ export const POST = async (req: NextRequest) => {
     const reqBody = await req.json();
 
     const validationSchema = z.object({
-        productId: z.string().min(1),
+        product: z.string().min(1),
         count: z.number().min(1),
     });
 
@@ -26,7 +26,7 @@ export const POST = async (req: NextRequest) => {
     try {
         connectToDataBase();
 
-        const targetProduct = await productmodel.findById(parsedData.data.productId)
+        const targetProduct = await productmodel.findById(parsedData.data.product)
         if (!targetProduct) {
             return Response.json({ message: 'product not found' }, { status: 404 })
         }
@@ -39,7 +39,7 @@ export const POST = async (req: NextRequest) => {
 
         const targetCart = await CartModel.findOne({ user: user._id })
         const existingItem = targetCart?.cart.find(
-            (item) => item.product.toString() === parsedData.data.productId
+            (item) => item.product.toString() === parsedData.data.product
         );
 
         const currentCount = existingItem ? existingItem.count : 0;
@@ -56,7 +56,7 @@ export const POST = async (req: NextRequest) => {
 
         if (existingItem) {
             updatedCart = await CartModel.findOneAndUpdate(
-                { user: user._id, "cart.product": parsedData.data.productId },
+                { user: user._id, "cart.product": parsedData.data.product },
                 {
                     $set: { "cart.$.count": newTotalCount },
                 },
@@ -67,7 +67,7 @@ export const POST = async (req: NextRequest) => {
                 { user: user._id },
                 {
                     $push: {
-                        cart: { product: parsedData.data.productId, count: parsedData.data.count },
+                        cart: { product: parsedData.data.product, count: parsedData.data.count },
                     },
                 },
                 { upsert: true, new: true }

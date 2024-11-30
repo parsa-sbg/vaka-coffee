@@ -10,15 +10,15 @@ import toast from "react-hot-toast";
 export const cartContext = createContext<{
     contextCart: CartItemInterface[];
     setContextCart: Dispatch<SetStateAction<CartItemInterface[]>>
-    addToCart: (productId: mongoose.Types.ObjectId, count: number, productName: string) => Promise<boolean>
-    deleteFromCart: (productId: mongoose.Types.ObjectId) => Promise<boolean>
+    addToCart: (product: mongoose.Types.ObjectId, count: number, productName: string) => Promise<boolean>
+    deleteFromCart: (product: mongoose.Types.ObjectId) => Promise<boolean>
     localCart: {
         count: number;
-        productId: mongoose.Types.ObjectId;
+        product: mongoose.Types.ObjectId;
     }[]
     setLocalCart: Dispatch<SetStateAction<{
         count: number;
-        productId: mongoose.Types.ObjectId;
+        product: mongoose.Types.ObjectId;
     }[]>>
 }
 >(
@@ -37,10 +37,10 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
 
     const [contextCart, setContextCart] = useState<CartItemInterface[]>([])
-    const [localCart, setLocalCart] = useState<{ count: number, productId: mongoose.Types.ObjectId }[]>([])
+    const [localCart, setLocalCart] = useState<{ count: number, product: mongoose.Types.ObjectId }[]>([])
 
 
-    const addToCart = async (productId: mongoose.Types.ObjectId, count: number, productName: string) => {
+    const addToCart = async (product: mongoose.Types.ObjectId, count: number, productName: string) => {
 
 
         const res = await fetch('/api/cart/add', {
@@ -49,7 +49,7 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                productId,
+                product,
                 count
             })
         })
@@ -58,7 +58,7 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
         if (res.status == 401) {
 
-            const result = localCart.find(item => item.productId == productId)
+            const result = localCart.find(item => item.product == product)
             if (result) {
                 if (+data.foundProduct.stock < count + +result.count) {
                     toast.custom((t) => (
@@ -69,13 +69,13 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
                     return false
                 }
                 setLocalCart(prev => prev.map(item => {
-                    if (item.productId == productId) {
+                    if (item.product == product) {
                         return { ...item, count: item.count + count }
                     }
                     return item
                 }))
             } else {
-                setLocalCart(prev => [...prev, { count, productId }])
+                setLocalCart(prev => [...prev, { count, product }])
             }
 
             toast.custom((t) => (
@@ -113,21 +113,21 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
     }
 
-    const deleteFromCart = async (productId: mongoose.Types.ObjectId) => {
+    const deleteFromCart = async (product: mongoose.Types.ObjectId) => {
         const res = await fetch('/api/cart/delete', {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                productId
+                product
             })
         })
         const data = await res.json()
 
         if (res.status == 401) {
 
-            setLocalCart(prev => prev.filter(item => item.productId !== productId))
+            setLocalCart(prev => prev.filter(item => item.product !== product))
 
         } else if (res.status == 200) {
             setContextCart(data.newCart.cart as CartItemInterface[])
