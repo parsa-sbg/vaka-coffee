@@ -130,7 +130,7 @@ function PhoneBox({ intialNumber }: props) {
     return (
         <div className='h-full flex justify-center flex-col'>
             <h3 className='pr-3 relative before:absolute before:w-2 before:h-2 before:rounded-full before:right-0 before:top-0 before:bottom-0 before:my-auto before:bg-main'>شماره موبایل</h3>
-            <div className='mt-5 h-full flex justify-between md:flex-wrap lg:flex-nowrap items-center gap-4 lg:gap-3.5 xl:gap-4'>
+            <div className='mt-5 h-full grid grid-cols-6 gap-3 lg:gap-3.5 xl:gap-4'>
                 <input
                     ref={inputRef}
                     disabled={step == 1}
@@ -147,9 +147,9 @@ function PhoneBox({ intialNumber }: props) {
                             setError(false)
                         }
                     }
-                    className={`${error ? '!border-red-600' : ''} disabled:cursor-not-allowed min-w-28 w-full disabled:!text-opacity-30 text-white bg-secondary px-2 py-1 rounded-md outline-none border-2 border-transparent transition-colors duration-200 focus:border-main`}
+                    className={`${error ? '!border-red-600' : ''} col-span-3 md:col-span-6 disabled:cursor-not-allowed min-w-28 w-full disabled:!text-opacity-30 text-white bg-secondary px-2 py-1 rounded-md outline-none border-2 border-transparent transition-colors duration-200 focus:border-main`}
                     type="text" />
-                <div className='flex gap-1 md:justify-between md:w-full'>
+                <div className='flex gap-1 col-span-3 md:col-span-6 md:justify-between md:w-full'>
                     <button className='text-nowrap bg-main text-bgColer text-sm px-3 md:px-2 w-full py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main'
                         onClick={step == 1
                             ? async () => {

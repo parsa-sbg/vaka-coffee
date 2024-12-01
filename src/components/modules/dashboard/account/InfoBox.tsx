@@ -79,7 +79,7 @@ function InfoBox({ intialUserInfos }: props) {
   return (
     <div className=''>
       <h3 className='pr-3 relative before:absolute before:w-2 before:h-2 before:rounded-full before:right-0 before:top-0 before:bottom-0 before:my-auto before:bg-main'>اطلاعات شخصی</h3>
-      <div className='mt-5 h-full grid grid-cols-2 sm:grid-cols-6 lg:grid-cols-12 gap-4 lg:gap-3.5 xl:gap-4'>
+      <div className='mt-5 h-full grid grid-cols-2 sm:grid-cols-6 lg:grid-cols-12 gap-3 lg:gap-3.5 xl:gap-4'>
 
         <div className='w-full flex flex-col gap-2 sm:col-span-3 lg:col-span-3'>
           <label className='text-sm' htmlFor="name">نام</label>

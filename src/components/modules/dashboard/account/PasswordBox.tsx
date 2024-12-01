@@ -114,7 +114,7 @@ function PasswordBox() {
     <div className='h-full flex justify-center flex-col'>
       <h3 className='pr-3 relative before:absolute before:w-2 before:h-2 before:rounded-full before:right-0 before:top-0 before:bottom-0 before:my-auto before:bg-main'>تغییر رمز عبور</h3>
 
-      <div className='mt-5 h-full flex justify-between md:flex-wrap lg:flex-nowrap items-center gap-4 lg:gap-3.5 xl:gap-4'>
+      <div className='mt-5 h-full grid grid-cols-6 md:flex-wrap items-center gap-3 lg:gap-3.5 xl:gap-4'>
         <input
           autoComplete='off'
           placeholder={step == 1 ? 'رمز عبور فعلی' : step == 2 ? 'رمز عبور جدید' : 'تکرار رمز عبور جدید'}
@@ -125,9 +125,10 @@ function PasswordBox() {
             step == 2 && setNewPassword(e.target.value)
             step == 3 && setRepeatNewPassword(e.target.value)
           }}
-          className={`${error ? '!border-red-600' : ''} disabled:cursor-not-allowed min-w-28 w-full disabled:!text-opacity-30 text-white bg-secondary px-2 py-1 rounded-md outline-none border-2 border-transparent transition-colors duration-200 focus:border-main`}
+          className={`${error ? '!border-red-600' : ''} col-span-4 md:col-span-6 disabled:cursor-not-allowed min-w-28 w-full disabled:!text-opacity-30 text-white bg-secondary px-2 py-1 rounded-md outline-none border-2 border-transparent transition-colors duration-200 focus:border-main`}
           type="password" />
-        <div className='flex gap-1 md:justify-between md:w-full'>
+          
+        <div className='flex gap-1 col-span-2 md:col-span-6 md:justify-between md:w-full'>
           <button
             onClick={step == 1 ? stepOneClickHandler : step == 2 ? stepTwoClickHandler : changePassword}
             className='text-nowrap bg-main text-bgColer text-sm px-3 md:px-2 w-full py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
