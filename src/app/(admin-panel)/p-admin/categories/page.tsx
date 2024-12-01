@@ -10,7 +10,7 @@ async function Categories() {
 
 
   return (
-    <div className="custom-scrollbar overflow-auto overflow-x-scroll pb-2">
+    <div className="pb-2">
 
      
       <CategoriesTable intialCategories={JSON.parse(JSON.stringify(categories))} />

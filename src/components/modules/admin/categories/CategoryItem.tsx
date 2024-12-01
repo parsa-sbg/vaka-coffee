@@ -40,7 +40,7 @@ function CategoryItem({ isOdd, category, number, editBtnClickhandler, setCategor
                 </div>
             </td>
 
-            <td className="px-3 lg:px-6 py-4">
+            <td className="">
                 <ShowInHomePageCheckBox catName={category.name} catId={category._id} iscategoryShowInHomePageIntial={category.showInHomePage} />
             </td>
 
