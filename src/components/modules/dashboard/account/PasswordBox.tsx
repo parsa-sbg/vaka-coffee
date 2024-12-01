@@ -116,6 +116,7 @@ function PasswordBox() {
 
       <div className='mt-5 h-full flex justify-between md:flex-wrap lg:flex-nowrap items-center gap-4 lg:gap-3.5 xl:gap-4'>
         <input
+          autoComplete='off'
           placeholder={step == 1 ? 'رمز عبور فعلی' : step == 2 ? 'رمز عبور جدید' : 'تکرار رمز عبور جدید'}
           value={step == 1 ? oldPassword : step == 2 ? newPassword : repeatNewPassword}
           onChange={e => {
