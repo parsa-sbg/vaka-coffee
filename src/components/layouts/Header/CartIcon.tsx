@@ -82,7 +82,7 @@ function CartIcon({ userIntialCart }: props) {
           : ''
         }
 
-        <CartModal isCartOpen={isCartOpen} userCart={userCart} />
+        <CartModal setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} userCart={userCart} />
 
 
       </div>
