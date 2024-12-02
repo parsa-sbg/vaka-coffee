@@ -58,7 +58,7 @@ export const POST = async (req: NextRequest) => {
             updatedCart = await CartModel.findOneAndUpdate(
                 { user: user._id, "cart.product": parsedData.data.product },
                 {
-                    $set: { "cart.$.count": newTotalCount },
+                    $set: { "count": newTotalCount },
                 },
                 { new: true }
             ).populate("user").populate("cart.product");

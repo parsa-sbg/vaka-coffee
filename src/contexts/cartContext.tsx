@@ -1,4 +1,5 @@
 "use client"
+import { getManyProductsById } from "@/actions/products";
 import ErrorAlert from "@/components/common/alerts/ErrorAlert";
 import SuccessAlert from "@/components/common/alerts/SuccessAlert";
 import { CartItemInterface } from "@/models/Cart";
@@ -20,6 +21,7 @@ export const cartContext = createContext<{
         count: number;
         product: mongoose.Types.ObjectId;
     }[]>>
+    changeItemCount: (productId: mongoose.Types.ObjectId, newCount: number) => Promise<void>
 }
 >(
     {
@@ -28,7 +30,8 @@ export const cartContext = createContext<{
         addToCart: async () => true,
         localCart: [],
         setLocalCart: () => { },
-        deleteFromCart: async () => true
+        deleteFromCart: async () => true,
+        changeItemCount: async () => { }
     }
 )
 
@@ -38,6 +41,7 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
     const [contextCart, setContextCart] = useState<CartItemInterface[]>([])
     const [localCart, setLocalCart] = useState<{ count: number, product: mongoose.Types.ObjectId }[]>([])
+    const [isFirstRender, setIsFirstRender] = useState(true)
 
 
     const addToCart = async (product: mongoose.Types.ObjectId, count: number, productName: string) => {
@@ -144,13 +148,88 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
         return false
     }
 
+    const changeItemCount = async (productId: mongoose.Types.ObjectId, newCount: number) => {
+
+
+        const res = await fetch('/api/cart/changecount', {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                product: productId,
+                newCount
+            })
+        })
+
+        const data = await res.json()
+
+        switch (res.status) {
+            case 200: {
+                setContextCart(data.newCart.cart)
+                break
+            }
+
+
+            case 401: {
+                // change in local cart
+                setLocalCart(prev => prev.map(item => {
+                    if (item.product == productId) {
+                        return { ...item, count: newCount }
+                    }else {
+                        return item
+                    }
+                }))
+                break
+            }
+
+
+            case 409: {
+                toast.custom((t) => (
+                    <ErrorAlert t={t} title="مقدار درخواستی از موجودی محصول بیشتر است ." />
+                ), {
+                    position: "top-left"
+                })
+                break
+            }
+
+
+            default: {
+                toast.custom((t) => (
+                    <ErrorAlert t={t} title="خطایی رخ داد !" />
+                ), {
+                    position: "top-left"
+                })
+                break
+            }
+
+
+        }
+
+
+    }
+
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(localCart))
     }, [localCart])
 
+    useEffect(() => {
+        if (!isFirstRender) {
+            getManyProductsById(localCart.map(item => item.product.toString()))
+                .then(products => {
+                    const newCart = products.map((product, index) => {
+                        return { count: localCart[index].count, product }
+                    })
+                    setContextCart(newCart)
+                })
+        } else {
+            setIsFirstRender(false)
+        }
+    }, [localCart])
+
     return (
 
-        <cartContext.Provider value={{ contextCart, setContextCart, addToCart, localCart, setLocalCart, deleteFromCart }}>
+        <cartContext.Provider value={{ contextCart, setContextCart, addToCart, localCart, setLocalCart, deleteFromCart, changeItemCount }}>
             {children}
         </cartContext.Provider>
     )

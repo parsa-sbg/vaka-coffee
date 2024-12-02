@@ -5,6 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { MdOutlineDelete } from "react-icons/md";
 import { ProductInterface } from '@/models/Product';
 import { useContextCart } from '@/contexts/cartContext';
+import { LuImageOff } from 'react-icons/lu';
 
 
 
@@ -23,7 +24,11 @@ function CartItem({ produtc, count }: props) {
     return (
         <div className='flex gap-2'>
             <div className='rounded-md overflow-hidden w-20 h-20 min-h-20 min-w-20'>
-                <Image className='w-full h-full' quality={50} alt='' src={produtc.pictures[0]} width={200} height={200} />
+                {produtc.pictures.length
+                    ? <Image className='w-full h-full' quality={50} alt='' src={produtc.pictures[0]} width={200} height={200} />
+                    : <div className='w-full h-full bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={30} className='text-main' /></div>
+                    }
+
             </div>
 
             <div className='text-sm flex flex-col justify-evenly'>
