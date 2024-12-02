@@ -2,11 +2,14 @@
 import { useContextCart } from '@/contexts/cartContext'
 import toPersianNumber from '@/utils/toPersianNubmer'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 function CartTotalPrice() {
 
   const { contextCart } = useContextCart()
+
+  const route = useRouter()
 
   const totalPrice = contextCart.reduce((total, item) => {
     const priceWithDiscount = item.product.price - (item.product.price * item.product.discount / 100)
@@ -24,8 +27,8 @@ function CartTotalPrice() {
         <span>مجموع</span>
         <span className='font-bold text-main'>{toPersianNumber(totalPrice.toLocaleString().toString())} تومان</span>
       </div>
-
-      <Link href={'/checkout'} className='w-full block text-center bg-main text-bgColer py-1 px-3 rounded-md mt-5 transition-colors duration-300 hover:bg-secondary hover:text-main'>ادامه جهت تسویه حساب</Link>
+ 
+      <button disabled={contextCart.length == 0} onClick={() => { route.push('/checkout') }} className='disabled:border-main disabled:bg-bgColer disabled:text-main border border-transparent w-full block text-center bg-main text-bgColer py-1 px-3 rounded-md mt-5 transition-colors duration-300 hover:bg-secondary hover:text-main'>ادامه جهت تسویه حساب</button>
     </div>
   )
 }
