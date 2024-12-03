@@ -39,8 +39,10 @@ export const cartContext = createContext<{
 export const CartContextProvider = ({ children }: PropsWithChildren) => {
 
 
+    const localStorageCart = JSON.parse(localStorage.getItem('cart') || '[]')
+
     const [contextCart, setContextCart] = useState<CartItemInterface[]>([])
-    const [localCart, setLocalCart] = useState<{ count: number, product: mongoose.Types.ObjectId }[]>([])
+    const [localCart, setLocalCart] = useState<{ count: number, product: mongoose.Types.ObjectId }[]>(localStorageCart)
     const [isFirstRender, setIsFirstRender] = useState(true)
 
 
@@ -176,7 +178,7 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
                 setLocalCart(prev => prev.map(item => {
                     if (item.product == productId) {
                         return { ...item, count: newCount }
-                    }else {
+                    } else {
                         return item
                     }
                 }))

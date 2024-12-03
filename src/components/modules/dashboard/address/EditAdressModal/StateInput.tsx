@@ -54,12 +54,12 @@ function StateInput({ setModalAddress, state, provinces, setSelectedStateId, err
 
             <button
                 onClick={btnClickHandler}
-                className={`z-50 px-4 py-1.5 pl-1 ${error ? '!border-red-600' : ''} ${isOpen && '!border-main'} text-nowrap w-full flex items-center rounded-md border border-transparent bg-bgColer justify-between transition-all duration-300`}>
+                className={`z-20 px-4 py-1.5 pl-1 ${error ? '!border-red-600' : ''} ${isOpen && '!border-main'} text-nowrap w-full flex items-center rounded-md border border-transparent bg-bgColer justify-between transition-all duration-300`}>
                 {state || 'انتخاب کنید ...'}
                 <MdKeyboardArrowLeft className={`transition-all duration-300 ${isOpen && '-rotate-90'}`} size={25} />
             </button>
 
-            <div className={`${isOpen && '!max-h-52 border-x border-b'} overflow-y-auto custom-scrollbar absolute right-0 transition-all rounded-b-md duration-200 top-full border-secondary bg-[#0f0f0f] left-0 max-h-0 overflow-hidden`}>
+            <div className={`${isOpen && '!max-h-52 border-x border-b'} z-30 overflow-y-auto custom-scrollbar absolute right-0 transition-all rounded-b-md duration-200 top-full border-secondary bg-[#0f0f0f] left-0 max-h-0 overflow-hidden`}>
 
                 {provinces.map(province => (
                     <button key={province.id} onClick={() => { OptionClickHandler(province.name, province.id) }} className='py-2 px-4 text-nowrap w-full hover:bg-bgColer transition-all duration-200'>

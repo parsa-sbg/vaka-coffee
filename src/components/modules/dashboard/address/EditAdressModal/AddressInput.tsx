@@ -23,7 +23,7 @@ function AddressInput({ address, setModalAddress, error, setErrors }: props) {
             <textarea onChange={e => {
                 setErrors(prev => ({ ...prev, address: false }))
                 setModalAddress(prev => ({ ...prev, address: e.target.value }))
-            }} value={address} placeholder='آدرس' className={`${error ? '!border-red-600' : ''} custom-scrollbar h-16 resize-none transition-all duration-300 outline-none rounded-md border border-transparent focus:border-main py-1.5 px-3 bg-bgColer`} />
+            }} value={address} placeholder='آدرس' className={`${error ? '!border-red-600' : ''} custom-scrollbar h-26 resize-none transition-all duration-300 outline-none rounded-md border border-transparent focus:border-main py-1.5 px-3 bg-bgColer`} />
         </div>
     )
 }

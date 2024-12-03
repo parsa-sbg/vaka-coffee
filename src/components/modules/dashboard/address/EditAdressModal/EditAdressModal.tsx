@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import NameInput from './NameInput'
 import LastNameInput from './LastNameInput'
 import StateInput from './StateInput'
-import CiryInput from './CityInput'
+import CityInput from './CityInput'
 import AddressInput from './AddressInput'
 import HouseNumberInput from './HouseNumberInput'
 import CancelBtn from './CancelBtn'
@@ -49,7 +49,7 @@ function EditAdressModal({ provinces, intialAddress, hideModal, setAddress }: pr
 
             <div className='flex flex-col sm:flex-row gap-2 sm:gap-5'>
                 <StateInput error={errors.state} setErrors={setErrors} setSelectedStateId={setSelectedStateId} provinces={provinces} state={modalAddress.state} setModalAddress={setModalAddress} />
-                <CiryInput error={errors.city} setErrors={setErrors} stateId={selectedStateId} city={modalAddress.city} setModalAddress={setModalAddress} />
+                <CityInput error={errors.city} setErrors={setErrors} stateId={selectedStateId} city={modalAddress.city} setModalAddress={setModalAddress} />
             </div>
 
             <div className='flex flex-col sm:flex-row gap-2 sm:gap-5'>

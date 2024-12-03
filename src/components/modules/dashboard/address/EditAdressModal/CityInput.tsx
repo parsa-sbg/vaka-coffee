@@ -25,16 +25,24 @@ function CityInput({ stateId, city, setModalAddress, error, setErrors }: props) 
     const [cities, setCities] = useState<{ id: number, name: string, province_id: number }[]>([])
     const [isLoading, setIsLoading] = useState(false)
 
+    const [isFirstRender, setIsFirstRender] = useState(true)
 
-    useEffect(() => {
-        setModalAddress(prev => ({ ...prev, city: '' }))
-        setIsLoading(true)
+
+    useEffect(() => {        
         fetch(`/api/locations/cities/${stateId}`)
-            .then(res => res.json())
-            .then(data => {
-                setCities(data)
-                setIsLoading(false)
-            })
+        .then(res => res.json())
+        .then(data => {
+            setCities(data)
+            setIsLoading(false)
+        })
+
+        if (!isFirstRender) {
+            setModalAddress(prev => ({ ...prev, city: '' }))
+            setIsLoading(true)
+
+        } else {
+            setIsFirstRender(false)
+        }
     }, [stateId])
 
     const windowClickhandler = useCallback(() => {
@@ -68,12 +76,12 @@ function CityInput({ stateId, city, setModalAddress, error, setErrors }: props) 
 
             <button
                 onClick={btnClickHandler}
-                className={`z-50 px-4 py-1.5 pl-1 ${error ? '!border-red-600' : ''} ${isOpen && '!border-main'} text-nowrap w-full flex items-center rounded-md border border-transparent bg-bgColer justify-between transition-all duration-300`}>
+                className={`z-20 px-4 py-1.5 pl-1 ${error ? '!border-red-600' : ''} ${isOpen && '!border-main'} text-nowrap w-full flex items-center rounded-md border border-transparent bg-bgColer justify-between transition-all duration-300`}>
                 {city ? city : isLoading ? <span className='animate-pulse'>بارگذاری ...</span> : 'انتخاب کنید ...'}
                 <MdKeyboardArrowLeft className={`transition-all duration-300 ${isOpen && '-rotate-90'}`} size={25} />
             </button>
 
-            <div className={`${isOpen && '!max-h-52 border-x border-b'} overflow-y-auto custom-scrollbar absolute right-0 transition-all rounded-b-md duration-200 top-full border-secondary bg-[#0f0f0f] left-0 max-h-0 overflow-hidden`}>
+            <div className={`${isOpen && '!max-h-52 border-x border-b'} overflow-y-auto custom-scrollbar absolute z-30 right-0 transition-all rounded-b-md duration-200 top-full border-secondary bg-[#0f0f0f] left-0 max-h-0 overflow-hidden`}>
 
                 {cities.map(city => (
                     <button key={city.id} onClick={() => { OptionClickHandler(city.name) }} className='py-2 px-4 text-nowrap w-full hover:bg-bgColer transition-all duration-200'>
