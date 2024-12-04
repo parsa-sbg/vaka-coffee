@@ -32,7 +32,7 @@ export interface UserModelInterface extends Model<UserDocument> { }
 
 // schemas
 
-const address = new mongoose.Schema({
+export const address = new mongoose.Schema({
     name: { type: String, required: true },
     family: { type: String, required: true },
     state: { type: String, required: true },

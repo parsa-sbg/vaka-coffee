@@ -22,7 +22,7 @@ export interface CartModelInterface extends Model<CartDocument> { }
 
 // schemas
 
-const cartItemSchema = new mongoose.Schema({
+export const cartItemSchema = new mongoose.Schema({
     product: {
         type: mongoose.Types.ObjectId,
         ref: 'product',
