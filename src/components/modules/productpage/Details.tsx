@@ -7,11 +7,11 @@ type detailsPros = {
     score: number
     commentsCount: number
     price: number
-    off?: number
+    discount: number
     dynamicFields: { key: string, value: string }[]
 }
 
-function Details({ title, commentsCount, dynamicFields }: detailsPros) {
+function Details({ title, commentsCount, dynamicFields, price, score, discount }: detailsPros) {
     return (
         <div className='mt-5'>
 
@@ -29,8 +29,8 @@ function Details({ title, commentsCount, dynamicFields }: detailsPros) {
             </div>
 
             <div className='flex items-center justify-cneter flex-wrap gap-2 mt-4'>
-                <span className='line-through text-nowrap text-neutral-400'>{toPersianNumber('565,750')}</span>
-                <span className={`text-main text-lg text-nowrap font-semibold`}>{toPersianNumber('365,750 تومان')}</span>
+                <span className='line-through text-nowrap text-neutral-400'>{toPersianNumber(price.toLocaleString())}</span>
+                <span className={`text-main text-lg text-nowrap font-semibold`}>{toPersianNumber((price - (price * discount / 100)).toLocaleString())}</span>
             </div>
 
             <div className='mt-8'>

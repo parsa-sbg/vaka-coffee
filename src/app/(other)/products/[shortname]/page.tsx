@@ -33,7 +33,7 @@ export default async function Product({ params }: props) {
 
                 <div className='sm:col-span-7 md:col-span-8'>
                     <Breadcrumb categoryName={product.category.name} categoryShortName={product.category.shortName} productName={product.name} />
-                    <Details title={product.name} commentsCount={3} score={3} price={product.price} dynamicFields={product.dynamicFields} />
+                    <Details title={product.name} commentsCount={3} score={3} price={product.price} dynamicFields={product.dynamicFields} discount={product.discount} />
                     <AddToCart stock={JSON.parse(JSON.stringify(product.stock))} productId={JSON.parse(JSON.stringify(product._id))} productName={JSON.parse(JSON.stringify(product.name))} />
                 </div>
             </div>
