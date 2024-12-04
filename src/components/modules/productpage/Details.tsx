@@ -30,7 +30,7 @@ function Details({ title, commentsCount, dynamicFields, price, score, discount }
 
             <div className='flex items-center justify-cneter flex-wrap gap-2 mt-4'>
                 <span className='line-through text-nowrap text-neutral-400'>{toPersianNumber(price.toLocaleString())}</span>
-                <span className={`text-main text-lg text-nowrap font-semibold`}>{toPersianNumber((price - (price * discount / 100)).toLocaleString())}</span>
+                <span className={`text-main text-lg text-nowrap font-semibold`}>{toPersianNumber((price - (price * discount / 100)).toLocaleString())} تومان</span>
             </div>
 
             <div className='mt-8'>
