@@ -1,13 +1,13 @@
 "use client"
 
-import { useContextCart } from '@/contexts/cartContext'
 import React from 'react'
 import CartItem from './CartItem'
 import Link from 'next/link'
+import { useCartStore } from '@/store/cartStore'
 
 function CartItems() {
 
-    const { contextCart, changeItemCount, deleteFromCart } = useContextCart()
+    const { cart, changeItemCount, deleteFromCart } = useCartStore()
 
     return (
         <div >
@@ -18,8 +18,8 @@ function CartItems() {
                 <span className='text-center'>قیمت کل</span>
             </div>
             <div className='flex flex-col gap-2.5 divide-y-2 divide-secondary'>
-                {contextCart.length
-                    ? contextCart.map(cartItem => (
+                {cart.length
+                    ? cart.map(cartItem => (
                         <CartItem deleteFromCart={deleteFromCart} changeItemCount={changeItemCount} cartItem={cartItem} key={cartItem.product._id.toString()} />
                     ))
                     : <div className='mt-10'>

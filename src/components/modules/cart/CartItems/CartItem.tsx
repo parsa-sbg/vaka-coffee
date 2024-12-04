@@ -8,7 +8,7 @@ import { MdOutlineDelete } from 'react-icons/md'
 
 type props = {
     cartItem: CartItemInterface
-    changeItemCount: (productId: mongoose.Types.ObjectId, newCount: number) => Promise<void>
+    changeItemCount: (productId: mongoose.Types.ObjectId, newCount: number) => Promise<boolean>
     deleteFromCart: (product: mongoose.Types.ObjectId) => Promise<boolean>
 }
 

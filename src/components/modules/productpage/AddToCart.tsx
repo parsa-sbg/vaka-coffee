@@ -1,5 +1,5 @@
 "use client"
-import { useContextCart } from '@/contexts/cartContext'
+import { useCartStore } from '@/store/cartStore'
 import mongoose from 'mongoose'
 import React, { useState } from 'react'
 
@@ -12,7 +12,7 @@ type props = {
 function AddToCart({ stock, productId, productName }: props) {
 
     const [count, setCount] = useState(1)
-    const { addToCart } = useContextCart()
+    const { addToCart } = useCartStore()
 
     const plusHandler = () => {
         if (count >= stock) return

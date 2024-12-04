@@ -1,6 +1,6 @@
 import ErrorAlert from '@/components/common/alerts/ErrorAlert'
-import { useContextCart } from '@/contexts/cartContext'
 import { Address } from '@/models/User'
+import { useCartStore } from '@/store/cartStore'
 import toPersianNumber from '@/utils/toPersianNubmer'
 import { addressSchema } from '@/validation/address'
 import { phoneSchema } from '@/validation/auth'
@@ -24,9 +24,9 @@ type props = {
 
 function CartSummary({ address, desc, phone, setErrors, setPhoneError }: props) {
 
-    const { contextCart } = useContextCart()
+    const { cart } = useCartStore()
 
-    const totalPrice = contextCart.reduce((total, item) => {
+    const totalPrice = cart.reduce((total, item) => {
         const priceWithDiscount = item.product.price - (item.product.price * item.product.discount / 100)
         const finalPrice = priceWithDiscount * item.count
         return total + finalPrice
@@ -74,7 +74,7 @@ function CartSummary({ address, desc, phone, setErrors, setPhoneError }: props) 
             <h4 className='font-bold mb-7 text-lg text-main' >سفارش شما</h4>
 
             <div className='flex flex-col gap-3'>
-                {contextCart.map((item, index) => (
+                {cart.map((item, index) => (
                     <div key={item.product._id.toString()} className={`flex justify-between items-center gap-10 border-secondary border-b-2 border-dashed pb-3`}>
                         <p className='flex items-center gap-2'> <span className='font-semibold text-main'>{toPersianNumber(item.count.toString())} </span> عدد {item.product.name} </p>
                         <span className='font-semibold text-main text-nowrap'>{toPersianNumber((item.count * (item.product.price - (item.product.price * item.product.discount / 100))).toLocaleString().toString())} تومان</span>

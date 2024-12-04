@@ -4,8 +4,8 @@ import React from 'react'
 import { RxCross2 } from "react-icons/rx";
 import { MdOutlineDelete } from "react-icons/md";
 import { ProductInterface } from '@/models/Product';
-import { useContextCart } from '@/contexts/cartContext';
 import { LuImageOff } from 'react-icons/lu';
+import { useCartStore } from '@/store/cartStore';
 
 
 
@@ -18,7 +18,7 @@ function CartItem({ produtc, count }: props) {
 
 
     const { price, discount } = produtc
-    const { deleteFromCart } = useContextCart()
+    const { deleteFromCart } = useCartStore()
 
 
     return (

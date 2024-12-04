@@ -1,12 +1,12 @@
 "use client"
 
-import { useContextCart } from '@/contexts/cartContext';
 import { CartItemInterface } from '@/models/Cart';
 import toPersianNumber from '@/utils/toPersianNubmer';
 import React, { useEffect, useState } from 'react'
 import { PiShoppingCart } from "react-icons/pi";
 import Cover from '@/components/common/Cover';
 import CartModal from './CartModal';
+import { useCartStore } from '@/store/cartStore';
 
 
 type props = {
@@ -19,7 +19,7 @@ function CartIcon({ userIntialCart }: props) {
 
   const [userCart, setUserCart] = useState(userIntialCart || [])
 
-  const { contextCart, setContextCart, setLocalCart } = useContextCart()
+  const { cart, setCart, setLocalCart, syncCartWithLocalCart } = useCartStore()
 
   const windowClickHandler = () => {
     setIsCartOpen(false)
@@ -32,12 +32,9 @@ function CartIcon({ userIntialCart }: props) {
 
   useEffect(() => {
     if (!userIntialCart) {
-      
-      const localCart = JSON.parse(localStorage.getItem('cart') || '[]')
-      console.log(localCart);
-      setLocalCart(localCart)
+      syncCartWithLocalCart()
     } else {
-      setContextCart(userIntialCart)
+      setCart(userIntialCart)
     }
 
     window.addEventListener('click', windowClickHandler)
@@ -47,8 +44,8 @@ function CartIcon({ userIntialCart }: props) {
   }, [])
 
   useEffect(() => {
-    setUserCart(contextCart)
-  }, [contextCart])
+    setUserCart(cart)
+  }, [cart])
 
   return (
     <>
