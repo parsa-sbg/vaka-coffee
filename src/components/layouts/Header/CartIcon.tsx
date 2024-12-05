@@ -19,7 +19,7 @@ function CartIcon({ userIntialCart }: props) {
 
   const [userCart, setUserCart] = useState(userIntialCart || [])
 
-  const { cart, setCart, setLocalCart, syncCartWithLocalCart } = useCartStore()
+  const { cart, setCart, syncCartWithLocalCart, setLocalCart } = useCartStore()
 
   const windowClickHandler = () => {
     setIsCartOpen(false)
@@ -32,6 +32,7 @@ function CartIcon({ userIntialCart }: props) {
 
   useEffect(() => {
     if (!userIntialCart) {
+      setLocalCart(JSON.parse(localStorage?.getItem('cart') || '[]'))
       syncCartWithLocalCart()
     } else {
       setCart(userIntialCart)

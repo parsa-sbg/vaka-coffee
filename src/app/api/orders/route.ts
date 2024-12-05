@@ -40,6 +40,9 @@ export const POST = async (req: NextRequest) => {
 
         const finalPrice = totalCartPrice + postPrice
 
+        // Temporary
+        // const finalPrice = 1000
+
 
         const merchant_id = process.env.ZARINPAL_MERCHANT_ID
         if (!merchant_id) {
@@ -53,6 +56,10 @@ export const POST = async (req: NextRequest) => {
         if (!ZARINPAL_BASE_URL) {
             throw new Error('ZARINPAL_BASE_URL is not defiend')
         }
+        const SITE_DOMIN = process.env.SITE_DOMIN
+        if (!SITE_DOMIN) {
+            throw new Error('SITE_DOMIN is not defiend')
+        }
 
         const res = await fetch(`${ZARINPAL_BASE_URL}/request.json`, {
             method: "POST",
@@ -64,7 +71,10 @@ export const POST = async (req: NextRequest) => {
                 amount: finalPrice,
                 currency: 'IRT',
                 description: `تسویه سبد خرید با آیدی ${cart._id}`,
-                callback_url: '/'
+                callback_url: `${SITE_DOMIN}/verify`,
+                metadata: {
+                    mobile: user.phone
+                }
             })
         })
 

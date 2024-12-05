@@ -24,11 +24,12 @@ type action = {
     syncCartWithLocalCart: () => Promise<void>
 }
 
+
 export const useCartStore = create<state & action>()((set, get) => ({
 
     cart: [],
 
-    localCart: JSON.parse(localStorage.getItem('cart') || '[]'),
+    localCart: [],
 
     setCart: (newCart) => {
         set({ cart: newCart })
