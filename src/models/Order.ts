@@ -71,6 +71,8 @@ const schema = new mongoose.Schema<OrderDocument>({
         default: null
     }
 
+}, {
+    timestamps: true
 })
 
 export const OrderModel: OrderModelInterface = mongoose.models.Order || mongoose.model('Order', schema)
