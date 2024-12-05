@@ -4,6 +4,7 @@ import { CartItemInterface, cartItemSchema } from "./Cart";
 
 
 export interface OrderInterface {
+    _id: mongoose.Types.ObjectId
     user: UserInterface,
     address: Address,
     phone: String,
@@ -13,6 +14,7 @@ export interface OrderInterface {
     cart: CartItemInterface[],
     totalPrice: number
     ref: number
+    createdAt: Date
 }
 
 export interface OrderDocument extends Document, OrderInterface { }

@@ -1,10 +1,12 @@
-import { CartModel, connectToDataBase, OrderModel } from "@/models";
+import { connectToDataBase, OrderModel } from "@/models";
 import { authUserWithToken } from "@/utils/server/auth";
-import { orderSchema } from "@/validation/order";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
-export const POST = async (req: NextRequest) => {
+export const PUT = async (
+    _req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) => {
     const token = (await cookies()).get('token')?.value;
     const user = await authUserWithToken(token);
 
@@ -12,36 +14,29 @@ export const POST = async (req: NextRequest) => {
         return Response.json({ message: 'user not fount' }, { status: 401 })
     }
 
-    const reqBody = await req.json();
-
-
-    const parsedData = orderSchema.safeParse(reqBody);
-
-    if (!parsedData.success) {
-        return Response.json(parsedData, { status: 400 });
-    }
+    const orderId = (await params).id
 
     try {
 
         connectToDataBase()
 
-        // get user cart
-        const cart = await CartModel.findOne({ user: user._id }).populate('user').populate('cart.product')
-        if (!cart) return Response.json({ message: 'cart not found' }, { status: 404 })
-        if (!cart.cart.length) return Response.json({ message: 'the cart is empty' }, { status: 404 })
-
-        const postPrice = parsedData.data.address.city == 'تهران' ? 56000 : 99000
-
-        const totalCartPrice = cart.cart.reduce((total, item) => {
-            const priceWithDiscount = item.product.price - (item.product.price * item.product.discount / 100)
-            const finalPrice = priceWithDiscount * item.count
-            return total + finalPrice
-        }, 0)
-
-        // const finalPrice = totalCartPrice + postPrice
-
-        // Temporary
-        const finalPrice = 1000
+        // get user order
+        const order = await OrderModel.findById(orderId)
+        if (!order) return Response.json({ message: 'order not found' }, { status: 404 })
+        switch (order.status) {
+            case 'CANCELED': {
+                return Response.json({ message: 'order is canceled' }, { status: 400 })
+            }
+            case 'EXPIRED': {
+                return Response.json({ message: 'order is expired' }, { status: 400 })
+            }
+            case 'PENDING': {
+                break
+            }
+            default: {
+                return Response.json({ message: 'order is paid before' }, { status: 400 })
+            }
+        }
 
 
         const merchant_id = process.env.ZARINPAL_MERCHANT_ID
@@ -68,9 +63,9 @@ export const POST = async (req: NextRequest) => {
             },
             body: JSON.stringify({
                 merchant_id,
-                amount: finalPrice,
+                amount: order.totalPrice,
                 currency: 'IRT',
-                description: `تسویه سبد خرید با آیدی ${cart._id}`,
+                description: `تلاش مجدد برای پرداخت سفارش با آیدی ${order._id}`,
                 callback_url: `${SITE_DOMIN}/verify`,
                 metadata: {
                     mobile: user.phone
@@ -86,23 +81,13 @@ export const POST = async (req: NextRequest) => {
             const authority = data.data.authority
             const paymentUrl = PAYMENT_BASE_URL + '/' + authority
 
-            const newOrder = await OrderModel.create({
-                user: user._id,
-                address: parsedData.data.address,
-                phone: parsedData.data.phone,
-                description: parsedData.data.description,
-                cart: cart.cart,
-                authority,
-                status: 'PENDING',
-                totalPrice: finalPrice
+            const updatedOrder = await OrderModel.findByIdAndUpdate(order._id, {
+                authority
             })
 
-            if (newOrder) {
+            if (updatedOrder) {
 
-                await CartModel.findByIdAndUpdate(cart._id, {
-                    cart: []
-                })
-                return Response.json({ message: 'order created successfully', paymentUrl }, { status: 201 })
+                return Response.json({ message: 'order authority updated successfully', paymentUrl }, { status: 200 })
 
             } else {
                 return Response.json({ message: 'internal server error' }, { status: 500 })
@@ -115,10 +100,9 @@ export const POST = async (req: NextRequest) => {
 
 
     } catch (err) {
-        console.log('create order error ===>>>', err);
+        console.log('update order authority error ===>>>', err);
 
         return Response.json({ message: 'internal server erroor' }, { status: 500 })
     }
-
 
 }
