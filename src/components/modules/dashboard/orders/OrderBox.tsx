@@ -1,21 +1,22 @@
 "use client"
 import { OrderInterface } from '@/models/Order'
-import { calculateExpireTime } from '@/utils/calculateExpireTime'
 import { toPersianDate } from '@/utils/toPersianDate'
 import toPersianNumber from '@/utils/toPersianNubmer'
-import React from 'react'
+import React, { useState } from 'react'
 import PayAgainButton from './PayAgainButton'
+import CancelBtn from './CancelBtn'
 
 
 
 type props = {
-    order: OrderInterface
+    intialOrder: OrderInterface
     hoursRemaining: number | "infinite"
     isExpired: boolean | "PAID BEFORE"
 }
 
-function OrderBox({ order, hoursRemaining, isExpired }: props) {
+function OrderBox({ intialOrder, hoursRemaining, isExpired }: props) {
 
+    const [order, setOrder] = useState(intialOrder)
 
     let orderStatus: string
     let orderStatusColor: string
@@ -90,6 +91,7 @@ function OrderBox({ order, hoursRemaining, isExpired }: props) {
                 <div className='flex items-center flex-wrap gap-1 justify-end'>
                     {order.status == 'PENDING' && !isExpired && <PayAgainButton orderId={order._id} />}
                     <button className='text-nowrap block text-sm bg-main text-bgColer px-4 py-1 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main'>مشاهده</button>
+                    {order.status == 'PENDING' && !isExpired && <CancelBtn setOrder={setOrder} orderId={order._id} />}
                 </div>
             </div>
 

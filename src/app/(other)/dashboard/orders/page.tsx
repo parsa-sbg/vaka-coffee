@@ -23,7 +23,7 @@ async function page() {
 
         const { hoursRemaining, isExpired } = calculateExpireTime(order.expireAt)
 
-        return <OrderBox hoursRemaining={hoursRemaining} isExpired={isExpired} order={JSON.parse(JSON.stringify(order))} key={order._id.toString()} />
+        return <OrderBox hoursRemaining={hoursRemaining} isExpired={isExpired} intialOrder={JSON.parse(JSON.stringify(order))} key={order._id.toString()} />
 
       })}
     </div>

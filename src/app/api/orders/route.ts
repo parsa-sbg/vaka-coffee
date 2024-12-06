@@ -4,6 +4,8 @@ import { orderSchema } from "@/validation/order";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
+
+// create new order
 export const POST = async (req: NextRequest) => {
     const token = (await cookies()).get('token')?.value;
     const user = await authUserWithToken(token);
