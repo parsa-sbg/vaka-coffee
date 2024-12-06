@@ -3,6 +3,7 @@
 import ErrorAlert from '@/components/common/alerts/ErrorAlert';
 import SuccessAlert from '@/components/common/alerts/SuccessAlert';
 import PhoneInputs from '@/components/modules/register/PhoneInputs';
+import { useCartStore } from '@/store/cartStore';
 import { userRegisterSchema } from '@/validation/auth';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
@@ -29,7 +30,7 @@ type serverResStatus409 = {
 }
 
 function Register() {
-    const localCart = JSON.parse(localStorage.getItem('cart') || '[]')
+    const { localCart } = useCartStore()
 
     const [formDatas, setFormDatas] = useState({ name: '', username: '', phone: '', password: '', repeatPassword: '', otp: '', localCart })
     const [isPending, setIsPending] = useState(false)
@@ -37,7 +38,7 @@ function Register() {
     const route = useRouter()
 
     console.log(formDatas);
-    
+
 
 
     const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
