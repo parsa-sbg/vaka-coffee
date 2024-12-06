@@ -1,3 +1,4 @@
+"use client"
 import { OrderInterface } from '@/models/Order'
 import { calculateExpireTime } from '@/utils/calculateExpireTime'
 import { toPersianDate } from '@/utils/toPersianDate'
@@ -14,7 +15,7 @@ function OrderItem({ order, isOdd, number }: props) {
 
     let orderStatus: string
     let orderStatusColor: string
-    const { hoursRemaining } = calculateExpireTime(order.createdAt)
+    const { isExpired, hoursRemaining } = calculateExpireTime(order.expireAt)
 
 
     switch (order.status) {
@@ -25,11 +26,6 @@ function OrderItem({ order, isOdd, number }: props) {
         }
         case 'CANCELED': {
             orderStatus = 'لغو شده'
-            orderStatusColor = 'text-red-600'
-            break
-        }
-        case 'EXPIRED': {
-            orderStatus = 'منقضی شده'
             orderStatusColor = 'text-red-600'
             break
         }
@@ -48,6 +44,12 @@ function OrderItem({ order, isOdd, number }: props) {
             orderStatusColor = 'text-green-600'
             break
         }
+    }
+
+    
+    if (isExpired !== 'PAID BEFORE' && isExpired) {        
+        orderStatus = 'منقضی شده'
+        orderStatusColor = 'text-red-600'
     }
 
 

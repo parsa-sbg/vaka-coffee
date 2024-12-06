@@ -10,9 +10,11 @@ import PayAgainButton from './PayAgainButton'
 
 type props = {
     order: OrderInterface
+    hoursRemaining: number | "infinite"
+    isExpired: boolean | "PAID BEFORE"
 }
 
-function OrderBox({ order }: props) {
+function OrderBox({ order, hoursRemaining, isExpired }: props) {
 
 
     let orderStatus: string
@@ -23,8 +25,6 @@ function OrderBox({ order }: props) {
         throw new Error('PAYMENT_BASE_URL is not defiend')
     }
 
-    const { hoursRemaining } = calculateExpireTime(order.createdAt)
-
 
     switch (order.status) {
         case 'PENDING': {
@@ -34,11 +34,6 @@ function OrderBox({ order }: props) {
         }
         case 'CANCELED': {
             orderStatus = 'لغو شده'
-            orderStatusColor = 'text-red-600'
-            break
-        }
-        case 'EXPIRED': {
-            orderStatus = 'منقضی شده'
             orderStatusColor = 'text-red-600'
             break
         }
@@ -58,6 +53,12 @@ function OrderBox({ order }: props) {
             break
         }
     }
+
+    if (isExpired !== 'PAID BEFORE' && isExpired) {
+        orderStatus = 'منقضی شده'
+        orderStatusColor = 'text-red-600'
+    }
+
 
     return (
         <div className='flex flex-col gap-3 pt-7'>
@@ -87,7 +88,7 @@ function OrderBox({ order }: props) {
 
             <div className='flex items-center justify-end'>
                 <div className='flex items-center flex-wrap gap-1 justify-end'>
-                    {order.status == 'PENDING' && <PayAgainButton orderId={order._id} /> }
+                    {order.status == 'PENDING' && !isExpired && <PayAgainButton orderId={order._id} />}
                     <button className='text-nowrap block text-sm bg-main text-bgColer px-4 py-1 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main'>مشاهده</button>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import { z } from "zod";
 export const POST = async (req: NextRequest) => {
     const token = (await cookies()).get('token')?.value;
     const user = await authUserWithToken(token);
-    
+
 
     const reqBody = await req.json();
 
@@ -55,10 +55,11 @@ export const POST = async (req: NextRequest) => {
         let updatedCart;
 
         if (existingItem) {
+
             updatedCart = await CartModel.findOneAndUpdate(
-                { user: user._id, "cart.product": parsedData.data.product },
+                { user: user._id, "cart.product": parsedData.data.product.toString() },
                 {
-                    $set: { "count": newTotalCount },
+                    $set: { 'cart.$.count': newTotalCount },
                 },
                 { new: true }
             ).populate("user").populate("cart.product");

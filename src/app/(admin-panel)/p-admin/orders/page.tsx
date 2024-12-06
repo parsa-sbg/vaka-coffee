@@ -9,7 +9,7 @@ async function Orders() {
 
   return (
     <div className='custom-scrollbar overflow-auto overflow-x-scroll pb-2'>
-      <OrdersTable orders={orders} />
+      <OrdersTable orders={JSON.parse(JSON.stringify(orders))} />
     </div>
   )
 }

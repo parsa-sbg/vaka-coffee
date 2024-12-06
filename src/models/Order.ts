@@ -10,11 +10,12 @@ export interface OrderInterface {
     phone: String,
     description: string
     authority: string
-    status: 'PENDING' | 'EXPIRED' | 'PAID' | 'PREPARING' | 'SENT' | 'CANCELED'
+    status: 'PENDING' | 'PAID' | 'PREPARING' | 'SENT' | 'CANCELED'
     cart: CartItemInterface[],
     totalPrice: number
     ref: number
-    createdAt: Date
+    createdAt: Date,
+    expireAt: Date | null
 }
 
 export interface OrderDocument extends Document, OrderInterface { }
@@ -52,8 +53,7 @@ const schema = new mongoose.Schema<OrderDocument>({
     },
 
     status: {
-        type: String, enum: ['PENDING', 'EXPIRED', 'PAID', 'PREPARING', 'SENT', 'CANCELED'],
-        required: true,
+        type: String, enum: ['PENDING', 'PAID', 'PREPARING', 'SENT', 'CANCELED'],
         default: 'PENDING'
     },
 
@@ -71,7 +71,13 @@ const schema = new mongoose.Schema<OrderDocument>({
     ref: {
         type: Number,
         default: null
-    }
+    },
+
+    expireAt: {
+        type: Date || null,
+        required: true
+    },
+
 
 }, {
     timestamps: true

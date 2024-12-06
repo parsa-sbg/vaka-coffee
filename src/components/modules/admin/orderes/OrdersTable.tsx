@@ -1,5 +1,5 @@
+"use client"
 import { OrderInterface } from '@/models/Order'
-import toPersianNumber from '@/utils/toPersianNubmer'
 import React from 'react'
 import OrderItem from './OrderItem'
 

@@ -22,9 +22,9 @@ async function page(
     if (!order) {
         redirect('/')
     }
-    const { hoursRemaining } = calculateExpireTime(order.createdAt)
+    const { hoursRemaining } = calculateExpireTime(order.expireAt)
 
-    
+
 
     switch (status) {
 
@@ -56,7 +56,7 @@ async function page(
             if (data.data?.code == 100 || data.data?.code == 101) {
                 isPaidSuccessfully = true
                 ref_id = data.data.ref_id
-                await OrderModel.findOneAndUpdate({ _id: order._id, status: 'PENDING' }, { status: "PAID", ref: ref_id })
+                await OrderModel.findOneAndUpdate({ _id: order._id, status: 'PENDING' }, { status: "PAID", ref: ref_id, expireAt: null })
             } else {
                 isPaidSuccessfully = false
             }

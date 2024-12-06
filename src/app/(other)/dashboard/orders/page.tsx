@@ -1,5 +1,6 @@
 import OrderBox from '@/components/modules/dashboard/orders/OrderBox'
 import { connectToDataBase, OrderModel } from '@/models'
+import { calculateExpireTime } from '@/utils/calculateExpireTime'
 import { authUserWithToken } from '@/utils/server/auth'
 import { cookies } from 'next/headers'
 import { redirect, RedirectType } from 'next/navigation'
@@ -17,9 +18,14 @@ async function page() {
 
   return (
     <div className='flex flex-col gap-7 divide-y divide-main'>
-      {orders.map(order => (
-        <OrderBox order={JSON.parse(JSON.stringify(order))} key={order._id.toString()} />
-      ))}
+
+      {orders.map(order => {
+
+        const { hoursRemaining, isExpired } = calculateExpireTime(order.expireAt)
+
+        return <OrderBox hoursRemaining={hoursRemaining} isExpired={isExpired} order={JSON.parse(JSON.stringify(order))} key={order._id.toString()} />
+
+      })}
     </div>
   )
 }

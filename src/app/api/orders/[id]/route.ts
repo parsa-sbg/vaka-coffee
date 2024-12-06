@@ -1,4 +1,5 @@
 import { connectToDataBase, OrderModel } from "@/models";
+import { calculateExpireTime } from "@/utils/calculateExpireTime";
 import { authUserWithToken } from "@/utils/server/auth";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
@@ -27,15 +28,18 @@ export const PUT = async (
             case 'CANCELED': {
                 return Response.json({ message: 'order is canceled' }, { status: 400 })
             }
-            case 'EXPIRED': {
-                return Response.json({ message: 'order is expired' }, { status: 400 })
-            }
             case 'PENDING': {
                 break
             }
             default: {
                 return Response.json({ message: 'order is paid before' }, { status: 400 })
             }
+        }
+        const { isExpired } = calculateExpireTime(order.expireAt)
+
+
+        if (isExpired !== 'PAID BEFORE' && isExpired) {
+            return Response.json({ message: 'order is expired' }, { status: 400 })
         }
 
 

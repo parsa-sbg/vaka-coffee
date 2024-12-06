@@ -94,7 +94,8 @@ export const POST = async (req: NextRequest) => {
                 cart: cart.cart,
                 authority,
                 status: 'PENDING',
-                totalPrice: finalPrice
+                totalPrice: finalPrice,
+                expireAt: new Date(Date.now() + 1000 * 60 * 60 * 24)
             })
 
             if (newOrder) {
