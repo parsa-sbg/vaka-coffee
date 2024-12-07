@@ -20,7 +20,7 @@ async function page() {
 
 
   return (
-    <Page intialPhone={user.phone} provinces={JSON.parse(JSON.stringify(provincese))} intialAddress={user.address ? JSON.parse(JSON.stringify(user.address)) : undefined} />
+    <Page intialPhone={JSON.parse(JSON.stringify(user.phone))} provinces={JSON.parse(JSON.stringify(provincese))} intialAddress={user.address ? JSON.parse(JSON.stringify(user.address)) : undefined} />
   )
 }
 

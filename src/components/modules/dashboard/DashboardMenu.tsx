@@ -12,7 +12,7 @@ function DashboardMenu() {
       <ul className='flex flex-col gap-2'>
 
         <DashboardMenuItem text='پیشخوان' href='/dashboard' />
-        <DashboardMenuItem text='سفارش‌ ها' href='/dashboard/orders' />
+        <DashboardMenuItem activeWhenStartsWith='/dashboard/orders' text='سفارش‌ ها' href='/dashboard/orders' />
         <DashboardMenuItem text='آدرس' href='/dashboard/address' />
         <DashboardMenuItem text='جزئیات حساب' href='/dashboard/account' />
 

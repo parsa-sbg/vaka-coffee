@@ -5,6 +5,7 @@ import toPersianNumber from '@/utils/toPersianNubmer'
 import React, { useState } from 'react'
 import PayAgainButton from './PayAgainButton'
 import CancelBtn from './CancelBtn'
+import Link from 'next/link'
 
 
 
@@ -90,7 +91,7 @@ function OrderBox({ intialOrder, hoursRemaining, isExpired }: props) {
             <div className='flex items-center justify-end'>
                 <div className='flex items-center flex-wrap gap-1 justify-end'>
                     {order.status == 'PENDING' && !isExpired && <PayAgainButton orderId={order._id} />}
-                    <button className='text-nowrap block text-sm bg-main text-bgColer px-4 py-1 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main'>مشاهده</button>
+                    <Link href={`/dashboard/orders/${order._id}`} className='text-nowrap block text-sm bg-main text-bgColer px-4 py-1 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main'>مشاهده</Link>
                     {order.status == 'PENDING' && !isExpired && <CancelBtn setOrder={setOrder} orderId={order._id} />}
                 </div>
             </div>
