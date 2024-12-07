@@ -3,6 +3,7 @@ import { OrderInterface } from '@/models/Order'
 import { calculateExpireTime } from '@/utils/calculateExpireTime'
 import { toPersianDate } from '@/utils/toPersianDate'
 import toPersianNumber from '@/utils/toPersianNubmer'
+import Link from 'next/link'
 import React from 'react'
 
 type props = {
@@ -73,11 +74,11 @@ function OrderItem({ order, isOdd, number }: props) {
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>
 
-                    <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
+                    <Link href={`/p-admin/orders/${order._id}`} className={`${isOdd ? 'sm:hover:bg-secondary sm:hover:text-main' : 'sm:hover:bg-[#0f0f0f] sm:hover:text-main'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 `} >
                         مشاهده
-                    </button>
+                    </Link>
 
-                    <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
+                    <button className={`${isOdd ? 'sm:hover:bg-secondary sm:hover:text-main' : 'sm:hover:bg-[#0f0f0f] sm:hover:text-main'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 `} >
                         تغییر وضعیت
                     </button>
 

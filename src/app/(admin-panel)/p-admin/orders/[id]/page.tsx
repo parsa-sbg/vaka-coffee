@@ -1,6 +1,5 @@
-import OrderPage from '@/components/layouts/OrderPage/OrderPage';
+import OrderPage from '@/components/layouts/OrderPage/OrderPage'
 import React from 'react'
-
 
 type props = {
     params: Promise<{ id: string }>
@@ -9,11 +8,13 @@ type props = {
 async function page(
     { params }: props
 ) {
-
     const orderID = (await params).id
 
+
     return (
-        <OrderPage backLink='/dashboard/orders' orderId={orderID} />
+        <div>
+            <OrderPage backLink='/p-admin/orders' orderId={orderID} ></OrderPage>
+        </div>
     )
 }
 

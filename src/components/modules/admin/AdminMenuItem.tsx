@@ -7,9 +7,10 @@ import React from 'react'
 type AdminMenuItemProps = {
     text: string
     href: string
+    activeWhenStartsWith?: string
 }
 
-function AdminMenuItem({ text, href }: AdminMenuItemProps) {
+function AdminMenuItem({ text, href, activeWhenStartsWith }: AdminMenuItemProps) {
 
     const pathName = usePathname()
     
@@ -17,7 +18,7 @@ function AdminMenuItem({ text, href }: AdminMenuItemProps) {
         <li>
             <Link
                 href={href}
-                className={`${pathName == href && 'bg-[#0f0f0f] text-main'} block py-2 px-4 rounded-md transition-all duration-200 hover:bg-[#0f0f0f] hover:text-main`}>
+                className={`${pathName == href && 'bg-[#0f0f0f] text-main'} ${activeWhenStartsWith && pathName.startsWith(activeWhenStartsWith) && 'bg-[#0f0f0f] text-main' } block py-2 px-4 rounded-md transition-all duration-200 hover:bg-[#0f0f0f] hover:text-main`}>
                 {text}
             </Link>
         </li>
