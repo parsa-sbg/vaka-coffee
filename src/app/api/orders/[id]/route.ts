@@ -37,10 +37,10 @@ export const PUT = async (
                 return Response.json({ message: 'order is paid before' }, { status: 400 })
             }
         }
-        const { isExpired } = calculateExpireTime(order.expireAt)
+        const { isExpired, hoursRemaining } = calculateExpireTime(order.expireAt)
 
 
-        if (isExpired !== 'PAID BEFORE' && isExpired) {
+        if (hoursRemaining !== 'infinite' && isExpired) {
             return Response.json({ message: 'order is expired' }, { status: 400 })
         }
 

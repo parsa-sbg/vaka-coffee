@@ -8,8 +8,10 @@ type props = {
 }
 
 function OrdersTable({ orders }: props) {
+
+
     return (
-        <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
+        <table className="rounded-md text-sm text-left rtl:text-right w-full">
 
             <thead className="text-xs text-nowrap bg-secondary">
                 <tr>
@@ -37,11 +39,13 @@ function OrdersTable({ orders }: props) {
             <tbody>
 
                 {orders.map((order, index) => (
-                    <OrderItem number={index + 1} order={order} isOdd={index % 2 == 0} key={order._id.toString()} />
+                    <OrderItem number={index + 1} intialOrder={order} isOdd={index % 2 == 0} key={order._id.toString()} />
                 ))}
 
             </tbody>
         </table>
+
+
     )
 }
 

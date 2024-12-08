@@ -4,19 +4,23 @@ import { calculateExpireTime } from '@/utils/calculateExpireTime'
 import { toPersianDate } from '@/utils/toPersianDate'
 import toPersianNumber from '@/utils/toPersianNubmer'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
+import ChangeStatusDropDown from './ChangeStatusDropDown'
 
 type props = {
-    order: OrderInterface
+    intialOrder: OrderInterface
     isOdd: boolean
     number: number
 }
 
-function OrderItem({ order, isOdd, number }: props) {
+function OrderItem({ intialOrder, isOdd, number }: props) {
+
+    const [order, setOrder] = useState(intialOrder)
 
     let orderStatus: string
     let orderStatusColor: string
     const { isExpired, hoursRemaining } = calculateExpireTime(order.expireAt)
+    const [isLoading, setIsLoading] = useState(false)
 
 
     switch (order.status) {
@@ -47,8 +51,8 @@ function OrderItem({ order, isOdd, number }: props) {
         }
     }
 
-    
-    if (isExpired !== 'PAID BEFORE' && isExpired) {        
+
+    if (hoursRemaining !== 'infinite' && isExpired) {
         orderStatus = 'منقضی شده'
         orderStatusColor = 'text-red-600'
     }
@@ -62,25 +66,26 @@ function OrderItem({ order, isOdd, number }: props) {
             <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
                 <span className='block w-full text-center'>{order.ref ? toPersianNumber(order.ref.toString()) : '--'}</span>
             </th>
-            <td className="px-3 lg:px-6 py-4">
+            <td className="px-3 lg:px-6 py-4 text-nowrap">
                 {toPersianDate(order.createdAt)}
             </td>
             <td className="px-3 lg:px-6 py-4">
                 {toPersianNumber(order.totalPrice.toLocaleString())} تومان
             </td>
             <td className={`px-3 lg:px-6 py-4 ${orderStatusColor}`}>
-                {orderStatus}
+                {!isLoading
+                    ? orderStatus
+                    : <div className='w-3 h-3 border-x-2 border-main rounded-full animate-spin mx-auto' />
+                }
             </td>
             <td className="px-3 lg:px-6 py-4">
-                <div className='flex gap-2 text-xs'>
+                <div className='flex gap-2 text-xs justify-center'>
 
                     <Link href={`/p-admin/orders/${order._id}`} className={`${isOdd ? 'sm:hover:bg-secondary sm:hover:text-main' : 'sm:hover:bg-[#0f0f0f] sm:hover:text-main'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 `} >
                         مشاهده
                     </Link>
 
-                    <button className={`${isOdd ? 'sm:hover:bg-secondary sm:hover:text-main' : 'sm:hover:bg-[#0f0f0f] sm:hover:text-main'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 `} >
-                        تغییر وضعیت
-                    </button>
+                    <ChangeStatusDropDown isLoading={isLoading} setIsLoading={setIsLoading} setOrder={setOrder} orderId={order._id} currentStatus={order.status} isExpired={isExpired} isOdd={isOdd} />
 
                 </div>
             </td>

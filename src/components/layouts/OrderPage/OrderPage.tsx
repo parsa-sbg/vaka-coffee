@@ -54,7 +54,7 @@ async function OrderPage({ orderId, backLink, children }: PropsWithChildren<prop
         }
     }
 
-    if (isExpired !== 'PAID BEFORE' && isExpired) {
+    if (hoursRemaining !== 'infinite' && isExpired) {
         orderStatus = 'منقضی شده'
         orderStatusColor = 'text-red-600'
     }

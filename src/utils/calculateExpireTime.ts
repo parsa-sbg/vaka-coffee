@@ -10,7 +10,7 @@ type retureType2 = {
 }
 
 type retureType3 = {
-    isExpired: 'PAID BEFORE',
+    isExpired: false,
     hoursRemaining: 'infinite'
 }
 
@@ -19,7 +19,7 @@ export const calculateExpireTime = (expireAt: Date | null): retureType1 | reture
 
     if (!expireAt) {
         return {
-            isExpired: 'PAID BEFORE',
+            isExpired: false,
             hoursRemaining: 'infinite'
         }
     }

@@ -12,7 +12,7 @@ import Link from 'next/link'
 type props = {
     intialOrder: OrderInterface
     hoursRemaining: number | "infinite"
-    isExpired: boolean | "PAID BEFORE"
+    isExpired: boolean
 }
 
 function OrderBox({ intialOrder, hoursRemaining, isExpired }: props) {
@@ -56,7 +56,7 @@ function OrderBox({ intialOrder, hoursRemaining, isExpired }: props) {
         }
     }
 
-    if (isExpired !== 'PAID BEFORE' && isExpired) {
+    if (isExpired) {
         orderStatus = 'منقضی شده'
         orderStatusColor = 'text-red-600'
     }
