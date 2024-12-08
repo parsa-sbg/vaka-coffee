@@ -54,8 +54,6 @@ function ChangeStatusDropDown({ isExpired, isOdd, currentStatus, orderId, setOrd
                 }
             }).then(data => {
                 if (data) {
-                    console.log(data);
-
                     setOrder(data.order)
                     setOrders(data.allOrders)
                 }

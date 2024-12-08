@@ -39,7 +39,14 @@ function Sort({ setShownOrders, allOrders }: props) {
         setButtonText(title)
         setIsOpen(false)
 
-        if (selectedSort == 'EXPIRED') {
+        if (selectedSort == 'PENDING') {
+            setShownOrders(allOrders.filter(order => {
+                if (order.expireAt && new Date(order.expireAt).getTime() >= Date.now()) {
+                    return order
+                }
+            }))
+
+        }else if (selectedSort == 'EXPIRED') {
             setShownOrders(allOrders.filter(order => {
                 if (order.expireAt && new Date(order.expireAt).getTime() <= Date.now()) {
                     return order
