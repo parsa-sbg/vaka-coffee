@@ -15,7 +15,7 @@ export default async function Home() {
   const categoriesWithProducts = await categoryModel.find({ showInHomePage: true }).populate('products')
   const allCategories = await categoryModel.find().sort({ createdAt: -1 })
 
-  const discountedProducts = await productmodel.find({ discount: { $gt: 0 } })
+  const discountedProducts = await productmodel.find({ discount: { $gt: 0 } }).limit(10)
 
 
   return (
