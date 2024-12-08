@@ -13,10 +13,11 @@ type props = {
     setOrder: React.Dispatch<React.SetStateAction<OrderInterface>>
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
     isLoading: boolean
+    setOrders: React.Dispatch<React.SetStateAction<OrderInterface[]>>
 }
 
 
-function ChangeStatusDropDown({ isExpired, isOdd, currentStatus, orderId, setOrder, setIsLoading, isLoading }: props) {
+function ChangeStatusDropDown({ isExpired, isOdd, currentStatus, orderId, setOrder, setIsLoading, isLoading, setOrders }: props) {
 
     const [isOpen, setIsOpen] = useState(false)
     const [selecctedStatus, setSelecctedStatus] = useState<string | null>(null)
@@ -56,6 +57,7 @@ function ChangeStatusDropDown({ isExpired, isOdd, currentStatus, orderId, setOrd
                     console.log(data);
 
                     setOrder(data.order)
+                    setOrders(data.allOrders)
                 }
             })
         } else {

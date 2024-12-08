@@ -18,7 +18,7 @@ export const PUT = async (
 
     const reqBody = await req.json()
     console.log(reqBody);
-    
+
 
     const validationSchema = z.string(z.enum(['PAID', 'PREPARING', 'SENT', 'CANCELED']))
 
@@ -37,8 +37,10 @@ export const PUT = async (
             expireAt: parsedData.data == 'PENDING' ? new Date(Date.now() + 1000 * 60 * 60 * 24) : null
         }, { new: true })
 
+        const allOrders = await OrderModel.find()
+
         if (updatedOrder) {
-            return Response.json({ message: 'order status updated successfully', order: updatedOrder }, { status: 200 })
+            return Response.json({ message: 'order status updated successfully', order: updatedOrder, allOrders }, { status: 200 })
         } else {
             return Response.json({ message: 'internal server erroor' }, { status: 500 })
         }

@@ -11,9 +11,10 @@ type props = {
     intialOrder: OrderInterface
     isOdd: boolean
     number: number
+    setOrders: React.Dispatch<React.SetStateAction<OrderInterface[]>>
 }
 
-function OrderItem({ intialOrder, isOdd, number }: props) {
+function OrderItem({ intialOrder, isOdd, number, setOrders }: props) {
 
     const [order, setOrder] = useState(intialOrder)
 
@@ -60,12 +61,12 @@ function OrderItem({ intialOrder, isOdd, number }: props) {
 
     return (
         <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
-            <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
+            <td scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
                 <span className='w-full flex justify-center items-center'>{toPersianNumber(number.toString())}</span>
-            </th>
-            <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
+            </td>
+            <td scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
                 <span className='block w-full text-center'>{order.ref ? toPersianNumber(order.ref.toString()) : '--'}</span>
-            </th>
+            </td>
             <td className="px-3 lg:px-6 py-4 text-nowrap">
                 {toPersianDate(order.createdAt)}
             </td>
@@ -85,7 +86,7 @@ function OrderItem({ intialOrder, isOdd, number }: props) {
                         مشاهده
                     </Link>
 
-                    <ChangeStatusDropDown isLoading={isLoading} setIsLoading={setIsLoading} setOrder={setOrder} orderId={order._id} currentStatus={order.status} isExpired={isExpired} isOdd={isOdd} />
+                    <ChangeStatusDropDown setOrders={setOrders} isLoading={isLoading} setIsLoading={setIsLoading} setOrder={setOrder} orderId={order._id} currentStatus={order.status} isExpired={isExpired} isOdd={isOdd} />
 
                 </div>
             </td>

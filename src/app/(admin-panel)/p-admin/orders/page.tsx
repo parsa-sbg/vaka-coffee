@@ -8,8 +8,8 @@ async function Orders() {
   const orders = await OrderModel.find().populate('user').populate('cart.product').sort({ _id: -1 })
 
   return (
-    <div className='custom-scrollbar overflow-auto overflow-x-scroll pb-2'>
-      <OrdersTable orders={JSON.parse(JSON.stringify(orders))} />
+    <div className=' pb-2'>
+      <OrdersTable intialOrders={JSON.parse(JSON.stringify(orders))} />
     </div>
   )
 }
