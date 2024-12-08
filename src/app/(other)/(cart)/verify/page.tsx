@@ -1,5 +1,5 @@
 
-import { connectToDataBase, OrderModel } from '@/models'
+import { connectToDataBase, OrderModel, productmodel } from '@/models'
 import { calculateExpireTime } from '@/utils/calculateExpireTime'
 import toPersianNumber from '@/utils/toPersianNubmer'
 import Link from 'next/link'
@@ -50,13 +50,27 @@ async function page(
             })
             const data = await res.json()
 
-            console.log('res =>', res);
-            console.log('data =>', data);
 
             if (data.data?.code == 100 || data.data?.code == 101) {
                 isPaidSuccessfully = true
                 ref_id = data.data.ref_id
-                await OrderModel.findOneAndUpdate({ _id: order._id, status: 'PENDING' }, { status: "PAID", ref: ref_id, expireAt: null })
+                const updatedOrder = await OrderModel.findOneAndUpdate({ _id: order._id, status: 'PENDING' }, { status: "PAID", ref: ref_id, expireAt: null }, { new: true })
+                updatedOrder?.cart.forEach(async item => {
+                    const product = await productmodel.findById(item.product._id)
+                    if (!product) {
+                        console.log('product not found for registering order');
+                        return
+                    }
+
+                    if (product.stock < item.count) {
+                        console.log('stock is not enough');
+                        return
+                    }
+
+                    product.stock -= item.count
+                    await product.save()
+                })
+
             } else {
                 isPaidSuccessfully = false
             }
