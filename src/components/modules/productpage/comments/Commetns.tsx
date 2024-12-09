@@ -1,8 +1,13 @@
 import React from 'react'
 import CommentsList from './CommentsList'
 import AddCommetnForm from './AddCommetnForm'
+import mongoose from 'mongoose'
 
-function Commetns() {
+type props = {
+  productId: mongoose.Types.ObjectId
+}
+
+function Commetns({ productId }: props) {
   return (
     <div className='flex flex-col sm:flex-row gap-8'>
 
@@ -11,7 +16,7 @@ function Commetns() {
       </div>
 
       <div className='basis-1/2 sm:order-2'>
-        <AddCommetnForm />
+        <AddCommetnForm productId={productId} />
       </div>
     </div>
   )

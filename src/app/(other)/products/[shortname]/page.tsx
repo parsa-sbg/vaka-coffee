@@ -39,7 +39,7 @@ export default async function Product({ params }: props) {
             </div>
 
             <div className='mt-16'>
-                <Content />
+                <Content productId={JSON.parse(JSON.stringify(product._id))} />
             </div>
 
             <div className='container'>

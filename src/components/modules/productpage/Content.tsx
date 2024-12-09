@@ -2,8 +2,13 @@
 import React, { useState } from 'react'
 import Commetns from './comments/Commetns'
 import Article from './Article'
+import mongoose from 'mongoose'
 
-function Content() {
+type props = {
+    productId: mongoose.Types.ObjectId
+}
+
+function Content({ productId }: props) {
 
     const [shownContent, setShownContent] = useState<'article' | 'comments'>('article')
 
@@ -30,7 +35,7 @@ function Content() {
 
                 <div className='mt-6'>
                     {shownContent == 'comments'
-                        ? <Commetns />
+                        ? <Commetns productId={productId} />
                         : <Article />
                     }
                 </div>

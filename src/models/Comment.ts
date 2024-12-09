@@ -8,7 +8,7 @@ export interface CommentInterface {
     createdAt: Date,
     score: number
     comment: string,
-    isAccepted: boolean,
+    status: 'PENDING' | 'ACCEPTED' | 'REJECTED',
     product: ProductInterface
 }
 
@@ -43,9 +43,9 @@ const schema = new mongoose.Schema<CommentDocument>({
         required: true
     },
 
-    isAccepted: {
-        type: Boolean,
-        default: false
+    status: {
+        type: String,
+        default: 'PENDING'
     }
 
 
