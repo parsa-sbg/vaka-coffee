@@ -9,8 +9,8 @@ async function Commetns() {
 
 
   return (
-    <div className='custom-scrollbar overflow-auto overflow-x-scroll pb-2'>
-      <CommetnsTable allComments={JSON.parse(JSON.stringify(allComments))} />
+    <div className='custom-scrollbar pb-2'>
+      <CommetnsTable intialComments={JSON.parse(JSON.stringify(allComments))} />
     </div>
   )
 }

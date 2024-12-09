@@ -1,15 +1,19 @@
 "use client"
 import { CommentInterface } from '@/models/Comment'
-import React from 'react'
+import React, { useState } from 'react'
 import CommentItem from './CommentItem'
 
 type props = {
-    allComments: CommentInterface[]
+    intialComments: CommentInterface[]
 }
 
-function CommetnsTable({ allComments }: props) {
+function CommetnsTable({ intialComments }: props) {
+
+    const [comments, setComments] = useState(intialComments)
+
+
     return (
-        <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
+        <table className="rounded-md text-sm text-left rtl:text-right">
 
             <thead className="text-xs text-nowrap bg-secondary">
                 <tr>
@@ -37,8 +41,8 @@ function CommetnsTable({ allComments }: props) {
 
             <tbody>
 
-                {allComments.map((comment, index) => (
-                    <CommentItem isOdd={index % 2 == 0} key={comment._id.toString()} comment={comment} number={index + 1} />
+                {comments.map((comment, index) => (
+                    <CommentItem setComments={setComments} isOdd={index % 2 == 0} key={comment._id.toString()} intialComment={comment} number={index + 1} />
                 ))}
 
             </tbody>

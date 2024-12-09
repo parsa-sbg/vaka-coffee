@@ -1,10 +1,10 @@
-import { connectToDataBase, OrderModel } from "@/models";
+import { CommentModel, connectToDataBase } from "@/models";
 import { authUserWithToken } from "@/utils/server/auth";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
-// change order status by admin
+
 export const PUT = async (
     req: NextRequest,
     { params }: { params: Promise<{ id: string }> }
@@ -20,27 +20,27 @@ export const PUT = async (
     console.log(reqBody);
 
 
-    const validationSchema = z.string(z.enum(['PAID', 'PREPARING', 'SENT', 'CANCELED']))
+    const validationSchema = z.string(z.enum(['ACCEPTED', 'PENDING', 'REJECTED']))
 
     const parsedData = validationSchema.safeParse(reqBody)
     if (!parsedData.success) {
         return Response.json({ message: 'invalid status', parsedData }, { status: 400 })
     }
 
-    const orderId = (await params).id
+    const commentId = (await params).id
 
     try {
 
         connectToDataBase()
-        const updatedOrder = await OrderModel.findOneAndUpdate({ user: user._id, _id: orderId }, {
+        const updatedComment = await CommentModel.findOneAndUpdate({ _id: commentId }, {
             status: parsedData.data,
-            expireAt: parsedData.data == 'PENDING' ? new Date(Date.now() + 1000 * 60 * 60 * 24) : null
         }, { new: true })
 
-        const allOrders = await OrderModel.find()
+        const allComments = await CommentModel.find().sort({ _id: -1 })
 
-        if (updatedOrder) {
-            return Response.json({ message: 'order status updated successfully', order: updatedOrder, allOrders }, { status: 200 })
+        if (updatedComment) {
+            (await updatedComment.populate('user')).populate('product')
+            return Response.json({ message: 'comment status updated successfully', comment: updatedComment, allComments }, { status: 200 })
         } else {
             return Response.json({ message: 'internal server erroor' }, { status: 500 })
         }
