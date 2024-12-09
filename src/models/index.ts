@@ -5,6 +5,7 @@ import { productmodel } from "./Product";
 import { connectToDataBase } from "@/utils/server/dataBase";
 import { CartModel } from "./Cart";
 import { OrderModel } from "./Order";
+import { CommentModel } from "./Comment";
 
 
-export { categoryModel, productmodel, UserModel, OtpModel, CartModel, connectToDataBase, OrderModel };
+export { categoryModel, productmodel, UserModel, OtpModel, CartModel, connectToDataBase, OrderModel, CommentModel };
