@@ -15,10 +15,20 @@ function Filtering({ allComments, setShownComments }: props) {
 
     const [isOpen, setIsOpen] = useState(false)
     const [buttonText, setButtonText] = useState<buttonTextType>('نمایش همه')
+    const [selectedFilter, setSelectedFilter] = useState<selectedSortType>(null)
 
     const windowClickhandler = useCallback(() => {
         isOpen && setIsOpen(false)
     }, [isOpen])
+
+
+    useEffect(() => {
+        if (!selectedFilter) {
+            setShownComments(allComments)
+        } else {
+            setShownComments([...allComments].filter(order => order.status == selectedFilter))
+        }
+    }, [allComments])
 
 
     useEffect(() => {
@@ -37,6 +47,7 @@ function Filtering({ allComments, setShownComments }: props) {
     const OptionClickHandler = (selectedSort: selectedSortType, title: buttonTextType) => {
         setButtonText(title)
         setIsOpen(false)
+        setSelectedFilter(selectedSort)
 
         if (selectedSort) {
             setShownComments(allComments.filter(order => order.status == selectedSort))

@@ -4,6 +4,7 @@ import toPersianNumber from '@/utils/toPersianNubmer'
 import React, { useState } from 'react'
 import EditStatusDropDown from './EditStatusDropDown'
 import toast from 'react-hot-toast'
+import DeleteBtn from './DeleteBtn'
 
 type props = {
     intialComment: CommentInterface
@@ -72,16 +73,13 @@ function CommentItem({ intialComment, number, isOdd, setComments }: props) {
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>
 
-                    <button onClick={showBtnClickHandler} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
+                    <button onClick={showBtnClickHandler} className={`${isOdd ? 'sm:hover:bg-secondary sm:hover:text-main' : 'sm:hover:bg-[#0f0f0f] sm:hover:text-main'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300`} >
                         مشاهده
                     </button>
 
                     <EditStatusDropDown setComments={setComments} currentStatus={comment.status} isLoading={isLoading} setIsLoading={setIsLoading} isOdd={isOdd} commentId={comment._id} setComment={setComment} />
 
-                    <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                        حذف
-                    </button>
-
+                    <DeleteBtn number={number} UserName={comment.user.name} id={comment._id} isOdd={isOdd} setComments={setComments} />
                 </div>
             </td>
         </tr>
