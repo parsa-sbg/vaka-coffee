@@ -19,7 +19,7 @@ async function page() {
       <div className='mt-14 grid xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5'>
         {discountedProducts.map(product => (
           <div key={product._id.toString()}>
-            <ProductBox discount={product.discount} imageUrl={product.pictures[0]} name={product.name} price={product.price} shortName={product.shortName} />
+            <ProductBox averageScore={product.averageScore} discount={product.discount} imageUrl={product.pictures[0]} name={product.name} price={product.price} shortName={product.shortName} />
           </div>
         ))}
       </div>

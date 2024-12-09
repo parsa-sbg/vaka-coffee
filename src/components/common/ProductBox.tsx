@@ -13,10 +13,11 @@ type productBoxProps = {
     price: number
     discount: number
     imageUrl: string
+    averageScore: number
 }
 
 
-function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName }: productBoxProps) {
+function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName, averageScore = 5 }: productBoxProps) {
 
     return (
         <Link href={`/products/${shortName}`} className='w-full flex flex-col items-center'>
@@ -34,11 +35,12 @@ function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName
             <span className='mt-2 text-sm sm:text-base font-semibold line-clamp-1'>{name}</span>
 
             <div className='flex items-center gap-1 mt-2'>
-                <FaRegStar className='text-main' />
-                <FaRegStar className='text-main' />
-                <FaStar className='text-[#eabe12]' />
-                <FaStar className='text-[#eabe12]' />
-                <FaStar className='text-[#eabe12]' />
+                {Array(averageScore).fill(0).map(item => (
+                    <FaStar key={Math.random()} className='text-[#eabe12]' />
+                ))}
+                {Array(5 - averageScore).fill(0).map(item => (
+                    <FaRegStar key={Math.random()} className='text-main' />
+                ))}
             </div>
 
             <div className='flex items-center justify-cneter gap-2 flex-wrap mt-2'>

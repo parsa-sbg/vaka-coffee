@@ -19,6 +19,7 @@ export interface ProductInterface {
     dynamicFields: DynamicField[]
     stock: number
     category: CategoryInterface & mongoose.Types.ObjectId
+    averageScore: 1 | 2 | 3 | 4 | 5
 }
 
 export interface ProductDocument extends Document, ProductInterface { }
@@ -77,6 +78,13 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'category',
         required: true
+    },
+
+    averageScore: {
+        type: Number,
+        max: 5,
+        min: 1,
+        default: 5
     }
 
 }, { timestamps: true })

@@ -22,7 +22,7 @@ function ProductsList({ setIsMenuOpen, products, isLoading, setSelectedSort }: P
         {products.length
           ? products.map(product => (
             !isLoading
-              ? <ProductBox shortName={product.shortName} key={product._id.toString()} discount={product.discount} imageUrl={product.pictures[0]} name={product.name} price={product.price} />
+              ? <ProductBox averageScore={product.averageScore} shortName={product.shortName} key={product._id.toString()} discount={product.discount} imageUrl={product.pictures[0]} name={product.name} price={product.price} />
               : <ProductBoxSkeleton key={product._id.toString() + 'loading'} />
           ))
           : !isLoading
