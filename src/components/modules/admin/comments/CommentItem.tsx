@@ -3,6 +3,7 @@ import { toPersianDate } from '@/utils/toPersianDate'
 import toPersianNumber from '@/utils/toPersianNubmer'
 import React, { useState } from 'react'
 import EditStatusDropDown from './EditStatusDropDown'
+import toast from 'react-hot-toast'
 
 type props = {
     intialComment: CommentInterface
@@ -15,6 +16,38 @@ function CommentItem({ intialComment, number, isOdd, setComments }: props) {
 
     const [comment, setComment] = useState(intialComment)
     const [isLoading, setIsLoading] = useState(false)
+
+    const showBtnClickHandler = () => {
+        toast.custom((t) => (
+            <div className={`${t.visible && '!opacity-100 !scale-100'} flex flex-col gap-3 opacity-0 scale-50 transition-all duration-500 bg-secondary p-5 rounded-lg border border-main text-sm max-w-96`}>
+                <h5 className='font-semibold'>اطلاعات کامنت {toPersianNumber(number.toString())} :</h5>
+
+                <div className='flex gap-5'>
+                    <span className='text-nowrap'>نام نویسنده :</span>
+                    <span className='text-main'>{comment.user.name}</span>
+                </div>
+
+                <div className='flex gap-5'>
+                    <span className='text-nowrap'>نام محصول :</span>
+                    <span className='text-main'>{comment.product.name}</span>
+                </div>
+
+                <div className='flex gap-5'>
+                    <span className='text-nowrap'>متن کامنت :</span>
+                    <span className='text-main'>{comment.comment}</span>
+                </div>
+
+                <div className='flex justify-end'>
+                    <button onClick={() => { toast.dismiss(t.id) }} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-8 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>
+                        بستن
+                    </button>
+                </div>
+            </div>
+        ), {
+            position: 'top-left',
+            duration: 10000
+        })
+    }
 
 
     return (
@@ -39,7 +72,7 @@ function CommentItem({ intialComment, number, isOdd, setComments }: props) {
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>
 
-                    <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
+                    <button onClick={showBtnClickHandler} className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
                         مشاهده
                     </button>
 
