@@ -12,12 +12,13 @@ function Comment({ isPending, comment }: props) {
     return (
         <div className={`${isPending ? 'animate-pulse !text-gray-400' : ''} pb-8 mb-8 border-b border-secondary`}>
 
+            {isPending ? <span>در حال بررسی ...</span> : ''}
             <div className='flex items-center justify-between'>
                 <div>
                     <span className='font-semibold'>{comment.user.name}</span>
                     <span className='opacity-80'> – {toPersianDate(comment.createdAt)}</span>
                 </div>
-                {isPending ? <span>در حال بررسی ...</span> : ''}
+
                 <div className='flex items-center'>
                     {Array(comment.score).fill(0).map(item => (
                         <FaStar key={Math.random()} className={`${isPending ? '!text-secondary' : ''} text-[#eabe12]`} />

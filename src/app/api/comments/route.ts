@@ -2,7 +2,6 @@ import { CommentModel, connectToDataBase } from "@/models";
 import { authUserWithToken } from "@/utils/server/auth";
 import { commentSchema } from "@/validation/comment";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 export const POST = async (req: NextRequest) => {
@@ -10,7 +9,7 @@ export const POST = async (req: NextRequest) => {
     const user = await authUserWithToken(token);
 
     if (!user) {
-        redirect('/login')
+        return Response.json({ message: 'user not found' }, { status: 401 })
     }
 
     const reqBody = await req.json();
@@ -31,6 +30,8 @@ export const POST = async (req: NextRequest) => {
             score: parsedData.data.score,
             comment: parsedData.data.comment
         })
+
+        await newComment.populate({ path: 'user', select: 'name' })
 
         if (!newComment) {
             return Response.json({ message: 'unknown error' }, { status: 400 })
