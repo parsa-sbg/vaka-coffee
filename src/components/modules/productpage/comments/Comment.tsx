@@ -1,28 +1,36 @@
-import toPersianNumber from '@/utils/toPersianNubmer'
+import { CommentInterface } from '@/models/Comment'
+import { toPersianDate } from '@/utils/toPersianDate'
 import React from 'react'
 import { FaRegStar, FaStar } from 'react-icons/fa'
 
-function Comment() {
+type props = {
+    isPending?: boolean
+    comment: CommentInterface
+}
+
+function Comment({ isPending, comment }: props) {
     return (
-        <div className='pb-8 mb-8 border-b border-secondary'>
+        <div className={`${isPending ? 'animate-pulse !text-gray-400' : ''} pb-8 mb-8 border-b border-secondary`}>
 
             <div className='flex items-center justify-between'>
                 <div>
-                    <span className='font-semibold'>زهرا خانلو</span>
-                    <span className='opacity-80'> (خریدار محصول) –</span>
-                    <span className='opacity-80'>{toPersianNumber('1403/07/29')}</span>
+                    <span className='font-semibold'>{comment.user.name}</span>
+                    <span className='opacity-80'> – {toPersianDate(comment.createdAt)}</span>
                 </div>
+                {isPending ? <span>در حال بررسی ...</span> : ''}
                 <div className='flex items-center'>
-                    <FaStar className='text-[#eabe12]' />
-                    <FaStar className='text-[#eabe12]' />
-                    <FaStar className='text-[#eabe12]' />
-                    <FaRegStar className='text-main' />
-                    <FaRegStar className='text-main' />
+                    {Array(comment.score).fill(0).map(item => (
+                        <FaStar key={Math.random()} className={`${isPending ? '!text-secondary' : ''} text-[#eabe12]`} />
+                    ))}
+                    {Array(5 - comment.score).fill(0).map(item => (
+                        <FaRegStar key={Math.random()} className={`${isPending ? '!text-secondary' : ''} text-main`} />
+                    ))}
+
                 </div>
             </div>
 
             <p className='mt-8 opacity-80'>
-                باسلام ممنون از زحمات شما از سفارشم راضی بودم ولی در سفارش بعدی تقاضا میکنم که رست قهوه کمتر باشد با تشکر.
+                {comment.comment}
             </p>
 
         </div>

@@ -6,6 +6,9 @@ import ImagesSlider from '@/components/modules/productpage/ImagesSlider'
 import MoreProducts from '@/components/modules/productpage/MoreProducts'
 import RelatedProducts from '@/components/modules/productpage/RelatedProducts'
 import { connectToDataBase, productmodel } from '@/models'
+import { CommentInterface, CommentModel } from '@/models/Comment'
+import { authUserWithToken } from '@/utils/server/auth'
+import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
@@ -16,12 +19,20 @@ type props = {
 export default async function Product({ params }: props) {
 
     const shortName = (await params).shortname
+    let userPendingComments: CommentInterface[] = []
 
     await connectToDataBase()
 
     const product = await productmodel.findOne({ shortName }).populate('category')
     if (!product) notFound()
 
+    const token = (await cookies()).get('token')?.value
+    const user = await authUserWithToken(token)
+    if (user) {
+        userPendingComments = await CommentModel.find({ product: product._id, user: user._id, status: 'PENDING' }).populate({ path: 'user', select: 'name' }).sort({ _id: -1 })
+    }
+
+    const acceptedComments = await CommentModel.find({ product: product._id, status: 'ACCEPTED' }).populate({ path: 'user', select: 'name' }).sort({ _id: -1 })
 
     return (
         <div className=' mt-16 '>
@@ -39,7 +50,7 @@ export default async function Product({ params }: props) {
             </div>
 
             <div className='mt-16'>
-                <Content productId={JSON.parse(JSON.stringify(product._id))} />
+                <Content acceptedComments={JSON.parse(JSON.stringify(acceptedComments))} intialUserPendingComments={JSON.parse(JSON.stringify(userPendingComments))} productId={JSON.parse(JSON.stringify(product._id))} />
             </div>
 
             <div className='container'>

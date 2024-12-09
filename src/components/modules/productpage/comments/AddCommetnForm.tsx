@@ -6,13 +6,15 @@ import { commentSchema } from '@/validation/comment'
 import toast from 'react-hot-toast'
 import ErrorAlert from '@/components/common/alerts/ErrorAlert'
 import SuccessAlert from '@/components/common/alerts/SuccessAlert'
+import { CommentInterface } from '@/models/Comment'
 
 type props = {
     productId: mongoose.Types.ObjectId
+    setUserPendingComments: React.Dispatch<React.SetStateAction<CommentInterface[]>>
 }
 
 
-function AddCommetnForm({ productId }: props) {
+function AddCommetnForm({ productId, setUserPendingComments }: props) {
 
     const [comment, setComment] = useState('')
     const [score, setScore] = useState(0)
@@ -46,13 +48,15 @@ function AddCommetnForm({ productId }: props) {
         })
 
         if (res.status == 201) {
+            const data = await res.json()
+            setUserPendingComments(prev => [data.comment, ...prev])
             toast.custom((t) => (
                 <SuccessAlert t={t} title='کامنت شما با موفقیت ثبت شد و پس از تایید نمایش داده میشود .' />
             ), {
                 position: 'top-left'
             })
             setComment('')
-        }else {
+        } else {
             toast.custom((t) => (
                 <ErrorAlert t={t} title='خطایی رخ داد !' />
             ), {

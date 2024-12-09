@@ -3,14 +3,19 @@ import React, { useState } from 'react'
 import Commetns from './comments/Commetns'
 import Article from './Article'
 import mongoose from 'mongoose'
+import { CommentInterface } from '@/models/Comment'
 
 type props = {
     productId: mongoose.Types.ObjectId
+    intialUserPendingComments: CommentInterface[]
+    acceptedComments: CommentInterface[]
 }
 
-function Content({ productId }: props) {
+function Content({ productId, intialUserPendingComments, acceptedComments }: props) {
 
     const [shownContent, setShownContent] = useState<'article' | 'comments'>('article')
+    const [userPendingComments, setUserPendingComments] = useState(intialUserPendingComments)
+
 
     return (
         <div className='bg-[#0f0f0f] py-10 border-y-2 border-y-secondary'>
@@ -35,7 +40,7 @@ function Content({ productId }: props) {
 
                 <div className='mt-6'>
                     {shownContent == 'comments'
-                        ? <Commetns productId={productId} />
+                        ? <Commetns acceptedComments={acceptedComments} setUserPendingComments={setUserPendingComments} userPendingComments={userPendingComments} productId={productId} />
                         : <Article />
                     }
                 </div>
