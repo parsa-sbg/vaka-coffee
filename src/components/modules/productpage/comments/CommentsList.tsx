@@ -11,7 +11,7 @@ const CommentsList = React.memo(({ userPendingComments, acceptedComments }: prop
 
     return (
         <div className=''>
-            <h2 className='font-semibold text-lg mb-5'>28 دیدگاه برای پودر قهوه ترک 250 گرم</h2>
+            <h2 className='font-semibold text-lg mb-5'>{acceptedComments.length} دیدگاه برای پودر قهوه ترک 250 گرم</h2>
 
             {userPendingComments.map(comment => (
                 <Comment key={comment._id.toString()} comment={comment} isPending={true} />
@@ -20,6 +20,11 @@ const CommentsList = React.memo(({ userPendingComments, acceptedComments }: prop
             {acceptedComments.map(comment => (
                 <Comment key={comment._id.toString()} comment={comment} />
             ))}
+
+            {!acceptedComments.length && !userPendingComments.length
+                ? <div className='text-white text-opacity-70'>هنوز دیدگاهی ثبت نشده ! اولین نفر باشید .</div>
+                : ''
+            }
 
         </div>
     )

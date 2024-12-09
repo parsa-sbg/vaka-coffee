@@ -4,14 +4,14 @@ import { FaRegStar, FaStar } from 'react-icons/fa'
 
 type detailsPros = {
     title: string
-    score: number
     commentsCount: number
     price: number
     discount: number
     dynamicFields: { key: string, value: string }[]
+    averageScore: number
 }
 
-function Details({ title, commentsCount, dynamicFields, price, score, discount }: detailsPros) {
+function Details({ title, commentsCount, dynamicFields, price, averageScore, discount }: detailsPros) {
     return (
         <div className='mt-5'>
 
@@ -19,11 +19,12 @@ function Details({ title, commentsCount, dynamicFields, price, score, discount }
 
             <div className='flex items-center gap-2 mt-2'>
                 <div className='flex items-center gap-1'>
-                    <FaStar className='text-[#eabe12]' />
-                    <FaStar className='text-[#eabe12]' />
-                    <FaStar className='text-[#eabe12]' />
-                    <FaRegStar className='text-main' />
-                    <FaRegStar className='text-main' />
+                    {Array(averageScore).fill(0).map(item => (
+                        <FaStar key={Math.random()} className='text-[#eabe12]' />
+                    ))}
+                    {Array(5 - averageScore).fill(0).map(item => (
+                        <FaRegStar key={Math.random()} className='text-main' />
+                    ))}
                 </div>
                 <span className='text-xs opacity-80'> (دیدگاه {toPersianNumber(commentsCount.toString())} کاربر)</span>
             </div>

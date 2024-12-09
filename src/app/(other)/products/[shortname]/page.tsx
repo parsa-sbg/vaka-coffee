@@ -34,6 +34,10 @@ export default async function Product({ params }: props) {
 
     const acceptedComments = await CommentModel.find({ product: product._id, status: 'ACCEPTED' }).populate({ path: 'user', select: 'name' }).sort({ _id: -1 })
 
+    let totalScore = 0
+    acceptedComments.forEach(comment => { totalScore += comment.score })
+    const averageScore = Math.ceil((totalScore + 5) / (acceptedComments.length + 1))
+
     return (
         <div className=' mt-16 '>
 
@@ -44,7 +48,7 @@ export default async function Product({ params }: props) {
 
                 <div className='sm:col-span-7 md:col-span-8'>
                     <Breadcrumb categoryName={product.category.name} categoryShortName={product.category.shortName} productName={product.name} />
-                    <Details title={product.name} commentsCount={3} score={3} price={product.price} dynamicFields={product.dynamicFields} discount={product.discount} />
+                    <Details averageScore={averageScore} title={product.name} commentsCount={acceptedComments.length} price={product.price} dynamicFields={product.dynamicFields} discount={product.discount} />
                     <AddToCart stock={JSON.parse(JSON.stringify(product.stock))} productId={JSON.parse(JSON.stringify(product._id))} productName={JSON.parse(JSON.stringify(product.name))} />
                 </div>
             </div>
