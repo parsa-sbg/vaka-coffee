@@ -1,7 +1,13 @@
-import toPersianNumber from '@/utils/toPersianNubmer'
+"use client"
+import { CommentInterface } from '@/models/Comment'
 import React from 'react'
+import CommentItem from './CommentItem'
 
-function CommetnsTable() {
+type props = {
+    allComments: CommentInterface[]
+}
+
+function CommetnsTable({ allComments }: props) {
     return (
         <table className="rounded-md overflow-hidden text-sm text-left rtl:text-right">
 
@@ -18,6 +24,9 @@ function CommetnsTable() {
                         تاریخ
                     </th>
                     <th scope="col" className="px-3 lg:px-6 py-3">
+                        امتیاز
+                    </th>
+                    <th scope="col" className="px-3 lg:px-6 py-3">
                         وضعیت
                     </th>
                     <th scope="col" className="px-3 lg:px-6 py-3">
@@ -28,101 +37,9 @@ function CommetnsTable() {
 
             <tbody>
 
-                <tr className="bg-[#0f0f0f]">
-                    <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersianNumber('1')}</span>
-                    </th>
-                    <td className="px-3 lg:px-6 py-4">
-                        پارسا
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        {toPersianNumber('1403/08/08')}
-                    </td>
-                    <td className="px-3 lg:px-6 py-4 text-red-500">
-                        رد شده
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        <div className='flex gap-2 text-xs'>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                مشاهده
-                            </button>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                تغییر وضعیت
-                            </button>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                حذف
-                            </button>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr className="bg-secondary">
-                    <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersianNumber('2')}</span>
-                    </th>
-                    <td className="px-3 lg:px-6 py-4">
-                        پارسا
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        {toPersianNumber('1403/08/08')}
-                    </td>
-                    <td className="px-3 lg:px-6 py-4 text-yellow-500">
-                        در حال بررسی
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        <div className='flex gap-2 text-xs'>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                مشاهده
-                            </button>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                تغییر وضعیت
-                            </button>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                حذف
-                            </button>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr className="bg-[#0f0f0f]">
-                    <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
-                        <span className='w-full flex justify-center items-center'>{toPersianNumber('3')}</span>
-                    </th>
-                    <td className="px-3 lg:px-6 py-4">
-                        پارسا
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        {toPersianNumber('1403/08/08')}
-                    </td>
-                    <td className="px-3 lg:px-6 py-4 text-green-500">
-                        تایید شده
-                    </td>
-                    <td className="px-3 lg:px-6 py-4">
-                        <div className='flex gap-2 text-xs'>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                مشاهده
-                            </button>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                تغییر وضعیت
-                            </button>
-
-                            <button className='text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main' >
-                                حذف
-                            </button>
-
-                        </div>
-                    </td>
-                </tr>
+                {allComments.map((comment, index) => (
+                    <CommentItem isOdd={index % 2 == 0} key={comment._id.toString()} comment={comment} number={index + 1} />
+                ))}
 
             </tbody>
         </table>
