@@ -1,6 +1,7 @@
 import mongoose, { Model } from "mongoose";
 import { Address, address, UserInterface } from "./User";
-import { CartItemInterface, cartItemSchema } from "./Cart";
+import { CartItemInterface } from "./Cart";
+import { productSchema } from "./Product";
 
 
 export interface OrderInterface {
@@ -22,6 +23,18 @@ export interface OrderDocument extends Document, OrderInterface { }
 
 export interface OrderModelInterface extends Model<OrderDocument> { }
 
+
+export const OrderCartItemSchema = new mongoose.Schema({
+    product: {
+        type: productSchema,
+        required: true,
+    },
+    count: {
+        type: Number,
+        min: 1,
+        required: true
+    }
+})
 
 const schema = new mongoose.Schema<OrderDocument>({
 
@@ -58,7 +71,7 @@ const schema = new mongoose.Schema<OrderDocument>({
     },
 
     cart: {
-        type: [cartItemSchema],
+        type: [OrderCartItemSchema],
         required: true
     },
 

@@ -29,7 +29,7 @@ export interface ProductModelInterface extends Model<ProductDocument> { }
 
 // schema
 
-const schema = new mongoose.Schema({
+export const productSchema = new mongoose.Schema({
 
     name: {
         type: String,
@@ -89,4 +89,4 @@ const schema = new mongoose.Schema({
 
 }, { timestamps: true })
 
-export const productmodel: ProductModelInterface = mongoose.models.product || mongoose.model<ProductDocument>('product', schema)
+export const productmodel: ProductModelInterface = mongoose.models.product || mongoose.model<ProductDocument>('product', productSchema)

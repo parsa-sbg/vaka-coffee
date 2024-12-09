@@ -18,7 +18,7 @@ async function OrderPage({ orderId, backLink, children }: PropsWithChildren<prop
     let orderStatus: string
     let orderStatusColor: string
 
-    const order = await OrderModel.findById(orderId).populate('user').populate('cart.product')
+    const order = await OrderModel.findById(orderId).populate('user')
     if (!order) {
         redirect('/dashboard/orders')
     }
