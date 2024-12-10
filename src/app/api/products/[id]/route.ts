@@ -1,3 +1,4 @@
+import { CommentModel } from "@/models"
 import { productmodel } from "@/models/Product"
 import { authUserWithToken } from "@/utils/server/auth"
 import { connectToDataBase } from "@/utils/server/dataBase"
@@ -20,6 +21,9 @@ export const DELETE = async (
         const result = await productmodel.findByIdAndDelete((await params).id)
         const allnewProducts = await productmodel.find({}).sort({ _id: -1 }).populate('category')
         if (result) {
+            // delete related comments
+            await CommentModel.deleteMany({ product: result._id })
+
             return Response.json({ message: 'products deleted successfully', allProducts: allnewProducts }, { status: 200 })
         } else {
             return Response.json({ message: 'internal server error' }, { status: 500 })
