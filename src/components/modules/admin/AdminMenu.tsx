@@ -16,6 +16,7 @@ function AdminMenu() {
                 <AdminMenuItem text='دسته بندی ها' href='/p-admin/categories' />
                 <AdminMenuItem activeWhenStartsWith='/p-admin/orders' text='سفارش‌ ها' href='/p-admin/orders' />
                 <AdminMenuItem text='کامنت ها' href='/p-admin/comments' />
+                <AdminMenuItem activeWhenStartsWith='/p-admin/articles' text='مقالات' href='/p-admin/articles' />
                 <AdminMenuItem text='کاربران' href='/p-admin/users' />
                 <AdminMenuItem text='ادمین ها' href='/p-admin/admins' />
 
