@@ -35,10 +35,10 @@ function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName
             <span className='mt-2 text-sm sm:text-base font-semibold line-clamp-1'>{name}</span>
 
             <div className='flex items-center gap-1 mt-2'>
-                {Array(averageScore).fill(0).map(item => (
+                {Array(Math.ceil(averageScore)).fill(0).map(item => (
                     <FaStar key={Math.random()} className='text-[#eabe12]' />
                 ))}
-                {Array(5 - averageScore).fill(0).map(item => (
+                {Array(5 - Math.ceil(averageScore)).fill(0).map(item => (
                     <FaRegStar key={Math.random()} className='text-main' />
                 ))}
             </div>

@@ -12,6 +12,8 @@ type detailsPros = {
 }
 
 function Details({ title, commentsCount, dynamicFields, price, averageScore, discount }: detailsPros) {
+    console.log(averageScore);
+    
     return (
         <div className='mt-5'>
 
@@ -19,10 +21,10 @@ function Details({ title, commentsCount, dynamicFields, price, averageScore, dis
 
             <div className='flex items-center gap-2 mt-2'>
                 <div className='flex items-center gap-1'>
-                    {Array(averageScore).fill(0).map(item => (
+                    {Array(Math.ceil(averageScore)).fill(0).map(item => (
                         <FaStar key={Math.random()} className='text-[#eabe12]' />
                     ))}
-                    {Array(5 - averageScore).fill(0).map(item => (
+                    {Array(5 - Math.ceil(averageScore)).fill(0).map(item => (
                         <FaRegStar key={Math.random()} className='text-main' />
                     ))}
                 </div>

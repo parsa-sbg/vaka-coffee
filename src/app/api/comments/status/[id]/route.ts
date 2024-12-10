@@ -1,4 +1,4 @@
-import { CommentModel, connectToDataBase } from "@/models";
+import { CommentModel, connectToDataBase, productmodel } from "@/models";
 import { authUserWithToken } from "@/utils/server/auth";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
@@ -36,9 +36,28 @@ export const PUT = async (
             status: parsedData.data,
         }, { new: true })
 
+
+
         const allComments = await CommentModel.find().sort({ _id: -1 })
 
+        // Update product average score
         if (updatedComment) {
+            const result = await CommentModel.aggregate([
+                { $match: { product: updatedComment.product._id, status: "ACCEPTED" } },
+                { $group: { _id: "$product", averageScore: { $avg: "$score" } } }
+            ]);
+
+            const newAverageScore = result[0]?.averageScore || 0;
+
+            await productmodel.findByIdAndUpdate(
+                updatedComment.product._id,
+                { averageScore: newAverageScore },
+                { new: true }
+            );
+        }
+
+        if (updatedComment) {
+
             (await updatedComment.populate('user')).populate('product')
             return Response.json({ message: 'comment status updated successfully', comment: updatedComment, allComments }, { status: 200 })
         } else {
