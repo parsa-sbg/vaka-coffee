@@ -1,5 +1,6 @@
 import mongoose, { Model } from "mongoose";
 import { CategoryInterface } from "./Category";
+import { CartModel } from "./Cart";
 
 
 // types and interfaces
@@ -88,5 +89,14 @@ export const productSchema = new mongoose.Schema({
     }
 
 }, { timestamps: true })
+
+
+productSchema.post('findOneAndDelete', async (deletedProduct: ProductInterface) => {
+    if (deletedProduct) {
+        await CartModel.updateMany({ 'cart.product': deletedProduct._id }, {
+            $pull: { cart: { product: deletedProduct._id } }
+        })
+    }
+})
 
 export const productmodel: ProductModelInterface = mongoose.models.product || mongoose.model<ProductDocument>('product', productSchema)
