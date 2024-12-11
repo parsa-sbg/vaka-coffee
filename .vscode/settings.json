@@ -1,0 +1,15 @@
+{
+	"prettier.tabWidth": 2,
+	"prettier.useTabs": true,
+	"[tailwindcss]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.proseWrap": "never",
+	"prettier.enable": true,
+	"prettier.printWidth": 100,
+	"notebook.defaultFormatter": "esbenp.prettier-vscode",
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	}
+}
