@@ -4,6 +4,7 @@ import PhoneBox from '@/components/modules/dashboard/account/PhoneBox'
 import UserNameBox from '@/components/modules/dashboard/account/UserNameBox'
 import { connectToDataBase } from '@/models'
 import { authUserWithToken } from '@/utils/server/auth'
+import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import React from 'react'
@@ -31,3 +32,7 @@ async function page() {
 }
 
 export default page
+
+export const metadata: Metadata = {
+  title: "داشبورد - حساب",
+};

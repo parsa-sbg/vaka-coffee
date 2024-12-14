@@ -2,10 +2,13 @@ import Box from '@/components/modules/dashboard/index/Box'
 import WelcomeTitle from '@/components/modules/dashboard/index/WelcomeTitle';
 import { connectToDataBase } from '@/models';
 import { authUserWithToken } from '@/utils/server/auth';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react'
 import { RiListCheck3 } from "react-icons/ri";
+import { CiLocationOn } from "react-icons/ci";
+import { LiaAddressCardSolid } from "react-icons/lia";
 
 
 async function page() {
@@ -23,8 +26,8 @@ async function page() {
 
       <div className='mt-7 grid xs:grid-cols-2 lg:grid-cols-3 gap-3'>
         <Box href='/dashboard/orders' title='سفارش‌ ها' Icon={RiListCheck3} />
-        <Box href='/dashboard/address' title='آدرس' Icon={RiListCheck3} />
-        <Box href='/dashboard/account' title='جزئیات حساب' Icon={RiListCheck3} />
+        <Box href='/dashboard/address' title='آدرس' Icon={CiLocationOn} />
+        <Box href='/dashboard/account' title='جزئیات حساب' Icon={LiaAddressCardSolid} />
 
       </div>
 
@@ -33,3 +36,7 @@ async function page() {
 }
 
 export default page
+
+export const metadata: Metadata = {
+  title: "داشبورد",
+};

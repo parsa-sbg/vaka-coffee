@@ -2,6 +2,7 @@ import OrderBox from '@/components/modules/dashboard/orders/OrderBox'
 import { connectToDataBase, OrderModel } from '@/models'
 import { calculateExpireTime } from '@/utils/calculateExpireTime'
 import { authUserWithToken } from '@/utils/server/auth'
+import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { redirect, RedirectType } from 'next/navigation'
 import React from 'react'
@@ -31,3 +32,7 @@ async function page() {
 }
 
 export default page
+
+export const metadata: Metadata = {
+  title: "داشبورد - سفارش ها",
+};

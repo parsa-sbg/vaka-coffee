@@ -1,4 +1,5 @@
 import OrderPage from '@/components/layouts/OrderPage/OrderPage';
+import { Metadata } from 'next';
 import React from 'react'
 
 
@@ -18,3 +19,7 @@ async function page(
 }
 
 export default page
+
+export const metadata: Metadata = {
+    title: "داشبورد - سفارش ها",
+};
