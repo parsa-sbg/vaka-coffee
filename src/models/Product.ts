@@ -21,6 +21,7 @@ export interface ProductInterface {
     stock: number
     category: CategoryInterface & mongoose.Types.ObjectId
     averageScore: 1 | 2 | 3 | 4 | 5
+    description: string | null
 }
 
 export interface ProductDocument extends Document, ProductInterface { }
@@ -86,6 +87,11 @@ export const productSchema = new mongoose.Schema({
         max: 5,
         min: 1,
         default: 5
+    },
+
+    description: {
+        type: String || null,
+        default: null
     }
 
 }, { timestamps: true })

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 import { LuImageOff } from "react-icons/lu";
 import DeleteBtn from './DeleteBtn';
+import Link from 'next/link';
 
 
 type props = {
@@ -26,7 +27,7 @@ function ProductItem({ isOdd, product, setProducts, editBtnClickHandler, number 
                     : <div className='w-20 h-20 bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={30} className='text-main' /></div>
                 }
             </th>
-            <td className="px-3 lg:px-6 py-4">
+            <td className="px-3 lg:px-6 py-4 min-w-32">
                 {product.name}
             </td>
             <td className="px-3 lg:px-6 py-4">
@@ -47,6 +48,10 @@ function ProductItem({ isOdd, product, setProducts, editBtnClickHandler, number 
                     <button onClick={() => { editBtnClickHandler(product) }} className={`${!isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:text-main`} >
                         ویرایش
                     </button>
+
+                    <Link href={`/p-admin/products/description/${product.shortName}`} className={`${!isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:text-main`} >
+                        توضیحات
+                    </Link>
 
                 </div>
             </td>
