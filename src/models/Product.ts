@@ -97,6 +97,8 @@ export const productSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 
+productSchema.index({ name: 'text', description: 'text' }, { weights: { name: 10, description: 1 } })
+
 productSchema.post('findOneAndDelete', async (deletedProduct: ProductInterface) => {
     if (deletedProduct) {
         await CartModel.updateMany({ 'cart.product': deletedProduct._id }, {

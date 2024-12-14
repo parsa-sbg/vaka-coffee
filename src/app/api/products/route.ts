@@ -88,6 +88,7 @@ export const GET = async (req: NextRequest) => {
     const minPrice = searchParams.get('minPrice')
     const maxPrice = searchParams.get('maxPrice')
     const sort = searchParams.get('sort')
+    const search = searchParams.get('search')
 
 
     // min and max price validation 
@@ -173,6 +174,17 @@ export const GET = async (req: NextRequest) => {
                 $sort: { createdAt: -1 as 1 | -1 }
             })
         }
+    }
+
+    // search
+    if (search?.length) {
+        pipeline.push({
+            $match: {
+                $search: {
+                    $search: search
+                }
+            }
+        })
     }
 
 

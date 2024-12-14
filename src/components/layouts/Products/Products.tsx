@@ -15,9 +15,10 @@ type props = {
     categories: CategoryInterface[]
     intialProducts: ProductInterface[]
     categoryShortName?: string
+    search?: string
 }
 
-function Products({ categories = [], intialProducts, categoryShortName }: props) {
+function Products({ categories = [], intialProducts, categoryShortName, search = '' }: props) {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isFirdtRender, setIsFirdtRender] = useState(true)
@@ -30,16 +31,16 @@ function Products({ categories = [], intialProducts, categoryShortName }: props)
     const [selectedSort, setSelectedSort] = useState<selectedSortType>('latest')
 
 
-    const [getProductsUrl, setGetProductsUrl] = useState(`/api/products?categoryShortName=${categoryShortName}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${selectedSort}`)
+    const [getProductsUrl, setGetProductsUrl] = useState(`/api/products?categoryShortName=${categoryShortName}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${selectedSort}&search=${search}`)
 
 
     useEffect(() => {
-        setGetProductsUrl(`/api/products?categoryShortName=${categoryShortName}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${selectedSort}`)
+        setGetProductsUrl(`/api/products?categoryShortName=${categoryShortName}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${selectedSort}&search=${search}`)
     }, [minPrice, maxPrice, selectedSort])
 
 
     useEffect(() => {
-        if (!isFirdtRender) {            
+        if (!isFirdtRender) {
             setIsLoading(true)
             fetch(getProductsUrl)
                 .then(res => {
@@ -55,7 +56,7 @@ function Products({ categories = [], intialProducts, categoryShortName }: props)
                     }
                     setIsLoading(false)
                 })
-        }else {
+        } else {
             setIsFirdtRender(false)
         }
 
