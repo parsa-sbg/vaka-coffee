@@ -1,14 +1,18 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import ArticlesItem from './ArticlesItem'
 import Header from './Header'
 import { ArticleInterface } from '@/models/Article'
 
 
 type props = {
-    articles: ArticleInterface[]
+    intialArticles: ArticleInterface[]
 }
 
-function ArticlesTable({ articles }: props) {
+function ArticlesTable({ intialArticles }: props) {
+
+    const [articles, setArticles] = useState(intialArticles)
+
     return (
         <>
             <Header />
@@ -38,7 +42,7 @@ function ArticlesTable({ articles }: props) {
                 <tbody>
 
                     {articles.map((article, index) => (
-                        <ArticlesItem article={article} key={article._id.toString()} isOdd={index % 2 == 0} number={index + 1} />
+                        <ArticlesItem setArticles={setArticles} article={article} key={article._id.toString()} isOdd={index % 2 == 0} number={index + 1} />
                     ))}
 
 

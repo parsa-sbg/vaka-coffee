@@ -5,14 +5,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { LuImageOff } from 'react-icons/lu'
+import DeleteBtn from './DelteBtn'
 
 type props = {
     isOdd: boolean
     number: number
     article: ArticleInterface
+    setArticles: React.Dispatch<React.SetStateAction<ArticleInterface[]>>
 }
 
-function ArticlesItem({ isOdd, number, article }: props) {
+function ArticlesItem({ isOdd, number, article, setArticles }: props) {
     return (
         <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
@@ -41,9 +43,7 @@ function ArticlesItem({ isOdd, number, article }: props) {
                         ویرایش
                     </Link>
 
-                    <button className={`${!isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:text-main`} >
-                        حذف
-                    </button>
+                    <DeleteBtn article={article} setArticles={setArticles} isOdd={isOdd} />
 
                 </div>
             </td>

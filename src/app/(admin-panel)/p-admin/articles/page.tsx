@@ -11,7 +11,7 @@ async function page() {
 
     return (
         <div>
-            <ArticlesTable articles={articles} />
+            <ArticlesTable intialArticles={JSON.parse(JSON.stringify(articles))} />
         </div>
     )
 }
