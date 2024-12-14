@@ -81,6 +81,7 @@ function Page() {
       method: "POST",
       body: formData
     })
+    const data = await res.json()
     setIsLoading(false)
 
 
@@ -98,6 +99,13 @@ function Page() {
         position: 'top-left',
         duration: 2000
       })
+    } else if (res.status == 409) {
+      toast.custom((t) => (
+        <ErrorAlert t={t} title={data.message} />
+      ), {
+        position: 'top-left'
+      })
+      setErrors(prev => ({ ...prev, shortName: true }))
     } else {
       toast.custom((t) => (
         <ErrorAlert t={t} title='خطایی رخ داد !' />

@@ -44,6 +44,10 @@ export const POST = async (req: NextRequest) => {
 
         connectToDataBase()
 
+        const isShortNameAlreadyExist = await ArticleModel.findOne({ shortName: parsedData.data.shortName })
+        if (isShortNameAlreadyExist) return Response.json({ message: 'این نام کوتاه قبلا استفاده شده است .' }, { status: 409 })
+
+
         const newArticle = await ArticleModel.create({
             title: parsedData.data.title,
             shortName: parsedData.data.shortName,
@@ -52,7 +56,6 @@ export const POST = async (req: NextRequest) => {
             image: imageUrl,
         })
 
-        console.log(newArticle);
         if (newArticle) {
             return Response.json({ message: 'article created successfully', newArticle }, { status: 201 })
         } else {

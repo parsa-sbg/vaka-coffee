@@ -20,7 +20,7 @@ async function page({ params }: props) {
 
 
     return (
-        <div>
+        <div className="overflow-hidden">
             <div className='flex justify-between'>
                 <h1 className='font-bold text-xl relative pr-3 before:absolute before:w-2 before:h-2 before:rounded-full before:bg-white before:right-0 before:top-0 before:bottom-0 before:my-auto'>مشاهده مقاله</h1>
                 <Link href={'/p-admin/articles'} className='flex items-center gap-2'>
