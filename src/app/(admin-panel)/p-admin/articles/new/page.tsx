@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from 'react';
 import 'quill/dist/quill.snow.css';
-import styles from '@/css/quill.module.css';
 
 import ArticleEditor from '@/components/layouts/ArticleEditor/ArticleEditor';
 import Link from 'next/link';
@@ -198,7 +197,7 @@ function Page() {
 
       <div className="mt-10">
         <h3 className='font-bold text-xl relative pr-3 before:absolute before:w-2 before:h-2 before:rounded-full before:bg-white before:right-0 before:top-0 before:bottom-0 before:my-auto'>خروجی مقاله :</h3>
-        <div className={`mt-5 border rounded-lg p-5 border-secondary`} style={styles} dangerouslySetInnerHTML={{ __html: content }} />
+        <div className={`mt-5 border rounded-lg p-5 border-secondary`} dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     </>
   );
