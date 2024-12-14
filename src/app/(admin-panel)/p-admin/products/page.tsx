@@ -2,6 +2,7 @@ import ProductsTable from '@/components/modules/admin/products/ProductsTable'
 import { categoryModel } from '@/models'
 import { productmodel } from '@/models'
 import { connectToDataBase } from '@/utils/server/dataBase'
+import { Metadata } from 'next'
 import React from 'react'
 
 async function Products() {
@@ -22,3 +23,7 @@ async function Products() {
 }
 
 export default Products
+
+export const metadata: Metadata = {
+  title: "پنل مدیریت - محصولات",
+};

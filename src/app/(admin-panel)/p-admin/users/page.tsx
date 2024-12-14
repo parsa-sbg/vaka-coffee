@@ -2,6 +2,7 @@ import UsersTable from '@/components/modules/admin/users/UsersTable'
 import UserModel from '@/models/User';
 import { authUserWithToken } from '@/utils/server/auth';
 import { connectToDataBase } from '@/utils/server/dataBase';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import React from 'react'
 
@@ -24,3 +25,8 @@ async function Users() {
 }
 
 export default Users
+
+
+export const metadata: Metadata = {
+  title: "پنل مدیریت - کاربران",
+};

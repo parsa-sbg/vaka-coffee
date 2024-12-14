@@ -1,5 +1,6 @@
 import CommetnsTable from '@/components/modules/admin/comments/CommetnsTable'
 import { CommentModel, connectToDataBase } from '@/models'
+import { Metadata } from 'next'
 import React from 'react'
 
 async function Commetns() {
@@ -16,3 +17,7 @@ async function Commetns() {
 }
 
 export default Commetns
+
+export const metadata: Metadata = {
+  title: "پنل مدیریت - کامنت ها",
+};
