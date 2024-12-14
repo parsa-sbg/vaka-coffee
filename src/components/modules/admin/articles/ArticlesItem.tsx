@@ -2,6 +2,7 @@ import { ArticleInterface } from '@/models/Article'
 import { toPersianDate } from '@/utils/toPersianDate'
 import toPersianNumber from '@/utils/toPersianNubmer'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import { LuImageOff } from 'react-icons/lu'
 
@@ -32,9 +33,9 @@ function ArticlesItem({ isOdd, number, article }: props) {
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>
 
-                    <button className={`${!isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:text-main`} >
+                    <Link href={`/p-admin/articles/${article.shortName}`} className={`${!isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:text-main`} >
                         مشاهده
-                    </button>
+                    </Link>
 
                     <button className={`${!isOdd ? 'sm:hover:bg-[#0f0f0f]' : 'sm:hover:bg-secondary'} text-nowrap bg-main text-bgColer font-semibold px-4 md:px-7 py-2 rounded-md transition-all duration-300 sm:hover:text-main`} >
                         ویرایش
