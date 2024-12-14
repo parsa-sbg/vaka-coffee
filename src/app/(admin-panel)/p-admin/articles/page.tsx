@@ -1,10 +1,17 @@
 import ArticlesTable from '@/components/modules/admin/articles/ArticlesTable'
+import { connectToDataBase } from '@/models'
+import { ArticleModel } from '@/models/Article'
 import React from 'react'
 
-function page() {
+async function page() {
+
+    connectToDataBase()
+
+    const articles = await ArticleModel.find().sort({ _id: -1 })
+
     return (
         <div>
-            <ArticlesTable />
+            <ArticlesTable articles={articles} />
         </div>
     )
 }

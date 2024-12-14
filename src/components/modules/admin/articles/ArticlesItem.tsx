@@ -1,27 +1,33 @@
+import { ArticleInterface } from '@/models/Article'
+import { toPersianDate } from '@/utils/toPersianDate'
 import toPersianNumber from '@/utils/toPersianNubmer'
+import Image from 'next/image'
 import React from 'react'
 import { LuImageOff } from 'react-icons/lu'
 
 type props = {
     isOdd: boolean
     number: number
+    article: ArticleInterface
 }
 
-function ArticlesItem({ isOdd, number }: props) {
+function ArticlesItem({ isOdd, number, article }: props) {
     return (
         <tr className={`${isOdd ? 'bg-[#0f0f0f]' : 'bg-secondary'}`}>
             <th scope="row" className="px-1 py-4 font-medium whitespace-nowrap">
                 <span className='w-full flex justify-center items-center'>{toPersianNumber(number.toString())}</span>
             </th>
             <th scope="row" className="px-3 lg:px-6 py-4 font-medium whitespace-nowrap">
-                {/* {product.pictures[0] */}
-                {/* ? <Image className='w-20 h-20 min-w-20 rounded-md' alt='products image' width={500} height={500} src={product.pictures[0]} /> */}
-                {/* : */}
-                <div className='w-20 h-20 bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={30} className='text-main' /></div>
-                {/* } */}
+                {article.image
+                    ? <Image className='w-20 h-20 min-w-20 rounded-md' alt='products image' width={500} height={500} src={article.image} />
+                    : <div className='w-20 h-20 bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={30} className='text-main' /></div>
+                }
             </th>
             <td className="px-3 lg:px-6 py-4">
-                عنوان
+                {toPersianDate(article.createdAt)}
+            </td>
+            <td className="px-3 lg:px-6 py-4">
+                {article.title}
             </td>
             <td className="px-3 lg:px-6 py-4">
                 <div className='flex gap-2 text-xs'>

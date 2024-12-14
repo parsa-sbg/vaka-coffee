@@ -1,8 +1,14 @@
 import React from 'react'
 import ArticlesItem from './ArticlesItem'
 import Header from './Header'
+import { ArticleInterface } from '@/models/Article'
 
-function ArticlesTable() {
+
+type props = {
+    articles: ArticleInterface[]
+}
+
+function ArticlesTable({ articles }: props) {
     return (
         <>
             <Header />
@@ -17,7 +23,10 @@ function ArticlesTable() {
                             عکس
                         </th>
                         <th scope="col" className="px-3 lg:px-6 py-3">
-                            نام
+                            تاریخ
+                        </th>
+                        <th scope="col" className="px-3 lg:px-6 py-3">
+                            عنوان
                         </th>
 
                         <th scope="col" className="px-3 lg:px-6 py-3">
@@ -28,9 +37,9 @@ function ArticlesTable() {
 
                 <tbody>
 
-                    <ArticlesItem isOdd number={1} />
-                    <ArticlesItem isOdd={false} number={2} />
-                    <ArticlesItem isOdd number={3} />
+                    {articles.map((article, index) => (
+                        <ArticlesItem article={article} key={article._id.toString()} isOdd={index % 2 == 0} number={index + 1} />
+                    ))}
 
 
                 </tbody>
