@@ -19,6 +19,13 @@ async function page({ params }: props) {
     }
 
 
+    const props = JSON.parse(JSON.stringify({
+        productName: product.name,
+        productId: product._id,
+        intialDesc: product.description,
+        productShortName: product.shortName,
+    }))
+
     return (
         <div>
             <div className='flex justify-between'>
@@ -33,19 +40,8 @@ async function page({ params }: props) {
                 <span>نام محصول</span> : <span className="text-main">{product.name}</span>
             </div>
 
-            {product.description
-                ? (
-                    <DescriptionBox intialDesc={product.description} productShortName={product.shortName} />
-                )
-                : (
-                    <div>
-                        <span className="block">این محصول توضیحاتی ندارد.</span>
-                        <Link href={`/p-admin/products/description/edit/${product.shortName}`} className="block w-fit sm:hover:bg-secondary text-sm text-nowrap bg-main text-bgColer font-semibold px-4 py-1.5 mt-3 rounded-md transition-all duration-300 sm:hover:text-main">
-                            افزودن
-                        </Link>
-                    </div>
-                )
-            }
+            <DescriptionBox {...props} />
+
         </div>
     )
 }

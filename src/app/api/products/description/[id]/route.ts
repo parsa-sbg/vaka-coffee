@@ -34,3 +34,36 @@ export const PUT = async (
     }
 
 }
+
+
+export const DELETE = async (
+    req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+
+) => {
+    const token = req.cookies.get('token')?.value
+    const user = await authUserWithToken(token)
+
+    if (!user || user.role == "USER") return Response.json({ message: "this route is protected and you can't access to it ." }, { status: 401 })
+
+    await connectToDataBase()
+
+    try {
+
+        const updatedProduct = await productmodel.findByIdAndUpdate((await params).id, {
+            description: null
+        })
+
+        if (updatedProduct) {
+            return Response.json({ message: 'product description updated successfully' }, { status: 200 })
+        } else {
+            return Response.json({ message: 'internal server error' }, { status: 500 })
+        }
+
+
+    } catch (err) {
+        console.log('update product desc error => ', err);
+        return Response.json({ message: 'internal server error' }, { status: 500 })
+    }
+
+}
