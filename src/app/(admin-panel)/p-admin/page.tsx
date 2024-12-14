@@ -10,6 +10,8 @@ import Title from '@/components/modules/admin/index/Title';
 import { authUserWithToken } from '@/utils/server/auth';
 import { cookies } from 'next/headers';
 import { Metadata } from 'next';
+import { MdOutlineArticle } from "react-icons/md";
+
 
 
 export default async function AdminPanel() {
@@ -28,9 +30,9 @@ export default async function AdminPanel() {
                 <Box href='/p-admin/categories' title='دسته بندی ها' Icon={PiShapesThin} />
                 <Box href='/p-admin/orders' title='سفارش ها' Icon={RiListCheck3} />
                 <Box href='/p-admin/comments' title='کامنت ها' Icon={LiaCommentsSolid} />
+                <Box href='/p-admin/articles' title='مقالات' Icon={MdOutlineArticle} />
                 <Box href='/p-admin/users' title='کاربران' Icon={PiUsersThreeLight} />
                 <Box href='/p-admin/admins' title='ادمین ها' Icon={RiAdminLine} />
-
             </div>
 
         </div>
@@ -40,5 +42,4 @@ export default async function AdminPanel() {
 
 export const metadata: Metadata = {
     title: "پنل مدیریت",
-  };
-  
+};

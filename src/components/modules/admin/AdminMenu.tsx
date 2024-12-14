@@ -12,7 +12,7 @@ function AdminMenu() {
             <ul className='flex flex-col gap-2'>
 
                 <AdminMenuItem text='پیشخوان' href='/p-admin' />
-                <AdminMenuItem text='محصولات' href='/p-admin/products' />
+                <AdminMenuItem activeWhenStartsWith='/p-admin/products' text='محصولات' href='/p-admin/products' />
                 <AdminMenuItem text='دسته بندی ها' href='/p-admin/categories' />
                 <AdminMenuItem activeWhenStartsWith='/p-admin/orders' text='سفارش‌ ها' href='/p-admin/orders' />
                 <AdminMenuItem text='کامنت ها' href='/p-admin/comments' />
