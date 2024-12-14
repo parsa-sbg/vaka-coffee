@@ -1,21 +1,12 @@
 import React from 'react'
 
-function Article() {
+type props = {
+    desc: string
+}
+
+function Article({ desc }: props) {
     return (
-        <div>
-            قهوه ترک 250 گرمی
-
-            <br />
-            <br />
-
-            قهوه ترک واکا در بسته بندی 250 گرمی با ترکیب 100درصد روبوستا آماده شده است.
-
-
-            <br />
-            <br />
-
-            میزان کافئین این قهوه بسیار زیاد است و رست آن نیز مدیوم می‌باشد.
-        </div>
+        <div dangerouslySetInnerHTML={{ __html: desc }}></div>
     )
 }
 

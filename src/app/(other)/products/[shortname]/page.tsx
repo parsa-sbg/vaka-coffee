@@ -33,7 +33,7 @@ export default async function Product({ params }: props) {
     }
 
     const acceptedComments = await CommentModel.find({ product: product._id, status: 'ACCEPTED' }).populate({ path: 'user', select: 'name' }).sort({ _id: -1 })
-    
+
 
     return (
         <div className=' mt-16 '>
@@ -51,7 +51,7 @@ export default async function Product({ params }: props) {
             </div>
 
             <div className='mt-16'>
-                <Content acceptedComments={JSON.parse(JSON.stringify(acceptedComments))} intialUserPendingComments={JSON.parse(JSON.stringify(userPendingComments))} productId={JSON.parse(JSON.stringify(product._id))} />
+                <Content productDescription={JSON.parse(JSON.stringify(product.description))} acceptedComments={JSON.parse(JSON.stringify(acceptedComments))} intialUserPendingComments={JSON.parse(JSON.stringify(userPendingComments))} productId={JSON.parse(JSON.stringify(product._id))} />
             </div>
 
             <div className='container'>

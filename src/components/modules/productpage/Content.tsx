@@ -9,11 +9,12 @@ type props = {
     productId: mongoose.Types.ObjectId
     intialUserPendingComments: CommentInterface[]
     acceptedComments: CommentInterface[]
+    productDescription: string | null
 }
 
-function Content({ productId, intialUserPendingComments, acceptedComments }: props) {
+function Content({ productId, intialUserPendingComments, acceptedComments, productDescription }: props) {
 
-    const [shownContent, setShownContent] = useState<'article' | 'comments'>('article')
+    const [shownContent, setShownContent] = useState<'article' | 'comments'>(productDescription ? 'article' : 'comments')
     const [userPendingComments, setUserPendingComments] = useState(intialUserPendingComments)
 
 
@@ -24,7 +25,7 @@ function Content({ productId, intialUserPendingComments, acceptedComments }: pro
                 <div className='flex gap-5'>
                     <button
                         onClick={() => { setShownContent('article') }}
-                        className={`${shownContent == 'article' && 'text-main'} relative font-semibold text-lg w-fit transition-all duration-300 hover:before:max-w-52
+                        className={`${!productDescription ? '!hidden' : ''} ${shownContent == 'article' && 'text-main'} relative font-semibold text-lg w-fit transition-all duration-300 hover:before:max-w-52
                     before:absolute before:top-[105%] before:max-w-0 before:!w-full before:h-0.5 before:bg-white before:right-0 before:transition-all before:duration-300 before:rounded-full ${shownContent == 'article' && 'before:!bg-main before:!block before:max-w-52'}`}>
                         توضیحات
                     </button>
@@ -41,7 +42,7 @@ function Content({ productId, intialUserPendingComments, acceptedComments }: pro
                 <div className='mt-6'>
                     {shownContent == 'comments'
                         ? <Commetns acceptedComments={acceptedComments} setUserPendingComments={setUserPendingComments} userPendingComments={userPendingComments} productId={productId} />
-                        : <Article />
+                        : <Article desc={productDescription || ''} />
                     }
                 </div>
             </div>

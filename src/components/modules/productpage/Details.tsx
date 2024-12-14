@@ -13,7 +13,7 @@ type detailsPros = {
 
 function Details({ title, commentsCount, dynamicFields, price, averageScore, discount }: detailsPros) {
     console.log(averageScore);
-    
+
     return (
         <div className='mt-5'>
 
@@ -32,7 +32,7 @@ function Details({ title, commentsCount, dynamicFields, price, averageScore, dis
             </div>
 
             <div className='flex items-center justify-cneter flex-wrap gap-2 mt-4'>
-                <span className='line-through text-nowrap text-neutral-400'>{toPersianNumber(price.toLocaleString())}</span>
+                <span className={`${!discount ? '!hidden' : ''} line-through text-nowrap text-neutral-400`}>{toPersianNumber(price.toLocaleString())}</span>
                 <span className={`text-main text-lg text-nowrap font-semibold`}>{toPersianNumber((price - (price * discount / 100)).toLocaleString())} تومان</span>
             </div>
 
