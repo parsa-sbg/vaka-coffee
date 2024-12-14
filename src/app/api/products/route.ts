@@ -162,6 +162,12 @@ export const GET = async (req: NextRequest) => {
             })
             break
         }
+        case 'score': {
+            pipeline.push({
+                $sort: { averageScore: -1 as 1 | -1 }
+            })
+            break
+        }
         default: {
             pipeline.push({
                 $sort: { createdAt: -1 as 1 | -1 }
