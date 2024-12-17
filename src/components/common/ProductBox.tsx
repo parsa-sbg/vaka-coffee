@@ -22,7 +22,7 @@ function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName
     return (
         <Link href={`/products/${shortName}`} className='w-full flex flex-col items-center'>
 
-            <div className='w-[180px] relative sm:w-[180px] md:w-[180px] xl:w-[220px]  h-[180px] sm:h-[180px] md:h-[180px] xl:h-[220px]  overflow-hidden rounded-md'>
+            <div className='w-[150px] h-[150px] xs:w-[180px] relative sm:w-[180px] md:w-[180px] xl:w-[220px]  xs:h-[180px] sm:h-[180px] md:h-[180px] xl:h-[220px]  overflow-hidden rounded-md'>
                 {imageUrl
                     ? <Image className=' h-full object-cover' src={imageUrl} alt='product image' quality={60} width={300} height={300} />
                     : <div className='w-full h-full bg-bgColer rounded-md flex items-center justify-center border border-main border-opacity-30'><LuImageOff size={60} className='text-main' /></div>

@@ -72,7 +72,7 @@ async function page({ params }: props) {
 
             </div>
 
-            <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
+            <div className="border border-secondary rounded-lg p-5" dangerouslySetInnerHTML={{ __html: article.content }}></div>
         </div>
     )
 }

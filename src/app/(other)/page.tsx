@@ -1,10 +1,14 @@
+import ArticlesSlider from "@/components/common/ArticlesSlider";
+import ProductsSlider from "@/components/common/ProductsSlider";
 import AllCategories from "@/components/modules/index/AllCategories";
+import ArticlesSection from "@/components/modules/index/ArticlesSection";
 import Baner from "@/components/modules/index/Baner";
 import CategorySection from "@/components/modules/index/CategorySection";
 import FrequentlyQuestions from "@/components/modules/index/FrequentlyQuestions/FrequentlyQuestions";
 import Header from "@/components/modules/index/Header";
 import SeasionSection from "@/components/modules/index/SeasionSection";
 import { categoryModel, productmodel } from "@/models";
+import { ArticleModel } from "@/models/Article";
 import { connectToDataBase } from "@/utils/server/dataBase";
 import { Metadata } from "next";
 
@@ -17,6 +21,7 @@ export default async function Home() {
 
   const discountedProducts = await productmodel.find({ discount: { $gt: 0 } }).limit(10)
 
+  const articles = await ArticleModel.find({})
 
   return (
     <div className="">
@@ -30,6 +35,8 @@ export default async function Home() {
         {categoriesWithProducts.map(cat => (
           <CategorySection key={cat._id.toString()} categoryWithProducts={cat} />
         ))}
+
+        {articles.length > 3 ? <ArticlesSection articles={JSON.parse(JSON.stringify(articles))} /> : ''}
 
       </div>
 
