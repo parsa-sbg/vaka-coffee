@@ -19,7 +19,7 @@ const page = async ({ params }: { params: Promise<{ search: string }> }) => {
             <ProductsHeader title={`نتیجه جستجوی : ${search}`} />
 
             <div className='container mt-8'>
-                <Products intialProducts={JSON.parse(JSON.stringify(intialProducts))} categories={JSON.parse(JSON.stringify(allCategories))} />
+                <Products intialProducts={JSON.parse(JSON.stringify(intialProducts))} search={search} categories={JSON.parse(JSON.stringify(allCategories))} />
             </div>
         </div>
     )

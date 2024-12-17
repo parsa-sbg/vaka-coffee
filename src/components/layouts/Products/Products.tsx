@@ -40,6 +40,8 @@ function Products({ categories = [], intialProducts, categoryShortName, search =
 
 
     useEffect(() => {
+        console.log(getProductsUrl);
+
         if (!isFirdtRender) {
             setIsLoading(true)
             fetch(getProductsUrl)
