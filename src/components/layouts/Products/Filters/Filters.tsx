@@ -14,7 +14,6 @@ function Filters({ setMaxPrice, setMinPrice }: props) {
   return (
     <div className=' flex flex-col gap-5'>
       <Price setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
-      <Weight />
     </div>
   )
 }
