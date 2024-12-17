@@ -8,6 +8,7 @@ import RelatedProducts from '@/components/modules/productpage/RelatedProducts'
 import { connectToDataBase, productmodel } from '@/models'
 import { CommentInterface, CommentModel } from '@/models/Comment'
 import { authUserWithToken } from '@/utils/server/auth'
+import mongoose from 'mongoose'
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -34,6 +35,18 @@ export default async function Product({ params }: props) {
 
     const acceptedComments = await CommentModel.find({ product: product._id, status: 'ACCEPTED' }).populate({ path: 'user', select: 'name' }).sort({ _id: -1 })
 
+    // get more products
+    const moreProducts = await productmodel.aggregate([
+        { $match: { _id: { $ne: product._id } } },
+        { $sample: { size: 10 } }
+    ])
+
+    // get related product
+    const relatedProducts = await productmodel.aggregate([
+        { $match: { _id: { $ne: product._id }, category: new mongoose.Types.ObjectId(product.category) } },
+        { $sample: { size: 10 } }
+    ])
+
 
     return (
         <div className=' mt-16 '>
@@ -55,8 +68,8 @@ export default async function Product({ params }: props) {
             </div>
 
             <div className='container'>
-                <MoreProducts />
-                <RelatedProducts />
+                {moreProducts.length > 3 ? <MoreProducts products={moreProducts} /> : ''}
+                {relatedProducts.length > 3 ? <RelatedProducts products={relatedProducts} /> : ''}
             </div>
 
         </div>
