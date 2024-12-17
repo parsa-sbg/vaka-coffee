@@ -137,7 +137,7 @@ function EditPage({ intialArticle }: props) {
                 <div className='grid md:grid-cols-2 xl:grid-cols-1 gap-5 col-span-5 md:col-span-12 xl:col-span-3'>
                     <div className={`flex flex-col gap-1 ${errors.title ? 'text-red-600' : ''} `}>
                         <h5 className='mb-1 font-semibold transition-all duration-300'>عنوان مقاله</h5>
-                        <input maxLength={20} value={title} onChange={(e) => {
+                        <input value={title} onChange={(e) => {
                             setTitle(e.target.value)
                             setErrors(prev => ({ ...prev, title: false }))
                         }} className={`${errors.title ? '!border-red-600' : ''} transition-all duration-300 outline-none rounded-md border border-transparent focus:border-main py-1.5 px-3 bg-secondary`} placeholder='عنوان مقاله ...' type="text" />
@@ -170,7 +170,7 @@ function EditPage({ intialArticle }: props) {
                                 onChange={e => { imageChangehandler(e) }}
                                 className="w-full h-full absolute bg-red-300 cursor-pointer z-20 opacity-0 hover:file:cursor-pointer"
                                 type="file"
-                                accept="image/png,image/jpeg"
+                                accept="image/png,image/jpeg,image/webp"
                             />
                             <BiSolidImageAdd className="absolute top-0 bottom-0 right-0 left-0 m-auto opacity-50 transition-all group-hover:opacity-100" size={35} />
                         </div>
