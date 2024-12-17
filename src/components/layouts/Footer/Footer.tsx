@@ -1,10 +1,20 @@
+import { categoryModel, connectToDataBase } from '@/models';
+import { CategoryInterface } from '@/models/Category';
 import Image from 'next/image';
 import Link from 'next/link'
 import React from 'react'
 import { ImLocation2 } from "react-icons/im";
 
 
-function Footer() {
+async function Footer() {
+
+
+    connectToDataBase()
+
+    const twoRandomCategory: CategoryInterface[] = await categoryModel.aggregate([
+        { $sample: { size: 3 } }
+    ])
+
     return (
         <footer className='mt-16 border-t border-main pt-16'>
 
@@ -77,20 +87,20 @@ function Footer() {
                 <div className='flex justify-end col-span-2'>
                     <ul className='flex-col flex justify-center items-end gap-6'>
                         <li className=' flex w-fit gap-2'>
-                            <Link className='transition-all text-left duration-300 hover:text-main text-xs sm:text-base' href='https://www.google.com/maps?hl=en&q=35.7403192%2C51.4353059&z=17' >
+                            <Link className='transition-all text-left duration-300 hover:text-main text-xs sm:text-base' href='/articles' >
                                 باشگاه مشتربان قهوه واکا
                             </Link>
                         </li>
-                        <li className=' flex w-fit gap-2'>
-                            <Link className='transition-all text-left duration-300 hover:text-main text-xs sm:text-base' href='https://goo.gl/maps/Zi9xTLyfhiWntyiZA' >
-                                خرید قهوه فوری
-                            </Link>
-                        </li>
-                        <li className=' flex w-fit gap-2'>
-                            <Link className='transition-all text-left duration-300 hover:text-main text-xs sm:text-base' href='https://goo.gl/maps/wYm6N11jNXjPhnBKA' >
-                                خرید قهوه‌های ترکیبی پرطرفدار
-                            </Link>
-                        </li>
+
+                        {twoRandomCategory.map(cat => (
+                            <li key={cat._id.toString()} className=' flex w-fit gap-2'>
+                                <Link className='transition-all text-left duration-300 hover:text-main text-xs sm:text-base' href={`/categories/${cat.shortName}`} >
+                                    {cat.name}
+                                </Link>
+                            </li>
+                        ))}
+
+
                     </ul>
                 </div>
             </div>
