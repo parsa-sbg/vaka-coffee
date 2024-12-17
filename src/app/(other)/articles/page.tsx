@@ -1,6 +1,7 @@
 import ArticleBox from "@/components/common/ArticleBox";
 import { connectToDataBase } from "@/models";
 import { ArticleModel } from "@/models/Article";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 
@@ -31,3 +32,8 @@ async function page() {
 }
 
 export default page;
+
+export const metadata: Metadata = {
+    title: 'آکادمی قهوه واکا ، مطالب داغ و کاربردی دنیای قهوه | قهوه واکا',
+    description: 'در آکادمی قهوه واکا مطالب مفیدی از دنیای قهوه ارایه می‌شود که براساس پربازدیدترین مطالب روز قهوه و مباحث داغ کاربردی انتخاب می‌شوند.'
+}

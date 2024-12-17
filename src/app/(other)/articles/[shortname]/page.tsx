@@ -32,3 +32,20 @@ const page = async ({ params }: props) => {
 }
 
 export default page;
+
+
+export const revalidate = 120
+
+export async function generateMetadata({ params }: props) {
+
+    const { shortname: shortName } = await params
+    const article = await ArticleModel.findOne({ shortName })
+    if (!article) {
+        redirect('/articles')
+    }
+
+    return {
+        title: article.title,
+        description: article.description
+    }
+}
