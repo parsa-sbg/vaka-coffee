@@ -28,7 +28,6 @@ export const calculateExpireTime = (expireAt: Date | null): retureType1 | reture
     const currentTime = Date.now()
     const timeDifference = orderExpireTime - currentTime
 
-    console.log('timeDifference ==>>', timeDifference);
 
     if ( timeDifference <= 0) {
         return {
@@ -38,8 +37,6 @@ export const calculateExpireTime = (expireAt: Date | null): retureType1 | reture
     }
 
     const hoursRemaining = Math.ceil(timeDifference / (1000 * 60 * 60));
-
-    console.log('hoursRemaining =>', hoursRemaining);
     
 
 
