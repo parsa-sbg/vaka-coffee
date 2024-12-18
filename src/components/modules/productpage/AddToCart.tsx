@@ -1,5 +1,6 @@
 "use client"
 import { useCartStore } from '@/store/cartStore'
+import toPersianNumber from '@/utils/toPersianNubmer'
 import mongoose from 'mongoose'
 import React, { useState } from 'react'
 
@@ -35,7 +36,7 @@ function AddToCart({ stock, productId, productName }: props) {
             <div className='flex items-center gap-5'>
                 <div className='flex h-10 w-28 rounded-md'>
                     <button disabled={stock == 0} onClick={minusHandler} className={`${stock == 0 ? 'border-gray-600' : 'hover:bg-main hover:border-main border-white border-opacity-60 border-l-white'} text-lg py-2 px-3 h-full transition-colors duration-200  border rounded-r-md`}>-</button>
-                    <span className={`${stock == 0 ? 'border-gray-600' : ' border-white border-opacity-60'} flex items-center justify-center border-y w-full`}>{stock == 0 ? '0' : count}</span>
+                    <span data-testid={'countspan'} className={`${stock == 0 ? 'border-gray-600' : ' border-white border-opacity-60'} flex items-center justify-center border-y w-full`}>{stock == 0 ? '0' : count}</span>
                     <button disabled={stock == 0} onClick={plusHandler} className={`${stock == 0 ? 'border-gray-600' : 'hover:bg-main hover:border-main border-white border-opacity-60 border-r-white'} text-lg py-2 px-3 h-full transition-colors duration-200  border rounded-l-md`}>+</button>
                 </div>
 
@@ -46,7 +47,7 @@ function AddToCart({ stock, productId, productName }: props) {
 
             {stock == 0
                 ? <span className='text-sm text-red-600 mt-5 block'>این محصول موجود نیست !</span>
-                : <span className='text-sm mt-5 block'>{stock} عدد موجود است.</span>
+                : <span className='text-sm mt-5 block'>{toPersianNumber(stock.toString())} عدد موجود است.</span>
             }
         </div>
     )
