@@ -1,10 +1,10 @@
 "use client"
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 
 
-function SearchBar() {
+const SearchBar = memo(() => {
     const [search, setSearch] = useState('')
     const route = useRouter()
     return (
@@ -29,6 +29,8 @@ function SearchBar() {
             </div>
         </div>
     )
-}
+})
+
+SearchBar.displayName = 'SearchBar'
 
 export default SearchBar

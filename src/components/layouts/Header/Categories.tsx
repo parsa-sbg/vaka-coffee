@@ -1,13 +1,14 @@
-import { categoryModel, connectToDataBase } from '@/models';
+import { CategoryInterface } from '@/models/Category';
 import Link from 'next/link';
-import React from 'react'
+import React, { memo } from 'react'
 import { IoIosArrowDown } from "react-icons/io";
 
+type props = {
+    categories: CategoryInterface[]
+}
 
-async function Categories() {
+const Categories = memo(({ categories }: props) => {
 
-    await connectToDataBase()
-    const categories = await categoryModel.find()
 
     return (
         <div className='group relative'>
@@ -31,6 +32,8 @@ async function Categories() {
             </div>
         </div>
     )
-}
+})
+
+Categories.displayName = 'Categories'
 
 export default Categories

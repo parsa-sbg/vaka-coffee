@@ -2,32 +2,33 @@
 
 import { CartItemInterface } from '@/models/Cart';
 import toPersianNumber from '@/utils/toPersianNubmer';
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { PiShoppingCart } from "react-icons/pi";
 import Cover from '@/components/common/Cover';
 import CartModal from './CartModal';
 import { useCartStore } from '@/store/cartStore';
+import { useCartModalStore } from '@/store/cartModalStore';
 
 
 type props = {
   userIntialCart: CartItemInterface[] | null
 }
 
-function CartIcon({ userIntialCart }: props) {
+const CartIcon = memo(({ userIntialCart }: props) => {
 
-  const [isCartOpen, setIsCartOpen] = useState(false)
+  const { isCartModalOpen, setIsCartModalOpen } = useCartModalStore()
 
   const [userCart, setUserCart] = useState(userIntialCart || [])
 
   const { cart, setCart, syncCartWithLocalCart, setLocalCart } = useCartStore()
 
   const windowClickHandler = () => {
-    setIsCartOpen(false)
+    setIsCartModalOpen(false)
   }
 
   const toggleCart = (e: React.MouseEvent<SVGElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
-    setIsCartOpen(prev => !prev)
+    setIsCartModalOpen(!isCartModalOpen)
   }
 
   useEffect(() => {
@@ -52,7 +53,7 @@ function CartIcon({ userIntialCart }: props) {
     <>
 
       <div className=' group relative select-none z-50'>
-        <PiShoppingCart onClick={(e) => { toggleCart(e) }} className={`${isCartOpen ? 'text-main' : ''} cursor-pointer p-1 group-hover:text-main transition-colors duration-200`} size={30} />
+        <PiShoppingCart onClick={(e) => { toggleCart(e) }} className={`${isCartModalOpen ? 'text-main' : ''} cursor-pointer p-1 group-hover:text-main transition-colors duration-200`} size={30} />
 
         {userCart?.length
           ?
@@ -63,15 +64,15 @@ function CartIcon({ userIntialCart }: props) {
           : ''
         }
 
-        <CartModal setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} userCart={userCart} />
+        <CartModal userCart={userCart} />
 
 
       </div>
-      <Cover visible={isCartOpen}></Cover>
+      <Cover visible={isCartModalOpen}></Cover>
     </>
 
 
   )
-}
+})
 
 export default CartIcon
