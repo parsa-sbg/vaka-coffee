@@ -44,8 +44,8 @@ function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName
             </div>
 
             <div className='flex items-center justify-cneter gap-2 flex-wrap mt-2'>
-                {discount ? <span className='line-through text-nowrap text-xs sm:text-sm text-neutral-400'>{toPersianNumber(price.toString())}</span> : ''}
-                <span className={`${priceGoldColor ? 'text-[#eabe12]' : 'text-main'} text-sm sm:text-base text-nowrap font-semibold`}>{toPersianNumber((price - (price * discount / 100)).toString()) + ' تومان'}</span>
+                {discount ? <span className='line-through text-nowrap text-xs sm:text-sm text-neutral-400'>{toPersianNumber(price.toLocaleString())}</span> : ''}
+                <span className={`${priceGoldColor ? 'text-[#eabe12]' : 'text-main'} text-sm sm:text-base text-nowrap font-semibold`}>{toPersianNumber((price - (price * discount / 100)).toLocaleString()) + ' تومان'}</span>
             </div>
 
         </Link>
