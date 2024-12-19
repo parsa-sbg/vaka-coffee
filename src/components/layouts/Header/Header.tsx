@@ -83,7 +83,7 @@ function Header({ userIntialCart, categories }: Props) {
             </div>
 
             <div className={`${isScrolledTop ? 'scale-0' : ''} bg-bgColer rounded-full p-1 border border-secondary fixed left-2 md:left-4 top-5 transition-all duration-300`}>
-                <CartIcon userIntialCart={userIntialCart || []} />
+                <CartIcon userIntialCart={userIntialCart} />
             </div>
         </header>
     );

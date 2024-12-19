@@ -28,7 +28,7 @@ export default async function OtherLayout({ children }: { children: React.ReactN
     }
 
     const categories = await categoryModel.find()
-
+    
 
 
     return (
