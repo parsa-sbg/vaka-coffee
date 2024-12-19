@@ -1,4 +1,5 @@
 import { ArticleModel } from "@/models/Article";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -77,3 +78,8 @@ async function page({ params }: props) {
     )
 }
 export default page;
+
+
+export const metadata: Metadata = {
+    title: "مدیریت - مشاهده مقاله",
+};

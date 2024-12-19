@@ -1,6 +1,7 @@
 import ProductsHeader from '@/components/common/ProductsListHeader'
 import Products from '@/components/layouts/Products/Products'
 import { categoryModel, connectToDataBase, productmodel } from '@/models'
+import { Metadata } from 'next'
 import React from 'react'
 
 
@@ -27,3 +28,14 @@ const page = async ({ params }: { params: Promise<{ search: string }> }) => {
 
 
 export default page
+
+export async function generateMetadata(
+    { params }: { params: Promise<{ search: string }> },
+): Promise<Metadata> {
+
+    const search = decodeURIComponent((await params).search)
+
+    return {
+        title: `جستجوی "${search}"`
+    }
+}

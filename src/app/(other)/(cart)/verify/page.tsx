@@ -2,6 +2,7 @@
 import { connectToDataBase, OrderModel, productmodel } from '@/models'
 import { calculateExpireTime } from '@/utils/calculateExpireTime'
 import toPersianNumber from '@/utils/toPersianNubmer'
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import React from 'react'
@@ -106,3 +107,7 @@ async function page(
 }
 
 export default page
+
+export const metadata : Metadata = {
+    title: 'نتیجه تراکنش | قهوه واکا'
+  }

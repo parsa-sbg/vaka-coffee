@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import ErrorAlert from '@/components/common/alerts/ErrorAlert';
 import SuccessAlert from '@/components/common/alerts/SuccessAlert';
 import { useRouter } from 'next/navigation';
+import { Metadata } from 'next';
 
 function Page() {
 
@@ -204,3 +205,7 @@ function Page() {
 }
 
 export default Page;
+
+export const metadata: Metadata = {
+  title: "مدیریت - مقاله جدید",
+};

@@ -42,7 +42,7 @@ function Header({ userIntialCart, categories }: Props) {
 
 
     useEffect(() => {
-        const throttledScrollHandler = throttle(scrollHandler, 100);
+        const throttledScrollHandler = throttle(scrollHandler, 30);
         const handleScroll = () => {
             requestAnimationFrame(throttledScrollHandler);
         };

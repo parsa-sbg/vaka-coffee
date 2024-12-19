@@ -1,5 +1,6 @@
 import ProductBox from '@/components/common/ProductBox'
 import { productmodel } from '@/models'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import React from 'react'
 
@@ -28,3 +29,8 @@ async function page() {
 }
 
 export default page
+
+export const metadata: Metadata = {
+  title: 'تخفیف ها | قهوه واکا',
+  description: 'تخفیف ویژه بلک فرایدی 1402 در قهوه واکا | به طور روزانه این صفحه را بررسی کنید تا از جدیدترین تخفیف های محصولات ما باخبر شوید.'
+}

@@ -1,5 +1,6 @@
 import DescriptionBox from "@/components/modules/admin/products/DescriptionBox";
 import { productmodel } from "@/models";
+import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -47,3 +48,7 @@ async function page({ params }: props) {
 }
 
 export default page;
+
+export const metadata: Metadata = {
+    title: 'پنل مدیریت | توضیحات محصول'
+}

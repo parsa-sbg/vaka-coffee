@@ -1,5 +1,6 @@
 import CartItems from '@/components/modules/cart/CartItems/CartItems'
 import CartTotalPrice from '@/components/modules/cart/CartTotalPrice/CartTotalPrice'
+import { Metadata } from 'next'
 import React from 'react'
 
 function page() {
@@ -14,3 +15,8 @@ function page() {
 }
 
 export default page
+
+
+export const metadata : Metadata = {
+  title: 'سبد خرید | قهوه واکا'
+}

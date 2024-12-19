@@ -1,5 +1,6 @@
 import EditDescriptioanPage from "@/components/modules/admin/products/EditDescriptioanPage";
 import { productmodel } from "@/models";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -30,3 +31,7 @@ async function page({ params }: props) {
     )
 }
 export default page
+
+export const metadata: Metadata = {
+    title: 'پنل مدیریت | ویرایش محصول'
+}
