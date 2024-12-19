@@ -8,6 +8,7 @@ import { IoClose } from "react-icons/io5";
 import { CategoryInterface } from '@/models/Category'
 import { ProductInterface } from '@/models/Product'
 import { selectedSortType } from './ProductsList/Header/Sort'
+import Cover from '@/components/common/Cover'
 
 
 
@@ -86,6 +87,8 @@ function Products({ categories = [], intialProducts, categoryShortName, search =
             <div className='col-span-9 sm:col-span-6 md:col-span-9'>
                 <ProductsList setSelectedSort={setSelectedSort} isLoading={isLoading} products={products} setIsMenuOpen={setIsMenuOpen} />
             </div>
+
+            <Cover visible={isMenuOpen} onClick={() => {setIsMenuOpen(false)}} />
 
         </div>
     )
