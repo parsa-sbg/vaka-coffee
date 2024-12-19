@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { verifyToken } from "@/utils/server/token";
 import { authUser } from "@/utils/server/auth";
+import Link from "next/link";
+import { GoArrowSwitch } from "react-icons/go";
 
 
 export default async function AdminPanelLayout({ children }: { children: React.ReactNode }) {
@@ -27,7 +29,9 @@ export default async function AdminPanelLayout({ children }: { children: React.R
                 <AdminMenu />
                 <div className="col-span-1 overflow-x-scroll custom-scrollbar sm:col-span-2 md:col-span-3">{children}</div>
             </div>
-
+            <Link href={'/'} className="border border-secondary rounded-full transition-colors duration-300 hover:border-main bg-bgColer fixed p-3 bottom-20 lg:bottom-3 left-2 md:left-4 flex justify-center items-center z-30">
+                <GoArrowSwitch size={20} className="text-main" />
+            </Link>
         </div>
     );
 }
