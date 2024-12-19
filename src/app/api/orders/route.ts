@@ -40,10 +40,10 @@ export const POST = async (req: NextRequest) => {
             return total + finalPrice
         }, 0)
 
-        // const finalPrice = totalCartPrice + postPrice
+        const finalPrice = totalCartPrice + postPrice
 
         // Temporary
-        const finalPrice = 1000
+        // const finalPrice = 1000
 
 
         const merchant_id = process.env.ZARINPAL_MERCHANT_ID

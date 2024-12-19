@@ -41,8 +41,7 @@ export const sentOtpAction = async (phone: string) => {
     try {
 
         // create otp code in data base
-        OtpModel.findOneAndDelete({ phone })
-        const otp = Math.floor(Math.random() * (10 ** 5))
+        const otp = Math.floor(Math.random() * (90000)) + 10000;
 
         OtpModel.create({
             phone,
@@ -68,26 +67,26 @@ export const sentOtpAction = async (phone: string) => {
         }
 
 
-        // const res = await fetch('http://ippanel.com/api/select', {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         "op": "pattern",
-        //         "user": userName,
-        //         "pass": password,
-        //         "fromNum": "3000505",
-        //         "toNum": phone,
-        //         "patternCode": paternCode,
-        //         "inputData": [
-        //             { "verification-code": +otp },
-        //         ]
-        //     })
-        // })
-        const res = {
-            status : 200
-        }
+        const res = await fetch('http://ippanel.com/api/select', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "op": "pattern",
+                "user": userName,
+                "pass": password,
+                "fromNum": "3000505",
+                "toNum": phone,
+                "patternCode": paternCode,
+                "inputData": [
+                    { "verification-code": +otp },
+                ]
+            })
+        })
+        // const res = {
+        //     status : 200
+        // }
 
         if (res.status == 200) {
             return { success: true, message: 'کد یکبار مصرف با موفقیت ارسال شد.' }
