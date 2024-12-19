@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
@@ -23,3 +24,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
     );
 }
+
+export const metadata: Metadata = {
+    title: "ورود / ثبت نام | قهوه واکا",
+};
