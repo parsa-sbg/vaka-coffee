@@ -1,7 +1,11 @@
-.resetEditor {
-	h1,
-	h2,
-	h3 {
-		font-size: inherit !important;
-	}
+.resetEditor h1,
+.resetEditor h2,
+.resetEditor h3,
+.resetEditor h4,
+.resetEditor h5 {
+  font-size: unset !important;
+}
+
+.ql-container {
+  font-size: unset !important;
 }

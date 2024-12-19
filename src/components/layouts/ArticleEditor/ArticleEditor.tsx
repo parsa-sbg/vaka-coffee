@@ -40,7 +40,7 @@ function ArticleEditor({ content, setContent }: Props) {
 
     return (
         <div className="min-h-96 !rounded-lg !overflow-hidden border" dir="ltr">
-            <div className={`min-h-96 !font-vazir resetEditor ${styles.resetEditor}`} style={{fontSize: 'inherit'}} ref={quillRef} dir="rtl" />
+            <div className={`min-h-96 !font-vazir resetEditor ${styles.resetEditor}`} style={{...styles}} ref={quillRef} dir="rtl" />
         </div>
     );
 }

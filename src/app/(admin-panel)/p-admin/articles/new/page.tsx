@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 import ErrorAlert from '@/components/common/alerts/ErrorAlert';
 import SuccessAlert from '@/components/common/alerts/SuccessAlert';
 import { useRouter } from 'next/navigation';
-import { Metadata } from 'next';
+import Head from 'next/head';
 
 function Page() {
 
@@ -119,6 +119,9 @@ function Page() {
 
   return (
     <>
+    <Head>
+      <title>مدیریت - مقاله جدید</title>
+    </Head>
       <div className='flex justify-between'>
         <h1 className='font-bold text-xl relative pr-3 before:absolute before:w-2 before:h-2 before:rounded-full before:bg-white before:right-0 before:top-0 before:bottom-0 before:my-auto'>افزودن مقاله</h1>
         <Link href={'/p-admin/articles'} className='flex items-center gap-2'>
@@ -205,7 +208,3 @@ function Page() {
 }
 
 export default Page;
-
-export const metadata: Metadata = {
-  title: "مدیریت - مقاله جدید",
-};

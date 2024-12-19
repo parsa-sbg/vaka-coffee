@@ -3,55 +3,57 @@
 @tailwind utilities;
 
 @layer utilities {
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
-    .custom-scrollbar::-webkit-scrollbar {
-        @apply !w-1
-    }
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply !w-1;
+  }
 
-    .custom-scrollbar::-webkit-scrollbar-track {
-        width: 10px 
-    }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    width: 10px;
+  }
 
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        @apply dark:!bg-gray-500 !bg-gray-300 !rounded-lg
-    }      
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply dark:!bg-gray-500 !bg-gray-300 !rounded-lg;
+  }
 }
-
 
 /* quill styles */
 
 .ql-align-center {
-    text-align: center;
-  }
-  .ql-align-right {
-    text-align: right;
-  }
-  .ql-align-left {
-    text-align: left;
-  }
-  .ql-align-justify {
-    text-align: justify;
-  }
-  
-  /* sizes */
-  
-  .ql-size-small {
-    font-size: 0.75em;
-  }
-  
-  .ql-size-large {
-    font-size: 1.5em;
-  }
-  
-  .ql-size-huge {
-    font-size: 2.5em;
-  }
-  
+  text-align: center;
+}
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-left {
+  text-align: left;
+}
+.ql-align-justify {
+  text-align: justify;
+}
+
+/* sizes */
+
+.ql-size-small {
+  font-size: 0.75em;
+}
+
+.ql-size-large {
+  font-size: 1.5em;
+}
+
+.ql-size-huge {
+  font-size: 2.5em;
+}
+
+.ql-container {
+  font-size: unset !important;
+}
