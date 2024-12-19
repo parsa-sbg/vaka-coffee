@@ -30,6 +30,7 @@ export default async function OtherLayout({ children }: { children: React.ReactN
     const categories = await categoryModel.find()
 
 
+
     return (
         <div className="pb-[64px] lg:pb-0 pt-[75.52px]">
             <div className="container"><Header categories={JSON.parse(JSON.stringify(categories))} userIntialCart={JSON.parse(JSON.stringify(userIntialCart))} /></div>
@@ -40,11 +41,11 @@ export default async function OtherLayout({ children }: { children: React.ReactN
             <div className="container"><BottomNav /></div>
 
 
-            {user?.role !== 'USER' ? (
-                <Link href={'/p-admin'} className="border border-secondary rounded-full transition-colors duration-300 hover:border-main bg-bgColer fixed p-3 bottom-20 lg:bottom-3 left-2 md:left-4 flex justify-center items-center z-30">
+            {user && user.role !== 'USER'
+                ? <Link href={'/p-admin'} className="border border-secondary rounded-full transition-colors duration-300 hover:border-main bg-bgColer fixed p-3 bottom-20 lg:bottom-3 left-2 md:left-4 flex justify-center items-center z-30">
                     <MdOutlineAdminPanelSettings size={20} className="text-main" />
                 </Link>
-            ) : ''}
+                : ''}
         </div>
     );
 }
