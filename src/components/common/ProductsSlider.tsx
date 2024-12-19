@@ -22,51 +22,50 @@ function ProductsSlider({ priceGoldColor, products }: productsSliderProps) {
             <Swiper
                 modules={[Autoplay, EffectCoverflow]}
                 spaceBetween={0}
-                slidesPerView={1.5}
                 centeredSlides
-                slidesPerGroupAuto
-                loop={products.length > 5}
+                slidesPerView={1.6}
+                slidesPerGroup={1}
+                loop={products.length > 4}
                 autoplay={{
                     delay: 1500,
                     pauseOnMouseEnter: true
                 }}
                 breakpoints={{
-                    640: {
-                        loop: products.length > 5,
+                    450: {
+                        loop: products.length > 4,
+                        slidesPerView: 1.9,
+                    },
+                    550: {
+                        loop: products.length > 4,
                         slidesPerView: 2.5,
-                        coverflowEffect: {
-                            depth: 0
-                        }
+                    },
+                    640: {
+                        loop: products.length > 4,
+                        slidesPerView: 2.8,
                     },
                     768: {
-                        loop: products.length > 8,
-                        slidesPerView: 3.5,
-                        coverflowEffect: {
-                            depth: 0
-                        }
+                        loop: products.length > 5,
+                        slidesPerView: 3.8,
                     },
                     1024: {
-                        loop: products.length > 10,
-                        slidesPerView: 4.5,
-                        coverflowEffect: {
-                            depth: 0
-                        }
+                        loop: products.length > 6,
+                        slidesPerView: 4.7,
                     },
                     1280: {
-                        loop: products.length > 10,
+                        loop: products.length > 8,
                         slidesPerView: 5.2,
-                        coverflowEffect: {
-                            depth: 0
-                        }
                     },
                 }}
             >
 
-                {products.map(product => (
-                    <SwiperSlide key={product._id.toString()} className='!flex !justify-center !px-2'>
+                {products.map((product, index) => (
+                    <SwiperSlide key={product._id.toString() + index} className='!flex !justify-center !px-2'>
                         <div className='max-w-60'><ProductBox averageScore={product.averageScore} shortName={product.shortName} imageUrl={product.pictures[0]} discount={product.discount} name={product.name} price={product.price} priceGoldColor={priceGoldColor} /></div>
                     </SwiperSlide>
                 ))}
+                    {/* <SwiperSlide className='!flex !justify-center !px-2'>
+                        <div className='max-w-60'><ProductBox averageScore={products[0].averageScore} shortName={products[0].shortName} imageUrl={products[0].pictures[0]} discount={products[0].discount} name={products[0].name} price={products[0].price} priceGoldColor={priceGoldColor} /></div>
+                    </SwiperSlide> */}
 
             </Swiper>
         </div>

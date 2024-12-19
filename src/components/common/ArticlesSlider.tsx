@@ -17,38 +17,52 @@ function ArticlesSlider({ articles }: props) {
             <Swiper
                 modules={[Autoplay, EffectCoverflow]}
                 spaceBetween={0}
-                slidesPerView={1.2}
-                loop={articles.length >= 5}
+                slidesPerView={1.3}
+                slidesPerGroup={1}
+                loop={articles.length > 3}
                 centeredSlides
-                slidesPerGroupAuto
                 autoplay={{
                     delay: 1500,
                     pauseOnMouseEnter: true
                 }}
                 breakpoints={{
+                    450: {
+                        loop: articles.length > 3,
+                        slidesPerView: 1.6,
+                        coverflowEffect: {
+                            depth: 0
+                        },
+                    },
+                    550: {
+                        loop: articles.length > 3,
+                        slidesPerView: 1.8,
+                        coverflowEffect: {
+                            depth: 0
+                        },
+                    },
                     640: {
-                        loop: articles.length >= 5,
+                        loop: articles.length > 3,
                         slidesPerView: 2.2,
                         coverflowEffect: {
                             depth: 0
                         },
                     },
                     768: {
-                        loop: articles.length >= 9,
+                        loop: articles.length > 3,
                         slidesPerView: 2.8,
                         coverflowEffect: {
                             depth: 0
                         },
                     },
                     1024: {
-                        loop: articles.length >= 11,
+                        loop: articles.length > 5,
                         slidesPerView: 3.5,
                         coverflowEffect: {
                             depth: 0
                         }
                     },
                     1280: {
-                        loop: articles.length >= 14,
+                        loop: articles.length > 6,
                         slidesPerView: 4.2,
                         coverflowEffect: {
                             depth: 0
