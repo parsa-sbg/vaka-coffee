@@ -1,5 +1,3 @@
-import ArticlesSlider from "@/components/common/ArticlesSlider";
-import ProductsSlider from "@/components/common/ProductsSlider";
 import AllCategories from "@/components/modules/index/AllCategories";
 import ArticlesSection from "@/components/modules/index/ArticlesSection";
 import Baner from "@/components/modules/index/Baner";
