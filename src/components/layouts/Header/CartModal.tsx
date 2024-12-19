@@ -14,7 +14,7 @@ function CartModal({ userCart }: props) {
     const { isCartModalOpen, setIsCartModalOpen } = useCartModalStore()
 
     return (
-        <div onClick={e => { e.stopPropagation() }} className={`${isCartModalOpen ? ' p-4 scale-100' : 'scale-0 -translate-x-36 -translate-y-40'} flex flex-col rounded-tl-sm shadow-custom shadow-black drop-shadow-lg transition-all duration-300 absolute  overflow-hidden top-full left-3/4 w-72 h-80 bg-secondary rounded-2xl`}>
+        <div onClick={e => { e.stopPropagation() }} className={`${isCartModalOpen ? 'scale-100 visible opacity-100' : 'scale-0 invisible opacity-0 -translate-x-36 -translate-y-40'} p-4 gpugpu-enabled flex flex-col rounded-tl-sm shadow-custom shadow-black drop-shadow-lg transition-all duration-300 absolute overflow-hidden top-full left-3/4 w-72 h-80 bg-secondary rounded-2xl`}>
 
             <div className='overflow-scroll h-full no-scrollbar flex flex-col gap-4'>
                 {userCart.length
