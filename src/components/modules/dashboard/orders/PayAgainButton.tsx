@@ -19,8 +19,6 @@ function PayAgainButton({ orderId }: props) {
         })
         const data = await res.json()
         setIsLoading(false)
-
-        console.log(data);
         
         if (res.status == 200) {
             route.replace(data.paymentUrl)

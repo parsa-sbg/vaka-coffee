@@ -12,7 +12,6 @@ type detailsPros = {
 }
 
 function Details({ title, commentsCount, dynamicFields, price, averageScore, discount }: detailsPros) {
-    console.log(averageScore);
 
     return (
         <div className='mt-5'>

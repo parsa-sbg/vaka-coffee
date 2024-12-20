@@ -37,8 +37,6 @@ function Register() {
     const [errors, setErrors] = useState({ name: false, username: false, phone: false, password: false, repeatPassword: false, otp: false })
     const route = useRouter()
 
-    console.log(formDatas);
-
 
 
     const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -35,8 +35,6 @@ type props = {
 }
 
 function UpdateProductModal({ hideModal, setProducts, categories, product }: props) {
-    console.log(product);
-
 
     const [name, setName] = useState(product.name)
     const [shortName, setShortName] = useState(product.shortName)

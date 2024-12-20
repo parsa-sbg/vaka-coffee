@@ -17,8 +17,6 @@ export const PUT = async (
     }
 
     const reqBody = await req.json()
-    console.log(reqBody);
-
 
     const validationSchema = z.string(z.enum(['PAID', 'PREPARING', 'SENT', 'CANCELED']))
 

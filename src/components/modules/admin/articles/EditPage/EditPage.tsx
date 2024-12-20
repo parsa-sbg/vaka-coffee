@@ -86,9 +86,6 @@ function EditPage({ intialArticle }: props) {
         const data = await res.json()
         setIsLoading(false)
 
-        console.log(res);
-        console.log(data);
-
 
         if (res.status == 200) {
             const timeout = setTimeout(() => {
