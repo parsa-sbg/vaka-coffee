@@ -2,17 +2,17 @@ import toPersianNumber from "@/utils/toPersianNubmer";
 import { z } from "zod";
 
 
-export const nameSchema = z.string()
+export const nameSchema = z.string({message: 'نام الزامی است.'})
     .min(3, 'نام بسیار کوتاه است !')
     .max(20, toPersianNumber('نام نمیتواند از 20 کاراکتر بیشتر باشد !'))
     .trim()
 
-export const passwordSchema = z.string()
+export const passwordSchema = z.string({message: 'پسسورد الزامی است.'})
     .regex(/^\S*$/, "فرمت پسورد صحیح نیست .")
     .min(8, toPersianNumber('رمز عبور باید حداقل 8 کاراکتر باشد.'))
 
 
-export const usernameSchema = z.string()
+export const usernameSchema = z.string({message: 'نام کاربری الزامی است.'})
     .min(5, toPersianNumber('نام کاربری باید از 5 کاراکتر بیشتر باشد.'))
     .max(20, toPersianNumber('نام کاربری نباید از 20 کاراکتر بیشتر باشد.'))
     .regex(/^[A-Za-z0-9]*$/, 'نام کاربری فقط میتواند شامل حروف و اعداد انگلیسی باشد.')
@@ -21,12 +21,12 @@ export const usernameSchema = z.string()
     .toLowerCase()
 
 
-export const phoneSchema = z.string()
+export const phoneSchema = z.string({message: 'شماره تماس الزامی است.'})
     .startsWith('09', 'شماره تماس باید با 09 شروع شود.')
     .regex(/^\d*$/, "شماره تماس صحیح نیست.")
     .length(11, 'شماره تماس باید شامل 11 عدد باشد.')
 
-export const otpSchema = z.string()
+export const otpSchema = z.string({message: 'کد یکبار مصرف الزامی است.'})
     .length(5, 'کد یکبار مصرف باید 5 رقم داشته باشد.')
 
 
