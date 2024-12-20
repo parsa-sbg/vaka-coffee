@@ -8,7 +8,7 @@ import { phoneSchema } from "@/validation/auth"
 
 export const checkIsUserNameExist = async (username: string) => {
     await connectToDataBase()
-    const isExist = await UserModel.exists({ username })
+    const isExist = await UserModel.exists({ username: username.toLowerCase() })
     if (isExist) {
         return true
     }
