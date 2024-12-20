@@ -7,7 +7,7 @@ import {NextRequest} from "next/server"
 import bcrypt from "bcryptjs"
 import {OtpModel} from "@/models"
 import {ProductInterface, productmodel} from "@/models/Product"
-import {CartInterface} from "@/models/Cart"
+import {CartInterface, CartItemInterface} from "@/models/Cart"
 
 export const POST = async (req: NextRequest) => {
   const reqBody: {
@@ -70,14 +70,15 @@ export const POST = async (req: NextRequest) => {
 
     if (newUser) {
       // create new user cart and store local cart to database
-      let newUserCart: CartInterface = {user: newUser, cart: []}
 
-      parsedData.data.localCart.forEach(async (item) => {
+      const newUserCart = parsedData.data.localCart.filter(async (item) => {
         const product = await productmodel.findOne({_id: item.product})
         if (product) {
-          newUserCart.cart.push({count: item.count, product: product})
+          return {count: item.count, product: product._id}
         }
       })
+
+      console.log("newUserCart ==>>", newUserCart)
 
       await CartModel.create({
         user: newUser._id,
