@@ -16,7 +16,7 @@ function Details({ title, commentsCount, dynamicFields, price, averageScore, dis
     return (
         <div className='mt-5'>
 
-            <h1 className='font-bold text-xl'>{title}</h1>
+            <h1 className='font-bold text-xl'>{toPersianNumber(title)}</h1>
 
             <div className='flex items-center gap-2 mt-2'>
                 <div className='flex items-center gap-1'>
