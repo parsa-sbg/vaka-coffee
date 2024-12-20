@@ -31,7 +31,7 @@ export interface ProductModelInterface extends Model<ProductDocument> { }
 
 // schema
 
-export const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
 
     name: {
         type: String,
