@@ -32,7 +32,7 @@ function ProductBox({ priceGoldColor, discount, name, price, imageUrl, shortName
 
             </div>
 
-            <span className='mt-2 text-sm sm:text-base font-semibold line-clamp-1'>{name}</span>
+            <span className='mt-2 text-sm sm:text-base font-semibold line-clamp-1'>{toPersianNumber(name)}</span>
 
             <div className='flex items-center gap-1 mt-2'>
                 {Array(Math.ceil(averageScore)).fill(0).map(item => (

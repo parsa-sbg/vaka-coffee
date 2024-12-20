@@ -15,7 +15,7 @@ export default async function Home() {
   await connectToDataBase()
 
   const allCategories = await categoryModel.find().sort({ updatedAt: -1 })
-  const categoriesForCategoriesSection = await categoryModel.find( { showInHomePage: true }).sort({ updatedAt: -1 })
+  const categoriesForCategoriesSection = await categoryModel.find({ showInHomePage: true }).sort({ updatedAt: -1 })
 
   const discountedProducts = await productmodel.find({ discount: { $gt: 0 }, stock: { $gt: 0 } }).limit(10)
 
@@ -28,7 +28,7 @@ export default async function Home() {
         <AllCategories allCats={allCategories} />
 
 
-        <SeasionSection discountedProducts={discountedProducts} />
+        {discountedProducts.length > 2 ? <SeasionSection discountedProducts={discountedProducts} /> : ''}
 
         {categoriesForCategoriesSection.map(cat => (
           <CategorySection key={cat._id.toString()} category={cat} />
