@@ -31,10 +31,11 @@ type serverResStatus409 = {
 
 function Register() {
     const { localCart } = useCartStore()
-    
+
     const formDataLocalCart = localCart || []
 
-    const [formDatas, setFormDatas] = useState({ name: '', username: '', phone: '', password: '', repeatPassword: '', otp: '', formDataLocalCart })
+    
+    const [formDatas, setFormDatas] = useState({ name: '', username: '', phone: '', password: '', repeatPassword: '', otp: '', localCart: formDataLocalCart })
     const [isPending, setIsPending] = useState(false)
     const [errors, setErrors] = useState({ name: false, username: false, phone: false, password: false, repeatPassword: false, otp: false })
     const route = useRouter()
@@ -47,6 +48,8 @@ function Register() {
         // frontEnd validation
 
         const parsedData = userRegisterSchema.safeParse(formDatas)
+        console.log(parsedData);
+
 
         if (!parsedData.success) {
             parsedData.error.errors.map(error => {
