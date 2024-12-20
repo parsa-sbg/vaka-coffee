@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Categories from './Categories';
 import { CartItemInterface } from '@/models/Cart';
 import { CategoryInterface } from '@/models/Category';
+import { usePathname } from 'next/navigation';
 
 type Props = {
     userIntialCart: CartItemInterface[] | null;
@@ -16,6 +17,7 @@ type Props = {
 function Header({ userIntialCart, categories }: Props) {
     const [_scrollTop, setScrollTop] = useState(0);
     const [isScrolledTop, setIsScrolledTop] = useState(true);
+    const pathName = usePathname()
 
     const throttle = (func: Function, limit: number) => {
         let inThrottle = false;
@@ -67,10 +69,10 @@ function Header({ userIntialCart, categories }: Props) {
                 <div className="flex items-center gap-2 lg:gap-5">
                     <div className="items-center gap-5 hidden lg:flex">
                         <Categories categories={categories} />
-                        <Link href="/off" className="hover:text-main duration-200 text-nowrap">
+                        <Link href="/off" className={`${pathName.startsWith('/off') ? 'text-main' : ''} hover:text-main duration-200 text-nowrap`}>
                             تخفیف ها🔥
                         </Link>
-                        <Link href="/dashboard" className="hover:text-main duration-200 text-nowrap">
+                        <Link href="/dashboard" className={`${pathName.startsWith('/dashboard') ? 'text-main' : ''} hover:text-main duration-200 text-nowrap`}>
                             حساب کاربری من
                         </Link>
                     </div>
