@@ -141,7 +141,7 @@ function PhoneInputs({ setErrors, errors, formDatas, setFormDatas }: Props) {
                     className={`${isOtpSent && '!opacity-0'} opacity-100 transition-all duration-300 w-full bg-transparent rounded-r-md outline-none py-2 px-3 placeholder:text-right`}
                     type="text" />
 
-                <div className={`${isOtpSent && 'w-full '} flex items-center justify-end absolute py-1 h-full left-1 top-0 bottom-0 my-auto gap-1 sm:gap-3`}>
+                <div className={`${isOtpSent && 'w-full '} flex items-center justify-between absolute py-1 h-full left-0 top-0 bottom-0 my-auto gap-1 sm:gap-3`}>
 
                     <div className={`${isOtpSent && '!max-w-52 px-1 py-0.5'} bg-secondary flex items-center gap-1 overflow-hidden max-w-0 transition-all duration-500 h-full rounded-md`}>
                         <span className='text-nowrap text-sm opacity-80'>کد ارسالی :</span>
@@ -234,7 +234,7 @@ function PhoneInputs({ setErrors, errors, formDatas, setFormDatas }: Props) {
                         </div>
                     </div>
 
-                    <button disabled={isOtpSent ? counter > 0 : false} onClick={sendOtp} type='button' className='w-26 text-sm sm:text-base h-full text-nowrap bg-bgColer text-main py-1 px-3 rounded-md transition-all duration-300'>
+                    <button disabled={isOtpSent ? counter > 0 : false} onClick={sendOtp} type='button' className='ml-1 text-xs h-full text-nowrap bg-bgColer text-main py-1 px-2 xs:text-sm xs2:px-4 rounded-md transition-all duration-300'>
                         {isSendOtpPending ? <div className='w-3 h-3 border-x-2 border-main rounded-full animate-spin mx-auto' /> : isOtpSent ? counter > 0 ? counter : 'ارسال مجدد' : 'ارسال کد'}
                     </button>
 
