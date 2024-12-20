@@ -9,10 +9,14 @@ type props = {
 
 function SeasionSection({ discountedProducts }: props) {
 
-    const minSlides = 10;
-    const products = [...Array(Math.ceil(minSlides / discountedProducts.length))]
-        .flatMap(() => discountedProducts)
-        .slice(0, minSlides);
+    let products = discountedProducts
+
+    if (products.length < 10 && products.length) {
+        const minSlides = 10;
+        products = [...Array(Math.ceil(minSlides / products.length))]
+            .flatMap(() => products)
+            .slice(0, minSlides);
+    }
 
 
     return (
