@@ -15,7 +15,7 @@ export default async function Home() {
   await connectToDataBase()
 
   const allCategories = await categoryModel.find().sort({ updatedAt: -1 })
-  const categoriesForCategoriesSection = await categoryModel.find({ updatedAt: -1 }, { showInHomePage: true })
+  const categoriesForCategoriesSection = await categoryModel.find( { showInHomePage: true }).sort({ updatedAt: -1 })
 
   const discountedProducts = await productmodel.find({ discount: { $gt: 0 }, stock: { $gt: 0 } }).limit(10)
 
