@@ -1,7 +1,7 @@
 import ProductsHeader from '@/components/common/ProductsListHeader'
 import Products from '@/components/layouts/Products/Products'
-import { categoryModel, connectToDataBase } from '@/models'
-import { notFound } from 'next/navigation'
+import { categoryModel, connectToDataBase, productmodel } from '@/models'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 type props = {
@@ -14,19 +14,21 @@ export default async function page({ params }: props) {
 
 
     await connectToDataBase()
-    const categoryWithProducts = await categoryModel.findOne({ shortName: catShortname }).populate('products').sort({createdAt : -1})
+    const category = await categoryModel.findOne({ shortName: catShortname }).sort({ createdAt: -1 })
+    if (!category) {
+        redirect('/products')
+    }
     const allCategories = await categoryModel.find({})
 
-    if (!categoryWithProducts) {
-        return notFound()
-    }
+
+    const products = await productmodel.find({ category: category._id })
 
     return (
         <div className='mt-16'>
-            <ProductsHeader title={`محصولات دسته ${categoryWithProducts.name}`} />
+            <ProductsHeader title={`محصولات دسته ${category.name}`} />
 
             <div className='container mt-8'>
-                <Products categoryShortName={catShortname} categories={JSON.parse(JSON.stringify(allCategories))} intialProducts={JSON.parse(JSON.stringify(categoryWithProducts.products)) || []} />
+                <Products categoryShortName={catShortname} categories={JSON.parse(JSON.stringify(allCategories))} intialProducts={JSON.parse(JSON.stringify(products))} />
             </div>
         </div>
     )
