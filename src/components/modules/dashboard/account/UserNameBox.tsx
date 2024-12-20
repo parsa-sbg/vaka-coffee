@@ -59,7 +59,9 @@ function UserNameBox({ serverIntialUserName }: props) {
         if (res.status == 200) {
             toast.custom((t) => (
                 <SuccessAlert t={t} title='نام کاربری با موفقیت تغییر کرد' />
-            ))
+            ), {
+                position: 'top-left'
+            })
             setIsInputDisable(true)
             setDataBaseUserName(userName)
         } else if (res.status == 409) {
