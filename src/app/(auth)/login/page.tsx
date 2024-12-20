@@ -56,7 +56,7 @@ function Login() {
     } else {
       setErrors(prev => ({ ...prev, username: true }))
       toast.custom((t) => (
-        <div className={`${t.visible ? '!opacity-100 !scale-100' : '!opacity-0 !scale-50'} opacity-0 scale-50 transition-all duration-500 bg-white text-bgColer py-1 px-2 text-xs md:text-sm rounded-md flex items-center gap-3`}>
+        <div className={`${t.visible ? '!opacity-100 !scale-100' : '!opacity-0 !scale-50'} opacity-0 scale-50 transition-all duration-500 bg-white text-bgColer py-1.5 px-2 text-sm rounded-md flex items-center gap-3`}>
           <div className=' flex items-center gap-3'>
             <IoIosWarning size={25} className='text-yellow-500' />
             کاربری با این یوزر نیم پیدا نشد !
@@ -99,7 +99,7 @@ function Login() {
       setStep(2)
     } else {
       toast.custom((t) => (
-        <div className={`${t.visible ? '!opacity-100 !scale-100' : '!opacity-0 !scale-50'} opacity-0 scale-50 transition-all duration-500 bg-white text-bgColer py-1 px-2 text-xs md:text-sm rounded-md flex items-center gap-3`}>
+        <div className={`${t.visible ? '!opacity-100 !scale-100' : '!opacity-0 !scale-50'} opacity-0 scale-50 transition-all duration-500 bg-white text-bgColer py-1.5 px-2 text-sm rounded-md flex items-center gap-3`}>
           <div className=' flex items-center gap-3'>
             <IoIosWarning size={25} className='text-yellow-500' />
             کاربری با این شماره پیدا نشد !
