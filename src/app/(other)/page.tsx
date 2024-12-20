@@ -14,10 +14,9 @@ export default async function Home() {
 
   await connectToDataBase()
 
-  const categoriesWithProducts = await categoryModel.find({ showInHomePage: true }).populate('products')
   const allCategories = await categoryModel.find().sort({ createdAt: -1 })
 
-  const discountedProducts = await productmodel.find({ discount: { $gt: 0 } }).limit(10)
+  const discountedProducts = await productmodel.find({ discount: { $gt: 0 }, stock: { $gt: 0 } }).limit(10)
 
   const articles = await ArticleModel.find({})
 
@@ -30,8 +29,8 @@ export default async function Home() {
 
         <SeasionSection discountedProducts={discountedProducts} />
 
-        {categoriesWithProducts.map(cat => (
-          <CategorySection key={cat._id.toString()} categoryWithProducts={cat} />
+        {allCategories.map(cat => (
+          <CategorySection key={cat._id.toString()} category={cat} />
         ))}
 
         {articles.length > 3 ? <ArticlesSection articles={JSON.parse(JSON.stringify(articles))} /> : ''}

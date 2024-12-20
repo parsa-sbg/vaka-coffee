@@ -1,5 +1,4 @@
 import mongoose, { Model } from 'mongoose'
-import { ProductInterface } from './Product'
 
 // types and interfaces
 
@@ -8,7 +7,6 @@ export interface CategoryInterface {
   name: string
   shortName: string
   iconUrl: string
-  products?: ProductInterface[]
   showInHomePage: boolean
 }
 
@@ -37,14 +35,6 @@ const schema = new mongoose.Schema({
   }
 })
 
-schema.virtual('products', {
-  ref: 'product',
-  localField: '_id',
-  foreignField: 'category'
-})
-
-schema.set('toObject', { virtuals: true })
-schema.set('toJSON', { virtuals: true })
 
 // the model
 
