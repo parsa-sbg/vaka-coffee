@@ -36,16 +36,31 @@ export default async function Product({ params }: props) {
     const acceptedComments = await CommentModel.find({ product: product._id, status: 'ACCEPTED' }).populate({ path: 'user', select: 'name' }).sort({ _id: -1 })
 
     // get more products
-    const moreProducts = await productmodel.aggregate([
+    let moreProducts = await productmodel.aggregate([
         { $match: { _id: { $ne: product._id } } },
         { $sample: { size: 10 } }
     ])
 
     // get related product
-    const relatedProducts = await productmodel.aggregate([
+    let relatedProducts = await productmodel.aggregate([
         { $match: { _id: { $ne: product._id }, category: new mongoose.Types.ObjectId(product.category) } },
         { $sample: { size: 10 } }
     ])
+
+
+    if (moreProducts.length < 10 && moreProducts.length) {
+        const minSlides = 10;
+        moreProducts = [...Array(Math.ceil(minSlides / moreProducts.length))]
+            .flatMap(() => moreProducts)
+            .slice(0, minSlides);
+    }
+
+    if (relatedProducts.length < 10 && relatedProducts.length) {
+        const minSlides = 10;
+        relatedProducts = [...Array(Math.ceil(minSlides / relatedProducts.length))]
+            .flatMap(() => relatedProducts)
+            .slice(0, minSlides);
+    }
 
 
     return (
