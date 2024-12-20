@@ -38,7 +38,7 @@ type Props = {
         password: string;
         repeatPassword: string;
         otp: string;
-        localCart: any;
+        formDataLocalCart: any;
     }>>
 }
 
