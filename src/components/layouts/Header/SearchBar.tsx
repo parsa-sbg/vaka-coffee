@@ -18,7 +18,7 @@ const SearchBar = memo(() => {
                 }}
                 value={search}
                 onChange={e => { setSearch(e.target.value) }}
-                className='w-full bg-secondary pr-2 lg:pr-4 pl-8 py-2 rounded-md outline-none border-2 border-transparent transition-colors duration-200 focus:border-main'
+                className='w-full bg-secondary pr-2 lg:pr-4 pl-8 py-2 rounded-2xl outline-none border-2 border-transparent transition-colors duration-200 focus:border-main'
                 type="text"
                 placeholder='جستجوی محصولات' />
             <div onClick={() => {
