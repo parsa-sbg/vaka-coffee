@@ -86,7 +86,7 @@ function Header({ userIntialCart, categories }: Props) {
                 </div>
 
             </header>
-            <div className={`${isScrolledTop ? 'scale-0' : ''} gpu-enabled bg-bgColer rounded-full p-1 border border-secondary fixed left-2 md:left-4 top-5 transition-all duration-300`}>
+            <div className={`${isScrolledTop ? 'scale-0' : ''} gpu-enabled z-40 bg-bgColer rounded-full p-1 border border-secondary fixed left-2 md:left-4 top-5 transition-all duration-300`}>
                 <CartIcon userIntialCart={userIntialCart} />
             </div>
         </>
