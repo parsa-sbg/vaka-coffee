@@ -58,7 +58,7 @@ function Header({ userIntialCart, categories }: Props) {
     return (
         <header
             className={`${isScrolledTop ? 'top-0' : '-top-20'
-                } z-40 fixed left-0 right-0 border-b-main border-b bg-bgColer transition-all duration-200`}
+                } z-40 gpu-enabled fixed left-0 right-0 border-b-main border-b bg-bgColer transition-all duration-200`}
         >
             <div className="container relative flex items-center justify-between py-4 gap-2 lg:gap-5">
                 <div className="flex items-center w-full gap-2 lg:gap-5">
@@ -84,7 +84,7 @@ function Header({ userIntialCart, categories }: Props) {
                 </div>
             </div>
 
-            <div className={`${isScrolledTop ? 'scale-0' : ''} bg-bgColer rounded-full p-1 border border-secondary fixed left-2 md:left-4 top-5 transition-all duration-300`}>
+            <div className={`${isScrolledTop ? 'scale-0' : ''} gpu-enabled bg-bgColer rounded-full p-1 border border-secondary fixed left-2 md:left-4 top-5 transition-all duration-300`}>
                 <CartIcon userIntialCart={userIntialCart} />
             </div>
         </header>
