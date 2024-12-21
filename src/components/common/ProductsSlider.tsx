@@ -27,7 +27,7 @@ function ProductsSlider({ priceGoldColor, products }: productsSliderProps) {
                 slidesPerGroup={1}
                 loop={products.length > 4}
                 autoplay={{
-                    delay: 1500,
+                    delay: 2500,
                     pauseOnMouseEnter: true
                 }}
                 breakpoints={{

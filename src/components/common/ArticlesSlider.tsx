@@ -22,7 +22,7 @@ function ArticlesSlider({ articles }: props) {
                 loop={articles.length > 3}
                 centeredSlides
                 autoplay={{
-                    delay: 1500,
+                    delay: 2500,
                     pauseOnMouseEnter: true
                 }}
                 breakpoints={{
