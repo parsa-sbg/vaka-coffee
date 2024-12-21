@@ -21,7 +21,7 @@ function ArticleBox({ article }: props) {
 
             <div className=" text-center p-3">
                 <h4 className='text-sm sm:text-base font-semibold line-clamp-1'>{article.title}</h4>
-                <p className="line-clamp-1 text-center break-words mt-2 text-wrap text-sm">{article.description}</p>
+                <p className="line-clamp-1 text-center break-words mt-2 text-wrap text-xs">{article.description}</p>
                 <button className="mt-2 py-1.5 px-2 rounded-md bg-green-700 transition-colors duration-300 hover:bg-green-800 text-sm">بیشتر بخوانید</button>
             </div>
 

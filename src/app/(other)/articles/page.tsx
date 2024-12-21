@@ -21,7 +21,7 @@ async function page() {
             </div>
 
             <div className='mt-14 grid xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5'>
-                {articles.length > 5
+                {articles.length
                     ? articles.map(article => (
                         <div key={article._id.toString()}>
                             <ArticleBox article={article} />
