@@ -18,7 +18,7 @@ function ProductsList({ setIsMenuOpen, products, isLoading, setSelectedSort }: P
     <div className=''>
       <Header setSelectedSort={setSelectedSort} setIsMenuOpen={setIsMenuOpen} />
 
-      <div className='container mt-5 grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+      <div className='container mt-5 grid xxs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
         {products.length
           ? products.map(product => (
             !isLoading

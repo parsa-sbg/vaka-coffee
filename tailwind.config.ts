@@ -19,6 +19,7 @@ const config: Config = {
         padding: '5px'
       },
       screens: {
+        xxs: '330px',
         xs: '380px',
         xs2: '450px',
         xs3: '550px',

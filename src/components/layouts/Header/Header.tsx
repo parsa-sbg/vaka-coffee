@@ -56,38 +56,41 @@ function Header({ userIntialCart, categories }: Props) {
     }, [scrollHandler]);
 
     return (
-        <header
-            className={`${isScrolledTop ? 'top-0' : '-top-20'
-                } z-40 gpu-enabled fixed left-0 right-0 border-b-main border-b bg-bgColer transition-all duration-200`}
-        >
-            <div className="container relative flex items-center justify-between py-4 gap-2 lg:gap-5">
-                <div className="flex items-center w-full gap-2 lg:gap-5">
-                    <Logo />
-                    <SearchBar />
-                </div>
-
-                <div className="flex items-center gap-2 lg:gap-5">
-                    <div className="items-center gap-5 hidden lg:flex">
-                        <Categories categories={categories} />
-                        <Link href="/off" className={`${pathName.startsWith('/off') ? 'text-main' : ''} hover:text-main duration-200 text-nowrap`}>
-                            تخفیف ها🔥
-                        </Link>
-                        <Link href="/dashboard" className={`${pathName.startsWith('/dashboard') ? 'text-main' : ''} hover:text-main duration-200 text-nowrap`}>
-                            حساب کاربری من
-                        </Link>
+        <>
+            <header
+                className={`${isScrolledTop ? 'top-0' : '-top-20'
+                    } z-40 gpu-enabled fixed left-0 gpu-enabled right-0 border-b-main border-b bg-bgColer transition-all duration-200`}
+            >
+                <div className="container relative flex items-center justify-between py-4 gap-2 lg:gap-5">
+                    <div className="flex items-center w-full gap-2 lg:gap-5">
+                        <Logo />
+                        <SearchBar />
                     </div>
 
-                    <div className={`${isScrolledTop ? '' : 'scale-0 transition-transform duration-300'}`}>
-                        <CartIcon userIntialCart={userIntialCart || []} />
+                    <div className="flex items-center gap-2 lg:gap-5">
+                        <div className="items-center gap-5 hidden lg:flex">
+                            <Categories categories={categories} />
+                            <Link href="/off" className={`${pathName.startsWith('/off') ? 'text-main' : ''} hover:text-main duration-200 text-nowrap`}>
+                                تخفیف ها🔥
+                            </Link>
+                            <Link href="/dashboard" className={`${pathName.startsWith('/dashboard') ? 'text-main' : ''} hover:text-main duration-200 text-nowrap`}>
+                                حساب کاربری من
+                            </Link>
+                        </div>
+
+                        <div className={`${isScrolledTop ? '' : 'scale-0 transition-transform duration-300'}`}>
+                            <CartIcon userIntialCart={userIntialCart || []} />
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
 
+            </header>
             <div className={`${isScrolledTop ? 'scale-0' : ''} gpu-enabled bg-bgColer rounded-full p-1 border border-secondary fixed left-2 md:left-4 top-5 transition-all duration-300`}>
                 <CartIcon userIntialCart={userIntialCart} />
             </div>
-        </header>
+        </>
+
     );
 }
 
