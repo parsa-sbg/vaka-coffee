@@ -18,10 +18,10 @@ export default async function page({ params }: props) {
     if (!category) {
         redirect('/products')
     }
-    const allCategories = await categoryModel.find({})
+    const allCategories = await categoryModel.find({}).sort({ updatedAt: -1 })
 
 
-    const products = await productmodel.find({ category: category._id })
+    const products = await productmodel.find({ category: category._id }).sort({ createdAt: -1 })
 
     return (
         <div className='mt-16'>

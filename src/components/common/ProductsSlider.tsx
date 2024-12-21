@@ -60,7 +60,7 @@ function ProductsSlider({ priceGoldColor, products }: productsSliderProps) {
 
                 {products.map((product, index) => (
                     <SwiperSlide key={product._id.toString() + index} className='!flex !justify-center !px-2'>
-                        <div className='max-w-60'><ProductBox averageScore={product.averageScore} shortName={product.shortName} imageUrl={product.pictures[0]} discount={product.discount} name={product.name} price={product.price} priceGoldColor={priceGoldColor} /></div>
+                        <div className='max-w-60'><ProductBox product={product} priceGoldColor={priceGoldColor} /></div>
                     </SwiperSlide>
                 ))}
                     {/* <SwiperSlide className='!flex !justify-center !px-2'>

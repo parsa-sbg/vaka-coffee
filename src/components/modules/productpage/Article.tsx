@@ -6,7 +6,7 @@ type props = {
 
 function Article({ desc }: props) {
     return (
-        <div dangerouslySetInnerHTML={{ __html: desc }}></div>
+        <div className='md:mx-14 xl:mx-36 border border-secondary rounded-xl p-5' dangerouslySetInnerHTML={{ __html: desc }}></div>
     )
 }
 
