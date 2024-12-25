@@ -8,15 +8,17 @@ import Categories from './Categories';
 import { CartItemInterface } from '@/models/Cart';
 import { CategoryInterface } from '@/models/Category';
 import { usePathname } from 'next/navigation';
+import { getUserIntialCart } from '@/actions/cart';
 
-type Props = {
-    userIntialCart: CartItemInterface[] | null;
-    categories: CategoryInterface[];
-};
 
-function Header({ userIntialCart, categories }: Props) {
+
+function Header() {
     const [_scrollTop, setScrollTop] = useState(0);
     const [isScrolledTop, setIsScrolledTop] = useState(true);
+
+    const [categories, setCategories] = useState<CategoryInterface[]>([])
+    const [userIntialCart, setUserIntialCart] = useState<CartItemInterface[] | null>(null)
+
     const pathName = usePathname()
 
     const throttle = (func: Function, limit: number) => {
@@ -31,6 +33,23 @@ function Header({ userIntialCart, categories }: Props) {
             }
         };
     };
+
+    useEffect(() => {
+
+        // get categoreis
+        fetch('/api/categories')
+            .then(res => res.json())
+            .then(data => {
+                setCategories(data.categories)
+            })
+
+
+        // get userIntialCart
+        getUserIntialCart()
+            .then(intialCart => {
+                setUserIntialCart(intialCart)
+            })
+    }, [])
 
     const scrollHandler = useCallback(() => {
         setScrollTop(prev => {
