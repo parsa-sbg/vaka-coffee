@@ -2,8 +2,10 @@
 
 import { OtpModel } from "@/models"
 import { UserModel } from "@/models";
+import { authUserWithToken } from "@/utils/server/auth";
 import { connectToDataBase } from "@/utils/server/dataBase"
 import { phoneSchema } from "@/validation/auth"
+import { cookies } from "next/headers";
 
 
 export const checkIsUserNameExist = async (username: string) => {
@@ -100,4 +102,15 @@ export const sentOtpAction = async (phone: string) => {
         console.log('sent otp error => ', err);
         return { success: false, message: 'خطای ناشناخته !' }
     }
+}
+
+export const getUserRole = async () => {
+    const token = (await cookies()).get('token')?.value
+    const user = await authUserWithToken(token)
+
+    if (!user) {
+        return 'USER'
+    }
+
+    return user.role
 }

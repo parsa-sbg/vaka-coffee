@@ -7,8 +7,7 @@ import { CartItemInterface, CartModel } from "@/models/Cart";
 import { cookies } from "next/headers";
 import { authUserWithToken } from "@/utils/server/auth";
 import { categoryModel, connectToDataBase } from "@/models";
-import Link from "next/link";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import AdminPanelLink from "@/components/common/AdminPanelLink";
 
 
 
@@ -28,7 +27,7 @@ export default async function OtherLayout({ children }: { children: React.ReactN
     }
 
     const categories = await categoryModel.find()
-    
+
 
 
     return (
@@ -41,11 +40,7 @@ export default async function OtherLayout({ children }: { children: React.ReactN
             <div className="container"><BottomNav /></div>
 
 
-            {user && user.role !== 'USER'
-                ? <Link href={'/p-admin'} className="border border-secondary rounded-full transition-colors duration-300 hover:border-main bg-bgColer fixed p-3 bottom-20 lg:bottom-3 left-2 md:left-4 flex justify-center items-center z-30">
-                    <MdOutlineAdminPanelSettings size={20} className="text-main" />
-                </Link>
-                : ''}
+            <AdminPanelLink />
         </div>
     );
 }
