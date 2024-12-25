@@ -48,7 +48,8 @@ export default async function Home() {
   );
 }
 
-export const revalidate = 60
+export const revalidate = 120
+export const dynamic = 'force-static'
 
 export const metadata: Metadata = {
   title: "خرید قهوه | فروشگاه آنلاین قهوه واکا 🧙 ☕️",

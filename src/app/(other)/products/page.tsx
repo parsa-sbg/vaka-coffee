@@ -21,3 +21,6 @@ export default async function page() {
   )
 }
 
+
+export const revalidate = 120
+export const dynamic = 'force-static'

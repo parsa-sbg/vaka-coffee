@@ -92,7 +92,9 @@ export default async function Product({ params }: props) {
 }
 
 
-export const revalidate = 60
+export const revalidate = 120
+export const dynamic = 'force-static'
+
 
 export const generateMetadata = async ({ params }: props) => {
     const shortName = (await params).shortname

@@ -35,6 +35,7 @@ export default page;
 
 
 export const revalidate = 120
+export const dynamic = 'force-static'
 
 export async function generateMetadata({ params }: props) {
 
