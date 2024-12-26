@@ -3,6 +3,7 @@
 import SuccessAlert from '@/components/common/alerts/SuccessAlert'
 import Modal from '@/components/common/Modal'
 import { useModal } from '@/hooks/useModal'
+import { useCartStore } from '@/store/cartStore'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -11,12 +12,13 @@ function LogOUtBtn() {
 
     const { hideModal, isModalShow, showModal } = useModal()
     const route = useRouter()
+    const { setCart } = useCartStore()
 
 
     const logOut = async () => {
         const res = await fetch('/api/auth/logout')
         if (res.status == 200) {
-
+            setCart([])
             const timeOut = setTimeout(() => {
                 route.replace('/')
             }, 2000);

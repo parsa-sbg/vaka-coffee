@@ -1,24 +1,22 @@
 import React from 'react'
 import CartItem from './CartItem'
-import { CartItemInterface } from '@/models/Cart'
 import { useRouter } from 'next/navigation'
 import { useCartModalStore } from '@/store/cartModalStore'
+import { useCartStore } from '@/store/cartStore'
 
-type props = {
-    userCart: CartItemInterface[]
-}
 
-function CartModal({ userCart }: props) {
+function CartModal() {
 
     const route = useRouter()
     const { isCartModalOpen, setIsCartModalOpen } = useCartModalStore()
+    const { cart } = useCartStore()
 
     return (
         <div onClick={e => { e.stopPropagation() }} className={`${isCartModalOpen ? 'scale-100 visible opacity-100' : 'scale-0 invisible opacity-0 -translate-x-36 -translate-y-40'} p-4 gpugpu-enabled flex flex-col rounded-tl-sm shadow-custom shadow-black drop-shadow-lg transition-all duration-300 absolute overflow-hidden top-full left-3/4 w-72 h-80 bg-secondary rounded-2xl`}>
 
             <div className='overflow-scroll h-full no-scrollbar flex flex-col gap-4'>
-                {userCart.length
-                    ? userCart.map(item => (
+                {cart.length
+                    ? cart.map(item => (
                         <CartItem key={item.product._id.toString()} count={item.count} produtc={item.product} />
                     ))
                     : <div className='h-full flex items-center justify-center text-nowrap'>سبد خریدتون خالیه ...</div>
@@ -29,13 +27,13 @@ function CartModal({ userCart }: props) {
                     <button onClick={() => {
                         route.push('/cart')
                         setIsCartModalOpen(false)
-                    }} disabled={userCart.length == 0} className='disabled:border-main disabled:bg-secondary disabled:hover:bg-secondary disabled:text-main border border-transparent text-nowrap w-full bg-main h-7 text-bgColer font-semibold px-4 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>
+                    }} disabled={cart.length == 0} className='disabled:border-main disabled:bg-secondary disabled:hover:bg-secondary disabled:text-main border border-transparent text-nowrap w-full bg-main h-7 text-bgColer font-semibold px-4 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>
                         مشاهده سبد خرید
                     </button>
                     <button onClick={() => {
                         route.push('/checkout')
                         setIsCartModalOpen(false)
-                    }} disabled={userCart.length == 0} className='disabled:border-main disabled:bg-secondary disabled:hover:bg-secondary disabled:text-main border border-transparent text-nowrap w-full bg-main h-7 text-bgColer font-semibold px-4 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>
+                    }} disabled={cart.length == 0} className='disabled:border-main disabled:bg-secondary disabled:hover:bg-secondary disabled:text-main border border-transparent text-nowrap w-full bg-main h-7 text-bgColer font-semibold px-4 py-1 rounded-md transition-all duration-300 sm:hover:bg-[#0f0f0f] sm:hover:text-main'>
                         تسویه حساب
                     </button>
                 </div>

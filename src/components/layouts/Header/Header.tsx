@@ -98,7 +98,7 @@ function Header() {
                         </div>
 
                         <div className={`${isScrolledTop ? '' : 'scale-0 transition-transform duration-300'}`}>
-                            <CartIcon userIntialCart={userIntialCart || []} />
+                            <CartIcon userIntialCart={userIntialCart} />
                         </div>
 
                     </div>
