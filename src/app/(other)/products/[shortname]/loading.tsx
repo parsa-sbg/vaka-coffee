@@ -53,27 +53,28 @@ function loading() {
             </div>
 
 
-            <div className="mt-16 h-96 rounded-lg bg-secondary animate-pulse">
+            <div className="mt-16 h-96 rounded-lg bg-secondary animate-pulse"></div>
 
+            <div className="container">
+                {Array(2).fill(0).map(() => (
+                    <section key={Math.random().toString()} className='mt-16 pb-16 border-b border-secondary'>
+                        <div className='flex flex-col gap-2 sm:flex-row justify-between mb-5 items-center'>
+                            <div className=' font-bold text-2xl relative before:absolute before:right-0 before:top-0 w-18 before:bottom-0 before:my-auto before:w-2 before:h-2 before:rounded-full before:bg-main'>
+                                <span className="mr-5 block w-full h-8 bg-secondary rounded-md animate-pulse"></span>
+                            </div>
+                            <div className="text-nowrap h-10 w-20 text-bgColer font-semibold px-4 md:px-7 py-2 transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main bg-secondary rounded-md animate-pulse"></div>
+                        </div>
+                        <div className="grid xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 ">
+                            <div className=""><ProductBoxSkeleton /></div>
+                            <div className="hidden xs:block"><ProductBoxSkeleton /></div>
+                            <div className="hidden sm:block"><ProductBoxSkeleton /></div>
+                            <div className="hidden lg:block"><ProductBoxSkeleton /></div>
+                            <div className="hidden lg:block"><ProductBoxSkeleton /></div>
+                        </div>
+                    </section>
+                ))}
             </div>
 
-            {Array(2).fill(0).map(() => (
-                <section key={Math.random().toString()} className='mt-16 pb-16 border-b border-secondary'>
-                    <div className='flex flex-col gap-2 sm:flex-row justify-between mb-5 items-center'>
-                        <div className=' font-bold text-2xl relative before:absolute before:right-0 before:top-0 w-18 before:bottom-0 before:my-auto before:w-2 before:h-2 before:rounded-full before:bg-main'>
-                            <span className="mr-5 block w-full h-8 bg-secondary rounded-md animate-pulse"></span>
-                        </div>
-                        <div className="text-nowrap h-10 w-20 text-bgColer font-semibold px-4 md:px-7 py-2 transition-all duration-300 sm:hover:bg-secondary sm:hover:text-main bg-secondary rounded-md animate-pulse"></div>
-                    </div>
-                    <div className="grid xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 ">
-                        <div className=""><ProductBoxSkeleton /></div>
-                        <div className="hidden xs:block"><ProductBoxSkeleton /></div>
-                        <div className="hidden sm:block"><ProductBoxSkeleton /></div>
-                        <div className="hidden lg:block"><ProductBoxSkeleton /></div>
-                        <div className="hidden lg:block"><ProductBoxSkeleton /></div>
-                    </div>
-                </section>
-            ))}
 
         </div>
     )
